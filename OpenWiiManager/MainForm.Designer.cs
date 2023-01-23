@@ -108,12 +108,10 @@
             // 
             // backgroundOperationLabel
             // 
-            this.backgroundOperationLabel.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)(((System.Windows.Forms.ToolStripStatusLabelBorderSides.Top | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
-            this.backgroundOperationLabel.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenInner;
             this.backgroundOperationLabel.Name = "backgroundOperationLabel";
-            this.backgroundOperationLabel.Size = new System.Drawing.Size(4, 17);
+            this.backgroundOperationLabel.Size = new System.Drawing.Size(0, 17);
             this.backgroundOperationLabel.Visible = false;
+            this.backgroundOperationLabel.Click += new System.EventHandler(this.backgroundOperationLabel_Click);
             // 
             // splitter1
             // 

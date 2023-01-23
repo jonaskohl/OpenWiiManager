@@ -1,5 +1,6 @@
 using Ookii.Dialogs.WinForms;
 using OpenWiiManager.Language.Extensions;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows.Forms;
@@ -9,7 +10,10 @@ namespace OpenWiiManager
 {
     public partial class MainForm : Form
     {
-        class BackgroundOperation
+        private TasksPopup tasksPopup;
+        private bool allowTasksPopupClose = false;
+
+        public class BackgroundOperation
         {
             public string? Message { get; init; }
             public Task? Operation { get; init; }
@@ -17,11 +21,15 @@ namespace OpenWiiManager
             public bool IsFinished => Operation?.IsCompleted == true;
         }
 
-        readonly List<BackgroundOperation> backgroundOperations = new();
+        readonly ObservableCollection<BackgroundOperation> backgroundOperations = new();
 
         public MainForm()
         {
             InitializeComponent();
+
+            tasksPopup = new TasksPopup();
+            tasksPopup.OperationsList = backgroundOperations;
+            tasksPopup.FormClosing += TasksPopup_FormClosing;
 
             if (ApplicationState.MainWindowSplitDistance != default)
                 splitter1.SplitPosition = ApplicationState.MainWindowSplitDistance;
@@ -33,6 +41,15 @@ namespace OpenWiiManager
             splitter1.SplitterMoved += Splitter1_SplitterMoved;
 
             Shown += MainForm_Shown;
+        }
+
+        private void TasksPopup_FormClosing(object? sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                e.Cancel = !allowTasksPopupClose;
+                tasksPopup.Hide();
+            }
         }
 
         private void Splitter1_SplitterMoved(object? sender, SplitterEventArgs e)
@@ -92,8 +109,8 @@ namespace OpenWiiManager
                     backgroundOperationProgressBar.Value = 0;
                     backgroundOperationProgressBar.Maximum = 0;
                     backgroundOperationProgressBar.Visible = false;
-                    backgroundOperationLabel.Visible = false;
-                    backgroundOperationLabel.Text = "";
+                    //backgroundOperationLabel.Visible = false;
+                    backgroundOperationLabel.Text = "Idle";
                     backgroundOperationProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
                 }
                 else
@@ -180,6 +197,13 @@ namespace OpenWiiManager
             {
                 t.ThrowIfFaulted();
             });
+
+            //for (var i = 0; i < 20; ++i) IndeterminateBackgroundOperation("Test " + i, Task.Delay(1000 + i * 1000)); // Debug
+
+            tasksPopup.Opacity = 0;
+            tasksPopup.Show();
+            tasksPopup.Hide();
+            tasksPopup.Opacity = 1;
         }
 
         private async Task DownloadDbIfNecessary()
@@ -200,6 +224,15 @@ namespace OpenWiiManager
         {
             using var f = new AboutForm();
             f.ShowDialog(this);
+        }
+
+        private void backgroundOperationLabel_Click(object sender, EventArgs e)
+        {
+            tasksPopup.Location = PointToScreen(new Point(
+                0,
+                ClientSize.Height - tasksPopup.Height - statusStrip1.Height
+            ));
+            tasksPopup.Show(this);
         }
     }
 }
