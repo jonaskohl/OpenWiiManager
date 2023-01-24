@@ -1,4 +1,4 @@
-﻿namespace OpenWiiManager
+﻿namespace OpenWiiManager.Forms
 {
     partial class TasksPopup
     {
@@ -28,13 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.listBox1 = new OpenWiiManager.Controls.ListBoxEx();
             this.SuspendLayout();
             // 
             // listBox1
             // 
             this.listBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.listBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listBox1.EmptyText = "No background tasks are running";
             this.listBox1.FormattingEnabled = true;
             this.listBox1.IntegralHeight = false;
             this.listBox1.ItemHeight = 15;
@@ -45,8 +46,8 @@
             // 
             // TasksPopup
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(240, 180);
             this.Controls.Add(this.listBox1);
             this.HideOnDeactivate = true;
@@ -58,6 +59,6 @@
 
         #endregion
 
-        private ListBox listBox1;
+        private OpenWiiManager.Controls.ListBoxEx listBox1;
     }
 }

@@ -2,11 +2,11 @@
 {
     public class EnumValueAttribute : Attribute
     {
-        public EnumValueAttribute(string value)
+        public EnumValueAttribute(object? value)
         {
             Value = value;
         }
 
-        public string Value { get; init; }
+        public object? Value { get; init; }
     }
 }

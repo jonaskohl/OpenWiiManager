@@ -11,11 +11,12 @@ using System.Xml.Linq;
 using Flurl;
 using Flurl.Http;
 using OpenWiiManager.Checking;
+using OpenWiiManager.Core;
 using OpenWiiManager.Language.Attributes;
 using OpenWiiManager.Language.Extensions;
 using OpenWiiManager.Tools;
 
-namespace OpenWiiManager
+namespace OpenWiiManager.Services
 {
     public static class GameTdb
     {
@@ -67,7 +68,7 @@ namespace OpenWiiManager
         public static async Task DownloadDatabase(DatabaseLanguage language = DatabaseLanguage.Original)
         {
             var resp = await URL_WII_DATABASE
-                .SetQueryParam("LANG", language.GetLanguageValue() ?? "")
+                .SetQueryParam("LANG", language.GetDefinedValue() ?? "")
                 .SetQueryParam("__owmCacheBuster", Guid.NewGuid().ToString("N"))
                 .GetStreamAsync();
 
@@ -97,10 +98,10 @@ namespace OpenWiiManager
 
         public static async Task<bool> NeedsUpdate()
         {
-            var lastUpdateTime = ApplicationState.LastFeedUpdate;
+            var lastUpdateTime = ApplicationStateSingleton.Instance.LastFeedUpdate;
             var feed = await GetWiiRssFeed();
             var needsUpdate = feed.LastUpdatedTime > lastUpdateTime;
-            ApplicationState.LastFeedUpdate = feed.LastUpdatedTime;
+            ApplicationStateSingleton.Instance.LastFeedUpdate = feed.LastUpdatedTime;
             return needsUpdate;
         }
 

@@ -5,30 +5,20 @@ using OpenWiiManager.Tools;
 using System.Reflection;
 using System.Xml.Linq;
 
-namespace OpenWiiManager
+namespace OpenWiiManager.Core
 {
-    public static class ApplicationState
+    public abstract class SerializableStateHolder
     {
+        protected abstract string FilePath { get; }
+
         const int STATE_FORMAT = 1;
 
-        [StateSerialization]
-        private static DateTimeOffset lastFeedUpdate;
+        public SerializableStateHolder()
+        {
+            Deserialize();
+        } 
 
-        [StateSerialization]
-        private static Point mainWindowPos;
-
-        [StateSerialization]
-        private static Size mainWindowSize;
-
-        [StateSerialization]
-        private static int mainWindowSplitDistance;
-
-        public static DateTimeOffset LastFeedUpdate { get => lastFeedUpdate; set { lastFeedUpdate = value; Serialize(); } }
-        public static Point MainWindowPos { get => mainWindowPos; set { mainWindowPos = value; Serialize(); } }
-        public static Size MainWindowSize { get => mainWindowSize; set { mainWindowSize = value; Serialize(); } }
-        public static int MainWindowSplitDistance { get => mainWindowSplitDistance; set { mainWindowSplitDistance = value; Serialize(); } }
-
-        private static void Serialize()
+        protected void Serialize()
         {
             var doc = new XDocument(
                 new XText(Environment.NewLine),
@@ -38,29 +28,29 @@ namespace OpenWiiManager
                     GetSerializableFields()
                         .Select(f => new XElement(
                             f.Name,
-                            f.GetValue(null).SerializeToXmlNode()
+                            f.GetValue(this).SerializeToXmlNode()
                         ))
                 )
             );
 
-            IOUtil.EnsureDirectoryExists(ApplicationEnviornment.LocalUserDataDirectory);
+            IOUtil.EnsureDirectoryExists(Path.GetDirectoryName(FilePath) ?? "");
 
-            doc.SaveWithoutFormatting(ApplicationEnviornment.StateFilePath);
+            doc.SaveWithoutFormatting(FilePath);
         }
 
-        private static IEnumerable<FieldInfo> GetSerializableFields()
+        protected IEnumerable<FieldInfo> GetSerializableFields()
         {
-            return typeof(ApplicationState)
-                .GetFields(BindingFlags.Static | BindingFlags.NonPublic)
+            return GetType()
+                .GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
                 .Where(f => f.GetCustomAttribute<StateSerializationAttribute>() != null);
         }
 
-        private static void Deserialize()
+        protected void Deserialize()
         {
-            if (!File.Exists(ApplicationEnviornment.StateFilePath))
+            if (!File.Exists(FilePath))
                 return;
 
-            var doc = XDocument.Load(ApplicationEnviornment.StateFilePath);
+            var doc = XDocument.Load(FilePath);
             RuntimeAssertions.True(doc.Root?.Name == "state", $"Wrong root tag. Got {doc.Root?.Name ?? "<NULL>"}");
             RuntimeAssertions.True(doc.Root?.Attribute("format")?.Value == STATE_FORMAT.ToString(), "Wrong format version");
 
@@ -75,16 +65,11 @@ namespace OpenWiiManager
                 try
                 {
                     var value = SerializationUtil.DeserializeFromXmlNode(field.FieldType, child);
-                    field.SetValue(null, value);
+                    field.SetValue(this, value);
                 }
                 catch (TypeInitializationException) { }
                 catch (InvalidOperationException) { }
             }
-        }
-
-        static ApplicationState()
-        {
-            Deserialize();
         }
     }
 }

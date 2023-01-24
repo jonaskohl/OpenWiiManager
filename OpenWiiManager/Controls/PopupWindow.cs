@@ -1,25 +1,15 @@
-﻿using System;
+﻿using OpenWiiManager.Win32;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenWiiManager
+namespace OpenWiiManager.Controls
 {
     public class PopupWindow : Form
     {
-        const int WS_POPUP = unchecked((int)0x80000000);
-        const int WS_BORDER = 0x00800000;
-        const int WS_CAPTION = 0x00C00000;
-        const int WS_MAXIMIZE = 0x01000000;
-        const int WS_MINIMIZE = 0x20000000;
-        const int WS_THICKFRAME = 0x00040000;
-        const int WS_EX_DLGMODALFRAME = 0x00000001;
-        const int WS_EX_CLIENTEDGE = 0x00000200;
-        const int WS_EX_STATICEDGE = 0x00020000;
-        const int CS_DROPSHADOW = 0x00020000;
-
         private bool _isDesignMode;
         protected bool IsDesignMode => _isDesignMode || (Site != null && Site.DesignMode);
 
@@ -87,15 +77,15 @@ namespace OpenWiiManager
             get
             {
                 var cp = base.CreateParams;
-                cp.ExStyle &= ~(WS_EX_CLIENTEDGE | WS_EX_DLGMODALFRAME | WS_EX_STATICEDGE);
+                cp.ExStyle &= ~(Constants.WS_EX_CLIENTEDGE | Constants.WS_EX_DLGMODALFRAME | Constants.WS_EX_STATICEDGE);
                 if (!IsDesignMode)
                 {
-                    cp.Style = WS_POPUP | WS_BORDER;
-                    cp.ClassStyle |= CS_DROPSHADOW;
+                    cp.Style = Constants.WS_POPUP | Constants.WS_BORDER;
+                    cp.ClassStyle |= Constants.CS_DROPSHADOW | Constants.CS_SAVEBITS;
                 }
                 else
                 {
-                    cp.Style &= ~(WS_CAPTION | WS_MAXIMIZE | WS_MINIMIZE | WS_BORDER | WS_THICKFRAME);
+                    cp.Style &= ~(Constants.WS_CAPTION | Constants.WS_MAXIMIZE | Constants.WS_MINIMIZE | Constants.WS_BORDER | Constants.WS_THICKFRAME);
                 }
                 return cp;
             }

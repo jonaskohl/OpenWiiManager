@@ -1,4 +1,7 @@
-﻿using System;
+﻿using OpenWiiManager.Controls;
+using OpenWiiManager.Tools;
+using OpenWiiManager.Win32;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -9,7 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace OpenWiiManager
+namespace OpenWiiManager.Forms
 {
     public partial class TasksPopup : PopupWindow
     {
@@ -29,18 +32,29 @@ namespace OpenWiiManager
 
         private void _operationsList_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            listBox1.BeginUpdate();
-            listBox1.Items.Clear();
-            if (_operationsList != null)
-                foreach (var op in _operationsList)
-                    if (op?.Message != null)
-                        listBox1.Items.Add(op.Message);
-            listBox1.EndUpdate();
+            if (IsHandleCreated)
+                Invoke(() =>
+                {
+                    listBox1.BeginUpdate();
+                    listBox1.Items.Clear();
+                    if (_operationsList != null)
+                        foreach (var op in _operationsList)
+                            if (op?.Message != null)
+                                listBox1.Items.Add(op.Message);
+                    listBox1.EndUpdate();
+                });
         }
 
         public TasksPopup()
         {
             InitializeComponent();
+
+            listBox1.HandleCreated += ListBox1_HandleCreated;
+        }
+
+        private void ListBox1_HandleCreated(object? sender, EventArgs e)
+        {
+            User32.SendMessage(listBox1.Handle, Constants.WM_CHANGEUISTATE, InteropUtil.MakeLong(Constants.UIS_SET, Constants.UISF_HIDEFOCUS), 0);
         }
     }
 }
