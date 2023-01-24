@@ -111,9 +111,9 @@
             this.instructionLabel1.AutoSize = true;
             this.instructionLabel1.Location = new System.Drawing.Point(73, 0);
             this.instructionLabel1.Name = "instructionLabel1";
-            this.instructionLabel1.Size = new System.Drawing.Size(169, 21);
+            this.instructionLabel1.Size = new System.Drawing.Size(177, 21);
             this.instructionLabel1.TabIndex = 2;
-            this.instructionLabel1.Text = "About OpenWiiManager";
+            this.instructionLabel1.Text = "About Open Wii Manager";
             // 
             // AboutForm
             // 
@@ -131,7 +131,7 @@
             this.Padding = new System.Windows.Forms.Padding(9);
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "About OpenWiiManager";
+            this.Text = "About Open Wii Manager";
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);

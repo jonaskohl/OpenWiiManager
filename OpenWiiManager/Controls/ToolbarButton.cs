@@ -82,7 +82,7 @@ namespace OpenWiiManager.Controls
                 else
                     state = ButtonState.Normal;
                 ControlPaint.DrawButton(e.Graphics, ClientRectangle, state);
-                TextRenderer.DrawText(e.Graphics, Text, Font, ClientRectangle, ForeColor, DrawingUtil.GetTextFormatFlags(this));
+                TextRenderer.DrawText(e.Graphics, Text, Font, ClientRectangle, Enabled ? ForeColor : SystemColors.GrayText, DrawingUtil.GetTextFormatFlags(this));
                 if (Image != null)
                 {
                     var imBounds = DrawingUtil.GetImageBounds(this, new Padding(2)) ?? new Rectangle(Point.Empty, Image.Size);

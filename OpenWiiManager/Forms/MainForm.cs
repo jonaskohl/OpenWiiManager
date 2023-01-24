@@ -97,6 +97,7 @@ namespace OpenWiiManager.Forms
             {
                 backgroundOperationLabel.Visible = true;
                 backgroundOperationProgressBar.Visible = true;
+                backgroundTaskPopupButton.Image = Properties.Resources.TaskBusy;
                 if (backgroundOperations.Count > 1)
                 {
                     var max = Math.Max(backgroundOperationProgressBar.Maximum, backgroundOperations.Count);
@@ -126,6 +127,7 @@ namespace OpenWiiManager.Forms
                     backgroundOperationProgressBar.Value = 0;
                     backgroundOperationProgressBar.Maximum = 0;
                     backgroundOperationProgressBar.Visible = false;
+                    backgroundTaskPopupButton.Image = Properties.Resources.Task;
                     //backgroundOperationLabel.Text = "Idle";
                     backgroundOperationLabel.Text = "";
                     backgroundOperationLabel.Visible = false;
@@ -133,6 +135,7 @@ namespace OpenWiiManager.Forms
                 }
                 else
                 {
+                    backgroundTaskPopupButton.Image = Properties.Resources.TaskBusy;
                     backgroundOperationProgressBar.Visible = true;
                     backgroundOperationLabel.Visible = true;
                     backgroundOperationLabel.Text = backgroundOperations.Count > 1 ? $"{backgroundOperations.Count} tasks are running" : backgroundOperations.First().Message;

@@ -50,8 +50,8 @@ namespace OpenWiiManager.Controls
             if (VisualStyleRenderer.IsSupported)
                 _renderer?.DrawText(e.Graphics, ClientRectangle, Text, !Enabled, DrawingUtil.GetTextFormatFlags(this));
             else
-                using (var f = new Font("Segoe UI", 12))
-                    TextRenderer.DrawText(e.Graphics, Text, f, ClientRectangle, ForeColor, BackColor, DrawingUtil.GetTextFormatFlags(this));
+                using (var f = new Font(DrawingUtil.FontStack("Segoe UI", "Trebuchet MS"), 12))
+                    TextRenderer.DrawText(e.Graphics, Text, f, ClientRectangle, Color.FromArgb(255, 0, 51, 153), BackColor, DrawingUtil.GetTextFormatFlags(this));
         }
 
         public override Size GetPreferredSize(Size proposedSize)
@@ -60,7 +60,7 @@ namespace OpenWiiManager.Controls
             if (VisualStyleRenderer.IsSupported)
                 return _renderer!.GetTextExtent(g, new Rectangle(Point.Empty, proposedSize), Text, DrawingUtil.GetTextFormatFlags(this)).Size;
             else
-                using (var f = new Font("Segoe UI", 12))
+                using (var f = new Font(DrawingUtil.FontStack("Segoe UI", "Trebuchet MS"), 12))
                     return TextRenderer.MeasureText(g, Text, f, proposedSize, DrawingUtil.GetTextFormatFlags(this));
         }
     }

@@ -185,7 +185,7 @@
             // statusStripSpring
             // 
             this.statusStripSpring.Name = "statusStripSpring";
-            this.statusStripSpring.Size = new System.Drawing.Size(867, 17);
+            this.statusStripSpring.Size = new System.Drawing.Size(794, 17);
             this.statusStripSpring.Spring = true;
             // 
             // notificationsButton
@@ -239,7 +239,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
-            this.Text = "OpenWiiManager";
+            this.Text = "Open Wii Manager";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);

@@ -83,6 +83,16 @@ namespace OpenWiiManager.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap AlarmBadge {
+            get {
+                object obj = ResourceManager.GetObject("AlarmBadge", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Close_Button {
             get {
                 object obj = ResourceManager.GetObject("Close Button", resourceCulture);
@@ -146,6 +156,26 @@ namespace OpenWiiManager.Properties {
         internal static System.Drawing.Bitmap Task {
             get {
                 object obj = ResourceManager.GetObject("Task", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Task_Update_Progress {
+            get {
+                object obj = ResourceManager.GetObject("Task_Update_Progress", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap TaskBusy {
+            get {
+                object obj = ResourceManager.GetObject("TaskBusy", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

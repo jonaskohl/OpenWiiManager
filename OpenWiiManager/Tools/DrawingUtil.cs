@@ -101,5 +101,25 @@ namespace OpenWiiManager.Tools
             using var g = Graphics.FromHwnd(control.Handle);
             return TextRenderer.MeasureText(g, control.Text, control.Font);
         }
+
+        public static bool IsFontInstalled(string fontName)
+        {
+            using (var testFont = new Font(fontName, 8))
+            {
+                return 0 == string.Compare(
+                  fontName,
+                  testFont.Name,
+                  StringComparison.InvariantCultureIgnoreCase);
+            }
+        }
+
+        public static string FontStack(params string[] familyNames)
+        {
+            foreach (var name in familyNames)
+                if (IsFontInstalled(name))
+                    return name;
+
+            return "Microsoft Sans Serif"; // Ultimate fallback font
+        }
     }
 }
