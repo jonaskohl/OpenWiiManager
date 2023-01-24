@@ -93,6 +93,16 @@ namespace OpenWiiManager.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Clock {
+            get {
+                object obj = ResourceManager.GetObject("Clock", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Close_Button {
             get {
                 object obj = ResourceManager.GetObject("Close Button", resourceCulture);

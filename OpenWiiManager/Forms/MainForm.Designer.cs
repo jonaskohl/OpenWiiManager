@@ -135,7 +135,8 @@
             // 
             this.aboutToolStripMenuItem.Image = global::OpenWiiManager.Properties.Resources.About;
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.aboutToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Shift | System.Windows.Forms.Keys.F1)));
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.aboutToolStripMenuItem.Text = "&About...";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -185,7 +186,7 @@
             // statusStripSpring
             // 
             this.statusStripSpring.Name = "statusStripSpring";
-            this.statusStripSpring.Size = new System.Drawing.Size(794, 17);
+            this.statusStripSpring.Size = new System.Drawing.Size(867, 17);
             this.statusStripSpring.Spring = true;
             // 
             // notificationsButton

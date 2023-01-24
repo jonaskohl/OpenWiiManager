@@ -10,7 +10,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Content Include="wii.ico" />
+	  <Content Include="wii.ico" />
 	</ItemGroup>
 
 	<ItemGroup>

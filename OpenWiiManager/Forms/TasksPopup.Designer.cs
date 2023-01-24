@@ -35,14 +35,16 @@
             // 
             this.listBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.listBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listBox1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.listBox1.EmptyText = "No background tasks are running";
             this.listBox1.FormattingEnabled = true;
             this.listBox1.IntegralHeight = false;
-            this.listBox1.ItemHeight = 15;
+            this.listBox1.ItemHeight = 20;
             this.listBox1.Location = new System.Drawing.Point(0, 0);
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(240, 180);
             this.listBox1.TabIndex = 0;
+            this.listBox1.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.listBox1_DrawItem);
             // 
             // TasksPopup
             // 

@@ -57,6 +57,9 @@ namespace System.Windows.Forms
             AddKey("Home", Keys.Home);
             AddKey("Delete", Keys.Delete);
             AddKey("Shift", Keys.Shift);
+            AddKey("Shift ", Keys.ShiftKey);
+            AddKey("Left Shift", Keys.LShiftKey);
+            AddKey("Right Shift", Keys.RShiftKey);
             AddKey("Page Up", Keys.Prior);
             AddKey("Back", Keys.Back);
             AddKey("0", Keys.D0);

@@ -224,7 +224,7 @@ namespace OpenWiiManager.Forms
             notificationPopup.Hide();
             notificationPopup.Opacity = 1;
 
-            //for (var i = 0; i < 20; ++i) IndeterminateBackgroundOperation("Test " + i, Task.Delay(1000 + i * 1000)); // Debug
+            for (var i = 0; i < 20; ++i) IndeterminateBackgroundOperation("Test " + i, Task.Delay(1000 + i * 100)); // Debug
 
             CheckForDatabaseUpdate();
         }
