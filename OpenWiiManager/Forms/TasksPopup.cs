@@ -1,4 +1,5 @@
 ﻿using OpenWiiManager.Controls;
+using OpenWiiManager.Language.Extensions;
 using OpenWiiManager.Tools;
 using OpenWiiManager.Win32;
 using System;
@@ -49,6 +50,8 @@ namespace OpenWiiManager.Forms
             if (e.OldItems != null)
                 _completedOperations.AddRange(e.OldItems.OfType<MainForm.BackgroundOperation>());
 
+            TryClearOldTasks();
+
             UpdateList();
         }
 
@@ -58,7 +61,7 @@ namespace OpenWiiManager.Forms
                 Invoke(() =>
                 {
                     //FIXME
-                    var scroll = listBox1.AutoScrollOffset;
+                    var scroll = listBox1.GetScrollPosition();
                     listBox1.BeginUpdate();
                     listBox1.Items.Clear();
                     foreach (var op in _completedOperations)
@@ -69,7 +72,7 @@ namespace OpenWiiManager.Forms
                             if (op?.Message != null)
                                 listBox1.Items.Add(new OperationItem() { Message = op.Message, Completed = false });
                     listBox1.EndUpdate();
-                    listBox1.AutoScrollOffset = scroll;
+                    listBox1.SetScrollPosition(scroll);
                 });
         }
 
@@ -88,6 +91,11 @@ namespace OpenWiiManager.Forms
         protected override void OnVisibleChanged(EventArgs e)
         {
             base.OnVisibleChanged(e);
+            TryClearOldTasks();
+        }
+
+        private void TryClearOldTasks()
+        {
             if (!Visible)
                 if (_operationsList?.Count < 1)
                 {

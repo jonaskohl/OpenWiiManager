@@ -224,9 +224,25 @@ namespace OpenWiiManager.Forms
             notificationPopup.Hide();
             notificationPopup.Opacity = 1;
 
-            for (var i = 0; i < 20; ++i) IndeterminateBackgroundOperation("Test " + i, Task.Delay(1000 + i * 100)); // Debug
+            //for (var i = 0; i < 20; ++i) IndeterminateBackgroundOperation("Test " + i, Task.Delay(1000 + i * 100)); // Debug
+
+            CheckForOOBE();
 
             CheckForDatabaseUpdate();
+        }
+
+        private void CheckForOOBE()
+        {
+            if (!ApplicationStateSingleton.Instance.IsFirstRun)
+                return;
+
+            var page = new TaskDialogPage()
+            {
+                Heading = "test123"
+            };
+            System.Windows.Forms.TaskDialog.ShowDialog(page);
+
+            //ApplicationStateSingleton.Instance.IsFirstRun = false;
         }
 
         private void CheckForDatabaseUpdate()
