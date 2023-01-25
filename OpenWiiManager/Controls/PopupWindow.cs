@@ -1,4 +1,5 @@
 ﻿using OpenWiiManager.Win32;
+using OpenWiiManager.Language.Extensions;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,8 +11,8 @@ namespace OpenWiiManager.Controls
 {
     public class PopupWindow : Form
     {
-        private bool _isDesignMode;
-        protected bool IsDesignMode => _isDesignMode || (Site != null && Site.DesignMode);
+        //    private bool _isDesignMode;
+        //    protected bool IsDesignMode => _isDesignMode || (Site != null && Site.DesignMode);
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -69,7 +70,7 @@ namespace OpenWiiManager.Controls
             base.ControlBox = this.ControlBox;
             base.FormBorderStyle = this.FormBorderStyle;
 
-            _isDesignMode = LicenseManager.UsageMode == LicenseUsageMode.Designtime;
+            //_isDesignMode = LicenseManager.UsageMode == LicenseUsageMode.Designtime;
         }
 
         protected override CreateParams CreateParams
@@ -78,7 +79,7 @@ namespace OpenWiiManager.Controls
             {
                 var cp = base.CreateParams;
                 cp.ExStyle &= ~(Constants.WS_EX_CLIENTEDGE | Constants.WS_EX_DLGMODALFRAME | Constants.WS_EX_STATICEDGE);
-                if (!IsDesignMode)
+                if (!this.IsDesignMode())
                 {
                     cp.Style = Constants.WS_POPUP | Constants.WS_BORDER;
                     cp.ClassStyle |= Constants.CS_DROPSHADOW | Constants.CS_SAVEBITS;
@@ -94,7 +95,7 @@ namespace OpenWiiManager.Controls
         protected override void OnDeactivate(EventArgs e)
         {
             base.OnDeactivate(e);
-            if (!IsDesignMode && HideOnDeactivate)
+            if (!this.IsDesignMode() && HideOnDeactivate)
                 Hide();
         }
     }

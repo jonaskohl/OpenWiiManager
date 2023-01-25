@@ -6,14 +6,16 @@
 		<Nullable>enable</Nullable>
 		<UseWindowsForms>true</UseWindowsForms>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<ApplicationIcon>wii.ico</ApplicationIcon>
+		<ApplicationIcon>owm.ico</ApplicationIcon>
+		<Version>1.0.0</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Content Include="wii.ico" />
+	  <Content Include="owm.ico" />
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="AeroWizard" Version="2.3.1" />
 		<PackageReference Include="Flurl.Http" Version="3.2.4" />
 		<PackageReference Include="Ookii.Dialogs.WinForms" Version="4.0.0" />
 		<PackageReference Include="System.ServiceModel.Syndication" Version="7.0.0" />

@@ -1,13 +1,11 @@
-using Ookii.Dialogs.WinForms;
+using OpenWiiManager.Controls;
 using OpenWiiManager.Core;
 using OpenWiiManager.Language.Extensions;
 using OpenWiiManager.Services;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Reflection.Metadata.Ecma335;
 using System.Windows.Forms;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace OpenWiiManager.Forms
 {
@@ -35,6 +33,8 @@ namespace OpenWiiManager.Forms
             tasksPopup = new();
             tasksPopup.OperationsList = backgroundOperations;
             tasksPopup.FormClosing += TasksPopup_FormClosing;
+
+            ToolStripManager.Renderer = new AeroToolStripRenderer(ToolBarTheme.Toolbar);
 
             notificationPopup = new();
             notificationPopup.FormClosing += NotificationPopup_FormClosing;
@@ -236,11 +236,16 @@ namespace OpenWiiManager.Forms
             if (!ApplicationStateSingleton.Instance.IsFirstRun)
                 return;
 
-            var page = new TaskDialogPage()
-            {
-                Heading = "test123"
-            };
-            System.Windows.Forms.TaskDialog.ShowDialog(page);
+            //var page = new TaskDialogPage()
+            //{
+            //    Heading = "Welcome to Open Wii Manager!",
+            //    Caption = "Welcome to Open Wii Manager!",
+            //    Text = "This seems to be the first "
+            //};
+            //System.Windows.Forms.TaskDialog.ShowDialog(page);
+
+            using var w = new OobeWizard();
+            w.ShowDialog(this);
 
             //ApplicationStateSingleton.Instance.IsFirstRun = false;
         }
@@ -331,6 +336,16 @@ namespace OpenWiiManager.Forms
         {
             using var f = new SettingsForm();
             f.ShowDialog(this);
+        }
+
+        public void InitializeWork()
+        {
+            Thread.Sleep(2000);
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
