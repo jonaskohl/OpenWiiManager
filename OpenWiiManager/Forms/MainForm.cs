@@ -245,9 +245,18 @@ namespace OpenWiiManager.Forms
             //System.Windows.Forms.TaskDialog.ShowDialog(page);
 
             using var w = new OobeWizard();
-            w.ShowDialog(this);
+            if (w.ShowDialog(this) == DialogResult.OK)
+            {
+                ApplicationStateSingleton.Instance.IsFirstRun = false;
+                ApplicationConfigurationSingleton.Instance.IsoPath = w.IsoPath;
+            }
+            else
+            {
+                Close();
+                return;
+            }
 
-            //ApplicationStateSingleton.Instance.IsFirstRun = false;
+            MessageBox.Show(ApplicationConfigurationSingleton.Instance.IsoPath);
         }
 
         private void CheckForDatabaseUpdate()

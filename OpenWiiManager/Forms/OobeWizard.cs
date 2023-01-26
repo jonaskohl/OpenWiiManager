@@ -14,6 +14,7 @@ namespace OpenWiiManager.Forms
 {
     public partial class OobeWizard : Form
     {
+        public string IsoPath => vistaFolderBrowserDialog1.SelectedPath;
         public OobeWizard()
         {
             InitializeComponent();
