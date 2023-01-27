@@ -61,10 +61,11 @@ namespace OpenWiiManager.Forms
                 Invoke(() =>
                 {
                     //FIXME
-                    var scroll = listBox1.GetScrollPosition();
+                    //var scroll = listBox1.GetScrollPosition();
                     listBox1.BeginUpdate();
                     listBox1.Items.Clear();
-                    foreach (var op in _completedOperations)
+                    var ops = _completedOperations.ToArray();
+                    foreach (var op in ops)
                         if (op?.Message != null)
                             listBox1.Items.Add(new OperationItem() { Message = op.Message, Completed = true });
                     if (_operationsList != null)
@@ -72,7 +73,7 @@ namespace OpenWiiManager.Forms
                             if (op?.Message != null)
                                 listBox1.Items.Add(new OperationItem() { Message = op.Message, Completed = false });
                     listBox1.EndUpdate();
-                    listBox1.SetScrollPosition(scroll);
+                    //listBox1.SetScrollPosition(scroll);
                 });
         }
 

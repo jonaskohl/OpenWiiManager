@@ -14,14 +14,19 @@ using OpenWiiManager.Checking;
 using OpenWiiManager.Core;
 using OpenWiiManager.Language.Attributes;
 using OpenWiiManager.Language.Extensions;
+using OpenWiiManager.Language.Types;
 using OpenWiiManager.Tools;
 
 namespace OpenWiiManager.Services
 {
-    public static class GameTdb
+    public class GameTdb
     {
+        const string USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/109.0";
+
         const string URL_WII_RSS_FEED = "https://www.gametdb.com/Main/LatestGames?action=rss";
-        const string URL_WII_DATABASE = "https://www.gametdb.com/wiitdb.zip?WIIWARE=1&GAMECUBE=1";
+        const string URL_WII_DATABASE = "https://www.gametdb.com/wiitdb.zip"; //?WIIWARE=1&GAMECUBE=1";
+
+        private XDocument? wiiTdbDatabase;
 
         public enum DatabaseLanguage
         {
@@ -65,10 +70,35 @@ namespace OpenWiiManager.Services
             Taiwanese,
         }
 
-        public static async Task DownloadDatabase(DatabaseLanguage language = DatabaseLanguage.Original)
+        public Task<XElement?> LookupWiiTitleInfoAsync(string id)
+        {
+            TryLoadDatabase();
+
+            return Task.Run(() =>
+            {
+                return wiiTdbDatabase?
+                    .Root?
+                    .Elements("game")
+                    .FirstOrDefault(g => g.Element("id")?.Value == id);
+            });
+        }
+
+        private void TryLoadDatabase()
+        {
+            if (wiiTdbDatabase != null)
+                return;
+
+            if (!File.Exists(ApplicationEnviornment.GameDatabaseFilePath))
+                return;
+
+            wiiTdbDatabase = XDocument.Load(ApplicationEnviornment.GameDatabaseFilePath);
+        }
+
+        public async Task DownloadDatabase(DatabaseLanguage language = DatabaseLanguage.Original)
         {
             var resp = await URL_WII_DATABASE
-                .SetQueryParam("LANG", language.GetDefinedValue() ?? "")
+                .WithHeaders(new { User_Agent = USER_AGENT })
+                //.SetQueryParam("LANG", language.GetDefinedValue() ?? "")
                 .SetQueryParam("__owmCacheBuster", Guid.NewGuid().ToString("N"))
                 .GetStreamAsync();
 
@@ -96,7 +126,12 @@ namespace OpenWiiManager.Services
             File.Delete(tempFileName);
         }
 
-        public static async Task<bool> NeedsUpdate()
+        public void UnloadDatabase()
+        {
+            wiiTdbDatabase = null;
+        }
+
+        public async Task<bool> NeedsUpdate()
         {
             var lastUpdateTime = ApplicationStateSingleton.Instance.LastFeedUpdate;
             var feed = await GetWiiRssFeed();
@@ -105,7 +140,7 @@ namespace OpenWiiManager.Services
             return needsUpdate;
         }
 
-        private static async Task<SyndicationFeed> GetWiiRssFeed()
+        private async Task<SyndicationFeed> GetWiiRssFeed()
         {
             using var reader = XmlReader.Create(URL_WII_RSS_FEED);
             var feed = await Task.Run(() => SyndicationFeed.Load(reader));
@@ -113,4 +148,6 @@ namespace OpenWiiManager.Services
             return feed;
         }
     }
+
+    public class GameTdbSingleton : Singleton<GameTdb> { }
 }
