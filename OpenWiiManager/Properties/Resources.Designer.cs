@@ -63,6 +63,16 @@ namespace OpenWiiManager.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _008_Reminder_16x16_72 {
+            get {
+                object obj = ResourceManager.GetObject("008_Reminder_16x16_72", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap About {
             get {
                 object obj = ResourceManager.GetObject("About", resourceCulture);
@@ -256,6 +266,16 @@ namespace OpenWiiManager.Properties {
         internal static System.Drawing.Bitmap Information {
             get {
                 object obj = ResourceManager.GetObject("Information", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap owm_3d_64s {
+            get {
+                object obj = ResourceManager.GetObject("owm_3d_64s", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

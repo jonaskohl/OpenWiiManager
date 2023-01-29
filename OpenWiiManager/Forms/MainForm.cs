@@ -2,6 +2,7 @@ using OpenWiiManager.Controls;
 using OpenWiiManager.Core;
 using OpenWiiManager.Language.Extensions;
 using OpenWiiManager.Services;
+using OpenWiiManager.Tools;
 using OpenWiiManager.Win32;
 using System;
 using System.Collections.ObjectModel;
@@ -63,6 +64,7 @@ namespace OpenWiiManager.Forms
         private void ListView1_HandleCreated(object? sender, EventArgs e)
         {
             UxTheme.SetWindowTheme(listView1.Handle, "Explorer", null);
+            User32.SendMessage(listView1.Handle, Constants.WM_CHANGEUISTATE, InteropUtil.MakeLong(Constants.UIS_SET, Constants.UISF_HIDEFOCUS), 0);
         }
 
         private void NotificationPopup_FormClosing(object? sender, FormClosingEventArgs e)

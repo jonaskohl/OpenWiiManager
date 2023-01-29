@@ -69,9 +69,12 @@ namespace OpenWiiManager.Forms
                         if (op?.Message != null)
                             listBox1.Items.Add(new OperationItem() { Message = op.Message, Completed = true });
                     if (_operationsList != null)
-                        foreach (var op in _operationsList)
+                    {
+                        var opList = _operationsList.ToArray();
+                        foreach (var op in opList)
                             if (op?.Message != null)
                                 listBox1.Items.Add(new OperationItem() { Message = op.Message, Completed = false });
+                    }
                     listBox1.EndUpdate();
                     //listBox1.SetScrollPosition(scroll);
                 });
