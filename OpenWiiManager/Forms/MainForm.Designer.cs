@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -59,15 +60,18 @@
             this.columnHeader7 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader5 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader6 = new System.Windows.Forms.ColumnHeader();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.webPictureBox1 = new OpenWiiManager.Forms.WebPictureBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.webPictureBox2 = new OpenWiiManager.Forms.WebPictureBox();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.webPictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.webPictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -263,7 +267,7 @@
             // splitter1
             // 
             this.splitter1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.splitter1.Location = new System.Drawing.Point(927, 20);
+            this.splitter1.Location = new System.Drawing.Point(727, 20);
             this.splitter1.Name = "splitter1";
             this.splitter1.Size = new System.Drawing.Size(3, 630);
             this.splitter1.TabIndex = 2;
@@ -286,7 +290,8 @@
             this.listView1.Location = new System.Drawing.Point(0, 20);
             this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(927, 630);
+            this.listView1.Size = new System.Drawing.Size(727, 630);
+            this.listView1.SmallImageList = this.imageList1;
             this.listView1.TabIndex = 3;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -328,21 +333,34 @@
             // 
             this.columnHeader6.Text = "Release date";
             // 
+            // imageList1
+            // 
+            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "Tick.png");
+            this.imageList1.Images.SetKeyName(1, "Warning.png");
+            this.imageList1.Images.SetKeyName(2, "Help-3.png");
+            this.imageList1.Images.SetKeyName(3, "Error.png");
+            this.imageList1.Images.SetKeyName(4, "Clock.png");
+            // 
             // panel1
             // 
             this.panel1.Controls.Add(this.tableLayoutPanel1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel1.Location = new System.Drawing.Point(930, 20);
+            this.panel1.Location = new System.Drawing.Point(730, 20);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(200, 630);
+            this.panel1.Size = new System.Drawing.Size(400, 630);
             this.panel1.TabIndex = 4;
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 1;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Controls.Add(this.webPictureBox1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.textBox1, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.webPictureBox2, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -350,13 +368,14 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(200, 630);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(400, 630);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // webPictureBox1
             // 
-            this.webPictureBox1.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.webPictureBox1.Location = new System.Drawing.Point(12, 3);
+            this.webPictureBox1.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.webPictureBox1.FallbackImage = null;
+            this.webPictureBox1.Location = new System.Drawing.Point(21, 3);
             this.webPictureBox1.Name = "webPictureBox1";
             this.webPictureBox1.Size = new System.Drawing.Size(176, 248);
             this.webPictureBox1.TabIndex = 0;
@@ -365,14 +384,26 @@
             // 
             // textBox1
             // 
+            this.tableLayoutPanel1.SetColumnSpan(this.textBox1, 2);
             this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBox1.Location = new System.Drawing.Point(3, 257);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(194, 220);
+            this.textBox1.Size = new System.Drawing.Size(394, 220);
             this.textBox1.TabIndex = 1;
+            // 
+            // webPictureBox2
+            // 
+            this.webPictureBox2.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.webPictureBox2.FallbackImage = global::OpenWiiManager.Properties.Resources.owm_disc;
+            this.webPictureBox2.Location = new System.Drawing.Point(203, 47);
+            this.webPictureBox2.Name = "webPictureBox2";
+            this.webPictureBox2.Size = new System.Drawing.Size(160, 160);
+            this.webPictureBox2.TabIndex = 0;
+            this.webPictureBox2.TabStop = false;
+            this.webPictureBox2.URL = null;
             // 
             // MainForm
             // 
@@ -397,6 +428,7 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.webPictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.webPictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -438,5 +470,7 @@
         private TextBox textBox1;
         private ToolStripMenuItem toolsToolStripMenuItem;
         private ToolStripMenuItem forceGarbageCollectionToolStripMenuItem;
+        private ImageList imageList1;
+        private WebPictureBox webPictureBox2;
     }
 }

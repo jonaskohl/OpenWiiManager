@@ -11,35 +11,64 @@ namespace OpenWiiManager.Forms
 {
     public class WebPictureBox : PictureBox
     {
+        private Image? _fallbackImage = null;
         private bool _isLoading = false;
         private string? _error = null;
         private Uri? _url;
-        private Bitmap _cachedBitmap;
+        private Bitmap? _cachedBitmap;
+
+        public Image? FallbackImage
+        {
+            get => _fallbackImage;
+            set
+            {
+                _fallbackImage = value;
+                Invalidate();
+            }
+        }
 
         public string? URL
         {
             get => _url?.ToString();
             set
             {
-                _url = value == null ? null : new Uri(value);
-                if (_url != null)
-                    Invoke(() => TryDownloadBitmap());
-                else
-                {
-                    Image = null;
-                    _cachedBitmap?.Dispose();
-                    _cachedBitmap = null;
-                    Invalidate();
-                }
+                SetUrlInternal(value);
+                ApplyUrlInternal();
             }
         }
 
-        private void TryDownloadBitmap()
+        private Task<bool> ApplyUrlInternal()
+        {
+            if (_url != null)
+                return Invoke(() => TryDownloadBitmap());
+            else
+            {
+                Image = null;
+                _cachedBitmap?.Dispose();
+                _cachedBitmap = null;
+                Invalidate();
+                return Task.Run(() => false);
+            }
+        }
+
+        private void SetUrlInternal(string? value)
+        {
+            _url = value == null ? null : new Uri(value);
+        }
+
+        public Task<bool> SetUrlAsync(string url)
+        {
+            SetUrlInternal(url);
+            return ApplyUrlInternal();
+        }
+
+        private Task<bool> TryDownloadBitmap()
         {
             Image = null;
             _isLoading = true;
+            _error = null;
             Invalidate();
-            Task.Run(async () =>
+            var task = Task.Run(async () =>
             {
                 try
                 {
@@ -47,7 +76,7 @@ namespace OpenWiiManager.Forms
                     if (res.StatusCode < 200 || res.StatusCode >= 400)
                     {
                         _error = $"HTTP {res.StatusCode} {res.ResponseMessage}";
-                        return;
+                        return false;
                     }
 
                     try
@@ -56,7 +85,9 @@ namespace OpenWiiManager.Forms
                         var bmp = new Bitmap(stream);
                         _cachedBitmap?.Dispose();
                         _cachedBitmap = bmp;
+                        _error = null;
                         Image = _cachedBitmap;
+                        return true;
                     }
                     catch (ArgumentException ex)
                     {
@@ -64,15 +95,20 @@ namespace OpenWiiManager.Forms
                         Image = null;
                         Debug.WriteLine($"ERROR: {ex.GetType().Name}: {ex.Message}");
                         _error = $"{ex.GetType().Name}: {ex.Message}";
+                        return false;
                     }
-                } catch (FlurlHttpException flex)
+                }
+                catch (FlurlHttpException flex)
                 {
                     _cachedBitmap?.Dispose();
                     Image = null;
                     Debug.WriteLine($"ERROR: {flex.GetType().Name}: {flex.Message}");
                     _error = $"{flex.GetType().Name}: {flex.Message}";
+                    return false;
                 }
-            }).ContinueWith(t =>
+            });
+
+            task.ContinueWith(t =>
             {
                 Invoke(() =>
                 {
@@ -80,6 +116,8 @@ namespace OpenWiiManager.Forms
                     Invalidate();
                 });
             });
+
+            return task;
         }
 
         protected override void OnPaint(PaintEventArgs pe)
@@ -88,7 +126,10 @@ namespace OpenWiiManager.Forms
 
             if (_error != null)
             {
-                TextRenderer.DrawText(pe.Graphics, _error, Font, ClientRectangle, Color.Red, BackColor, TextFormatFlags.WordBreak);
+                if (_fallbackImage != null)
+                    pe.Graphics.DrawImage(_fallbackImage, ClientRectangle);
+                else
+                    TextRenderer.DrawText(pe.Graphics, _error, Font, ClientRectangle, Color.Red, BackColor, TextFormatFlags.WordBreak | TextFormatFlags.TextBoxControl);
             }
             else if (_isLoading)
             {

@@ -272,6 +272,7 @@ namespace OpenWiiManager.Forms
                         idSubitem.Font = IdColumnFont;
                         item.SubItems.Add(idSubitem);
                         item.SubItems.Add(meta.Title);
+                        item.ImageIndex = 4;
                         if (meta.Region == GameRegion._UNKNOWN_)
                             item.SubItems.Add($"Unknown (0x{meta.__rawRegionByteValue:X2} '{(char)meta.__rawRegionByteValue}')");
                         else
@@ -390,6 +391,17 @@ namespace OpenWiiManager.Forms
                     item.SubItems[6].Text = languages;
                 if (dateYear != null && dateMonth != null && dateDay != null)
                     item.SubItems[7].Text = $"{dateYear}-{dateMonth.PadLeft(2, '0')}-{dateDay.PadLeft(2, '0')}";
+
+                if (region == null && name == null && developer == null && publisher == null && languages == null && dateYear == null && dateMonth == null && dateDay == null)
+                {
+                    item.ImageIndex = 3;
+                } else if(region == null || name == null || developer == null || publisher == null || languages == null || dateYear == null || dateMonth == null || dateDay == null)
+                {
+                    item.ImageIndex = 1;
+                } else
+                {
+                    item.ImageIndex = 0;
+                }
             });
         }
 
@@ -532,6 +544,7 @@ namespace OpenWiiManager.Forms
         private void DeselectGame()
         {
             webPictureBox1.URL = null;
+            webPictureBox2.URL = null;
             textBox1.Text = "";
         }
 
@@ -544,12 +557,50 @@ namespace OpenWiiManager.Forms
             }
             GameTdbSingleton.Instance.LookupWiiTitleInfoAsync(gameId).ContinueWith(t =>
             {
-                var language = t.Result?.Element("languages")?.Value?.Split(',').FirstOrDefault() ?? "EN";
-                var coverUrl = $"https://art.gametdb.com/wii/cover3D/{language}/{gameId}.png";
-                webPictureBox1.URL = coverUrl;
+                var langs = t.Result?.Element("languages")?.Value?.Split(',');
+                if (langs == null || langs.Length < 1)
+                {
+                    langs = new[] { "EN" };
+                }
+
+                Task.Run(async () =>
+                {
+                    var langsCopy = new Stack<string>((string[])langs.Clone());
+                    while (langsCopy.Count > 0)
+                    {
+                        var language = langsCopy.Pop();
+                        var coverUrl = $"https://art.gametdb.com/wii/cover3D/{language}/{gameId}.png";
+                        Debug.WriteLine($"[COVER] Trying {coverUrl}");
+                        if (await webPictureBox1.SetUrlAsync(coverUrl))
+                        {
+                            Debug.WriteLine($"[COVER] Found to be working");
+                            break;
+                        }
+                    }
+                    Debug.WriteLine($"[COVER] Done trying");
+                });
+
+                Task.Run(async () =>
+                {
+                    var langsCopy = new Stack<string>((string[])langs.Clone());
+                    while (langsCopy.Count > 0)
+                    {
+                        var language = langsCopy.Pop();
+                        var discUrl = $"https://art.gametdb.com/wii/disc/{language}/{gameId}.png";
+                        Debug.WriteLine($"[DISC] Trying {discUrl}");
+                        if (await webPictureBox2.SetUrlAsync(discUrl))
+                        {
+                            Debug.WriteLine($"[DISC] Found to be working");
+                            break;
+                        }
+                    }
+                    Debug.WriteLine($"[DISC] Done trying");
+                });
+
+                var lang = langs?.FirstOrDefault() ?? "EN";
                 var localeNodes = t.Result?.Elements("locale");
 
-                var firstLoc = localeNodes?.FirstOrDefault(n => n.Attribute("lang")?.Value == language)?.Element("synopsis")?.Value;
+                var firstLoc = localeNodes?.FirstOrDefault(n => n.Attribute("lang")?.Value == lang)?.Element("synopsis")?.Value;
                 var secondLoc = localeNodes?.FirstOrDefault()?.Element("synopsis")?.Value;
 
                 var synopsis = (firstLoc ?? secondLoc ?? "").Trim().Replace("\r\n", "\n").Replace("\n", "\r\n");

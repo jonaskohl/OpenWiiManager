@@ -184,6 +184,9 @@
   <data name="TaskBusy" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\TaskBusy.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="owm_3d_64s" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\owm_3d_64s.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Close Button" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Close Button.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -214,7 +217,7 @@
   <data name="digit5" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\digit5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="owm_3d_64s" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\owm_3d_64s.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="owm_disc" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\owm_disc.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

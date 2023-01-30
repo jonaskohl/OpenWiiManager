@@ -283,6 +283,16 @@ namespace OpenWiiManager.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap owm_disc {
+            get {
+                object obj = ResourceManager.GetObject("owm_disc", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap owm_splash {
             get {
                 object obj = ResourceManager.GetObject("owm_splash", resourceCulture);
