@@ -15,6 +15,10 @@ namespace OpenWiiManager.Core
         [StateSerialization]
         private string? isoPath;
 
+        [SettingsCategory("General",
+            label: "Game directory",
+            description: "The directory where all of your Wii ISO files live"
+        )]
         public string? IsoPath { get => isoPath; set { isoPath = value; Serialize(); } }
     }
 

@@ -137,6 +137,7 @@ namespace OpenWiiManager.Forms
         {
             if (backgroundOperations.Contains(op))
                 backgroundOperations.Remove(op);
+
             Invoke(() =>
             {
                 if (backgroundOperations.Count < 1)
@@ -395,10 +396,12 @@ namespace OpenWiiManager.Forms
                 if (region == null && name == null && developer == null && publisher == null && languages == null && dateYear == null && dateMonth == null && dateDay == null)
                 {
                     item.ImageIndex = 3;
-                } else if(region == null || name == null || developer == null || publisher == null || languages == null || dateYear == null || dateMonth == null || dateDay == null)
+                }
+                else if (region == null || name == null || developer == null || publisher == null || languages == null || dateYear == null || dateMonth == null || dateDay == null)
                 {
                     item.ImageIndex = 1;
-                } else
+                }
+                else
                 {
                     item.ImageIndex = 0;
                 }

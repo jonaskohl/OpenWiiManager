@@ -71,18 +71,16 @@
             this.flowLayoutPanel1.Controls.Add(this.okButton);
             this.flowLayoutPanel1.Controls.Add(this.cancelButton);
             this.flowLayoutPanel1.Controls.Add(this.applyButton);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(343, 306);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(397, 306);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(288, 30);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(234, 30);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
             // okButton
             // 
-            this.okButton.Image = global::OpenWiiManager.Properties.Resources.Tick;
-            this.okButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.okButton.Location = new System.Drawing.Point(3, 3);
             this.okButton.Name = "okButton";
-            this.okButton.Size = new System.Drawing.Size(90, 24);
+            this.okButton.Size = new System.Drawing.Size(72, 24);
             this.okButton.TabIndex = 0;
             this.okButton.Text = "&OK";
             this.okButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -91,11 +89,9 @@
             // cancelButton
             // 
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Image = global::OpenWiiManager.Properties.Resources.Close_Button;
-            this.cancelButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.cancelButton.Location = new System.Drawing.Point(99, 3);
+            this.cancelButton.Location = new System.Drawing.Point(81, 3);
             this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Size = new System.Drawing.Size(90, 24);
+            this.cancelButton.Size = new System.Drawing.Size(72, 24);
             this.cancelButton.TabIndex = 0;
             this.cancelButton.Text = "&Cancel";
             this.cancelButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -104,11 +100,9 @@
             // applyButton
             // 
             this.applyButton.Enabled = false;
-            this.applyButton.Image = global::OpenWiiManager.Properties.Resources.Save;
-            this.applyButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.applyButton.Location = new System.Drawing.Point(195, 3);
+            this.applyButton.Location = new System.Drawing.Point(159, 3);
             this.applyButton.Name = "applyButton";
-            this.applyButton.Size = new System.Drawing.Size(90, 24);
+            this.applyButton.Size = new System.Drawing.Size(72, 24);
             this.applyButton.TabIndex = 0;
             this.applyButton.Text = "&Apply";
             this.applyButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;

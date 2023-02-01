@@ -39,11 +39,14 @@ namespace OpenWiiManager.Forms
 
         private Task<bool> ApplyUrlInternal()
         {
+            Debug.WriteLine("Apply URL");
             if (_url != null)
                 return Invoke(() => TryDownloadBitmap());
             else
             {
+                Debug.WriteLine("URL=null");
                 Image = null;
+                _error = null;
                 _cachedBitmap?.Dispose();
                 _cachedBitmap = null;
                 Invalidate();

@@ -267,7 +267,7 @@
             // splitter1
             // 
             this.splitter1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.splitter1.Location = new System.Drawing.Point(727, 20);
+            this.splitter1.Location = new System.Drawing.Point(767, 20);
             this.splitter1.Name = "splitter1";
             this.splitter1.Size = new System.Drawing.Size(3, 630);
             this.splitter1.TabIndex = 2;
@@ -290,7 +290,7 @@
             this.listView1.Location = new System.Drawing.Point(0, 20);
             this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(727, 630);
+            this.listView1.Size = new System.Drawing.Size(767, 630);
             this.listView1.SmallImageList = this.imageList1;
             this.listView1.TabIndex = 3;
             this.listView1.UseCompatibleStateImageBehavior = false;
@@ -348,16 +348,17 @@
             // 
             this.panel1.Controls.Add(this.tableLayoutPanel1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel1.Location = new System.Drawing.Point(730, 20);
+            this.panel1.Location = new System.Drawing.Point(770, 20);
+            this.panel1.MinimumSize = new System.Drawing.Size(360, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(400, 630);
+            this.panel1.Size = new System.Drawing.Size(360, 630);
             this.panel1.TabIndex = 4;
             // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 52.38095F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 47.61905F));
             this.tableLayoutPanel1.Controls.Add(this.webPictureBox1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.textBox1, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.webPictureBox2, 1, 0);
@@ -368,14 +369,14 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(400, 630);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(360, 630);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // webPictureBox1
             // 
             this.webPictureBox1.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.webPictureBox1.FallbackImage = null;
-            this.webPictureBox1.Location = new System.Drawing.Point(21, 3);
+            this.webPictureBox1.Location = new System.Drawing.Point(9, 3);
             this.webPictureBox1.Name = "webPictureBox1";
             this.webPictureBox1.Size = new System.Drawing.Size(176, 248);
             this.webPictureBox1.TabIndex = 0;
@@ -391,14 +392,14 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(394, 220);
+            this.textBox1.Size = new System.Drawing.Size(354, 220);
             this.textBox1.TabIndex = 1;
             // 
             // webPictureBox2
             // 
             this.webPictureBox2.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.webPictureBox2.FallbackImage = global::OpenWiiManager.Properties.Resources.owm_disc;
-            this.webPictureBox2.Location = new System.Drawing.Point(203, 47);
+            this.webPictureBox2.Location = new System.Drawing.Point(191, 47);
             this.webPictureBox2.Name = "webPictureBox2";
             this.webPictureBox2.Size = new System.Drawing.Size(160, 160);
             this.webPictureBox2.TabIndex = 0;

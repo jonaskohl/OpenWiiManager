@@ -64,9 +64,9 @@
             this.flowLayoutPanel1.AutoSize = true;
             this.flowLayoutPanel1.Controls.Add(this.linkLabel1);
             this.flowLayoutPanel1.Controls.Add(this.button1);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(187, 187);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(205, 187);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(194, 24);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(176, 24);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
             // linkLabel1
@@ -85,14 +85,12 @@
             // button1
             // 
             this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.button1.Image = global::OpenWiiManager.Properties.Resources.Tick;
             this.button1.Location = new System.Drawing.Point(104, 0);
             this.button1.Margin = new System.Windows.Forms.Padding(0);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(90, 24);
+            this.button1.Size = new System.Drawing.Size(72, 24);
             this.button1.TabIndex = 0;
             this.button1.Text = "&OK";
-            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.button1.UseVisualStyleBackColor = true;
             // 

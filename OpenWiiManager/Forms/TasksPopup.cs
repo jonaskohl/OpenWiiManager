@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static OpenWiiManager.Forms.MainForm;
 
 namespace OpenWiiManager.Forms
 {
@@ -30,6 +31,7 @@ namespace OpenWiiManager.Forms
 
         private List<MainForm.BackgroundOperation> _completedOperations = new();
 
+        private object lockObject = new();
         private ObservableCollection<MainForm.BackgroundOperation>? _operationsList = null;
         public ObservableCollection<MainForm.BackgroundOperation>? OperationsList
         {
@@ -63,19 +65,30 @@ namespace OpenWiiManager.Forms
                     //FIXME
                     //var scroll = listBox1.GetScrollPosition();
                     listBox1.BeginUpdate();
-                    listBox1.Items.Clear();
-                    var ops = _completedOperations.ToArray();
-                    foreach (var op in ops)
-                        if (op?.Message != null)
-                            listBox1.Items.Add(new OperationItem() { Message = op.Message, Completed = true });
-                    if (_operationsList != null)
+                gotoConsideredHarmful: // when the collection was modified, we just abort and try again
+                    try
                     {
-                        var opList = _operationsList.ToArray();
-                        foreach (var op in opList)
+                        listBox1.Items.Clear();
+                        foreach (var op in _completedOperations)
+                        {
                             if (op?.Message != null)
-                                listBox1.Items.Add(new OperationItem() { Message = op.Message, Completed = false });
+                                listBox1.Items.Add(new OperationItem() { Message = op.Message, Completed = true });
+                        }
+                        if (_operationsList != null)
+                        {
+                            foreach (var op in _operationsList)
+                                if (op?.Message != null)
+                                    listBox1.Items.Add(new OperationItem() { Message = op.Message, Completed = false });
+                        }
                     }
-                    listBox1.EndUpdate();
+                    catch (InvalidOperationException)
+                    {
+                        goto gotoConsideredHarmful;
+                    }
+                    finally
+                    {
+                        listBox1.EndUpdate();
+                    }
                     //listBox1.SetScrollPosition(scroll);
                 });
         }
