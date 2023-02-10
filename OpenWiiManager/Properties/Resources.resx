@@ -166,6 +166,9 @@
   <data name="digit9" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\digit9.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="owm_disc" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\owm_disc.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="digit2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\digit2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -186,6 +189,9 @@
   </data>
   <data name="owm_3d_64s" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\owm_3d_64s.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="gametdb_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\gametdb_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Close Button" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Close Button.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -217,7 +223,10 @@
   <data name="digit5" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\digit5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="owm_disc" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\owm_disc.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="gametdb_logo_small" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\gametdb_logo_small.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Folder" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Folder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

@@ -1,4 +1,5 @@
 using OpenWiiManager.Controls;
+using OpenWiiManager.Controls.Data;
 using OpenWiiManager.Core;
 using OpenWiiManager.Language.Extensions;
 using OpenWiiManager.Services;
@@ -12,7 +13,9 @@ using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Web;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace OpenWiiManager.Forms
 {
@@ -23,6 +26,7 @@ namespace OpenWiiManager.Forms
         private bool allowTasksPopupClose = false;
         private bool allowNotificationPopupClose = false;
         private Font IdColumnFont = new Font("Consolas", 10);
+        private ListViewColumnSorter sorter;
 
         public class BackgroundOperation
         {
@@ -57,6 +61,10 @@ namespace OpenWiiManager.Forms
             splitter1.SplitterMoved += Splitter1_SplitterMoved;
 
             listView1.HandleCreated += ListView1_HandleCreated;
+            listView1.ListViewItemSorter = sorter = new();
+            listView1.SetSortIcon(0, SortOrder.Ascending);
+            sorter.Order = SortOrder.Ascending;
+            sorter.SortColumn = 0;
 
             Shown += MainForm_Shown;
         }
@@ -284,7 +292,11 @@ namespace OpenWiiManager.Forms
                         item.SubItems.Add(""); // Languages
                         item.SubItems.Add(""); // Date
 
-                        IndeterminateBackgroundOperation($"Scanning database for file {basename}", Task.Run(() => GetDeferredWiiTDBInfo(meta.GameId, item)));
+                        IndeterminateBackgroundOperationAsync($"Scanning database for file {basename}", Task.Run(() => GetDeferredWiiTDBInfo(meta.GameId, item, file))).ContinueWith(t =>
+                        {
+                            t.ThrowIfFaulted();
+                            Invoke(() => listView1.Sort());
+                        });
                     });
                 }
             }).ContinueWith(t =>
@@ -346,7 +358,7 @@ namespace OpenWiiManager.Forms
                 using var breader = new BinaryReader(hFile);
                 var idBytes = breader.ReadBytes(6);
                 hFile.Seek(0x20, SeekOrigin.Begin);
-                var titleBytes = breader.ReadBytes(64);
+                var titleBytes = breader.ReadBytes(0x40);
                 var idString = Encoding.ASCII.GetString(idBytes);
                 var titleString = Encoding.ASCII.GetString(titleBytes);
                 var regionByte = idBytes[3];
@@ -366,7 +378,7 @@ namespace OpenWiiManager.Forms
             });
         }
 
-        private async Task GetDeferredWiiTDBInfo(string id, ListViewItem item)
+        private async Task GetDeferredWiiTDBInfo(string id, ListViewItem item, string filename)
         {
             var info = await GameTdbSingleton.Instance.LookupWiiTitleInfoAsync(id);
             Invoke(() =>
@@ -380,6 +392,26 @@ namespace OpenWiiManager.Forms
                 var dateYear = tagDate?.Attribute("year")?.Value;
                 var dateMonth = tagDate?.Attribute("month")?.Value;
                 var dateDay = tagDate?.Attribute("day")?.Value;
+
+                var xdoc = new XDocument(
+                    new XElement("owmgame", new XAttribute("format", "1"), new XAttribute("id", id),
+                        info
+                    )
+                );
+
+                try
+                {
+                    File.WriteAllText(filename + ":owminfo", xdoc.ToString(), Encoding.UTF8);
+                }
+                catch
+                {
+                    var fname = filename + ".INFO.xog";
+                    if (File.Exists(fname))
+                        File.SetAttributes(fname, FileAttributes.Normal);
+                    File.WriteAllText(fname, xdoc.ToString(), Encoding.UTF8);
+                    File.SetAttributes(fname, FileAttributes.Hidden);
+                }
+
                 if (region != null)
                     item.SubItems[3].Text = region;
                 if (name != null)
@@ -569,6 +601,8 @@ namespace OpenWiiManager.Forms
                 Task.Run(async () =>
                 {
                     var langsCopy = new Stack<string>((string[])langs.Clone());
+                    if (!langsCopy.Contains("EN"))
+                        langsCopy.Push("EN");
                     while (langsCopy.Count > 0)
                     {
                         var language = langsCopy.Pop();
@@ -586,6 +620,8 @@ namespace OpenWiiManager.Forms
                 Task.Run(async () =>
                 {
                     var langsCopy = new Stack<string>((string[])langs.Clone());
+                    if (!langsCopy.Contains("EN"))
+                        langsCopy.Push("EN");
                     while (langsCopy.Count > 0)
                     {
                         var language = langsCopy.Pop();
@@ -622,6 +658,44 @@ namespace OpenWiiManager.Forms
                 DeselectGame();
             else
                 SelectGameWithId(listView1.SelectedItems.OfType<ListViewItem>().FirstOrDefault()?.SubItems[1]?.Text);
+        }
+
+        private void gameContextMenuStrip_Opening(object sender, CancelEventArgs e)
+        {
+            if (listView1.SelectedItems.Count < 1)
+                e.Cancel = true;
+        }
+
+        private void viewGameOnGameTDBToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenWiiTdb(listView1.SelectedItems.OfType<ListViewItem>().FirstOrDefault()?.SubItems[1]?.Text);
+        }
+
+        private void OpenWiiTdb(string? id)
+        {
+            Process.Start(new ProcessStartInfo($"https://www.gametdb.com/Wii/{HttpUtility.UrlEncode(id)}") { UseShellExecute = true });
+        }
+
+        private void listView1_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            if (e.Column == sorter.SortColumn)
+            {
+                if (sorter.Order == SortOrder.Ascending)
+                {
+                    sorter.Order = SortOrder.Descending;
+                }
+                else
+                {
+                    sorter.Order = SortOrder.Ascending;
+                }
+            }
+            else
+            {
+                sorter.SortColumn = e.Column;
+                sorter.Order = SortOrder.Ascending;
+            }
+            listView1.SetSortIcon(sorter.SortColumn, sorter.Order);
+            listView1.Sort();
         }
     }
 

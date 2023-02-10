@@ -60,6 +60,8 @@
             this.columnHeader7 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader5 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader6 = new System.Windows.Forms.ColumnHeader();
+            this.gameContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.viewGameOnGameTDBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -68,6 +70,7 @@
             this.webPictureBox2 = new OpenWiiManager.Forms.WebPictureBox();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
+            this.gameContextMenuStrip.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.webPictureBox1)).BeginInit();
@@ -285,6 +288,7 @@
             this.columnHeader7,
             this.columnHeader5,
             this.columnHeader6});
+            this.listView1.ContextMenuStrip = this.gameContextMenuStrip;
             this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listView1.FullRowSelect = true;
             this.listView1.Location = new System.Drawing.Point(0, 20);
@@ -295,6 +299,7 @@
             this.listView1.TabIndex = 3;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
+            this.listView1.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listView1_ColumnClick);
             this.listView1.ItemActivate += new System.EventHandler(this.listView1_ItemActivate);
             this.listView1.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.listView1_ItemSelectionChanged);
             // 
@@ -332,6 +337,22 @@
             // columnHeader6
             // 
             this.columnHeader6.Text = "Release date";
+            // 
+            // gameContextMenuStrip
+            // 
+            this.gameContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.viewGameOnGameTDBToolStripMenuItem});
+            this.gameContextMenuStrip.Name = "gameContextMenuStrip";
+            this.gameContextMenuStrip.Size = new System.Drawing.Size(205, 26);
+            this.gameContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.gameContextMenuStrip_Opening);
+            // 
+            // viewGameOnGameTDBToolStripMenuItem
+            // 
+            this.viewGameOnGameTDBToolStripMenuItem.Image = global::OpenWiiManager.Properties.Resources.gametdb_16;
+            this.viewGameOnGameTDBToolStripMenuItem.Name = "viewGameOnGameTDBToolStripMenuItem";
+            this.viewGameOnGameTDBToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.viewGameOnGameTDBToolStripMenuItem.Text = "View game on GameTDB";
+            this.viewGameOnGameTDBToolStripMenuItem.Click += new System.EventHandler(this.viewGameOnGameTDBToolStripMenuItem_Click);
             // 
             // imageList1
             // 
@@ -425,6 +446,7 @@
             this.menuStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.gameContextMenuStrip.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
@@ -473,5 +495,7 @@
         private ToolStripMenuItem forceGarbageCollectionToolStripMenuItem;
         private ImageList imageList1;
         private WebPictureBox webPictureBox2;
+        private ContextMenuStrip gameContextMenuStrip;
+        private ToolStripMenuItem viewGameOnGameTDBToolStripMenuItem;
     }
 }

@@ -35,16 +35,9 @@
             this.cancelButton = new System.Windows.Forms.Button();
             this.applyButton = new System.Windows.Forms.Button();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
-            this.toolbarButton1 = new OpenWiiManager.Controls.ToolbarButton();
-            this.toolbarButton2 = new OpenWiiManager.Controls.ToolbarButton();
-            this.toolbarButton3 = new OpenWiiManager.Controls.ToolbarButton();
-            this.toolbarButton4 = new OpenWiiManager.Controls.ToolbarButton();
-            this.toolbarButton5 = new OpenWiiManager.Controls.ToolbarButton();
-            this.toolbarButton6 = new OpenWiiManager.Controls.ToolbarButton();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
-            this.flowLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -85,6 +78,7 @@
             this.okButton.Text = "&OK";
             this.okButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.okButton.UseVisualStyleBackColor = true;
+            this.okButton.Click += new System.EventHandler(this.okButton_Click);
             // 
             // cancelButton
             // 
@@ -107,6 +101,7 @@
             this.applyButton.Text = "&Apply";
             this.applyButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.applyButton.UseVisualStyleBackColor = true;
+            this.applyButton.Click += new System.EventHandler(this.applyButton_Click);
             // 
             // flowLayoutPanel2
             // 
@@ -114,12 +109,6 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.flowLayoutPanel2.BackColor = System.Drawing.SystemColors.Window;
             this.flowLayoutPanel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.flowLayoutPanel2.Controls.Add(this.toolbarButton1);
-            this.flowLayoutPanel2.Controls.Add(this.toolbarButton2);
-            this.flowLayoutPanel2.Controls.Add(this.toolbarButton3);
-            this.flowLayoutPanel2.Controls.Add(this.toolbarButton4);
-            this.flowLayoutPanel2.Controls.Add(this.toolbarButton5);
-            this.flowLayoutPanel2.Controls.Add(this.toolbarButton6);
             this.flowLayoutPanel2.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel2.ForeColor = System.Drawing.SystemColors.WindowText;
             this.flowLayoutPanel2.Location = new System.Drawing.Point(3, 3);
@@ -127,100 +116,6 @@
             this.flowLayoutPanel2.Padding = new System.Windows.Forms.Padding(3);
             this.flowLayoutPanel2.Size = new System.Drawing.Size(132, 297);
             this.flowLayoutPanel2.TabIndex = 1;
-            // 
-            // toolbarButton1
-            // 
-            this.toolbarButton1.Checked = true;
-            this.toolbarButton1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.toolbarButton1.Image = global::OpenWiiManager.Properties.Resources.Tools;
-            this.toolbarButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.toolbarButton1.Location = new System.Drawing.Point(6, 3);
-            this.toolbarButton1.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
-            this.toolbarButton1.Name = "toolbarButton1";
-            this.toolbarButton1.Size = new System.Drawing.Size(120, 23);
-            this.toolbarButton1.TabIndex = 0;
-            this.toolbarButton1.Text = "&General";
-            this.toolbarButton1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.toolbarButton1.UseVisualStyleBackColor = true;
-            this.toolbarButton1.Click += new System.EventHandler(this.toolbarButton1_Click);
-            // 
-            // toolbarButton2
-            // 
-            this.toolbarButton2.Checked = false;
-            this.toolbarButton2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.toolbarButton2.Image = global::OpenWiiManager.Properties.Resources.Database;
-            this.toolbarButton2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.toolbarButton2.Location = new System.Drawing.Point(6, 29);
-            this.toolbarButton2.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
-            this.toolbarButton2.Name = "toolbarButton2";
-            this.toolbarButton2.Size = new System.Drawing.Size(120, 23);
-            this.toolbarButton2.TabIndex = 0;
-            this.toolbarButton2.Text = "&Database";
-            this.toolbarButton2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.toolbarButton2.UseVisualStyleBackColor = true;
-            this.toolbarButton2.Click += new System.EventHandler(this.toolbarButton1_Click);
-            // 
-            // toolbarButton3
-            // 
-            this.toolbarButton3.Checked = false;
-            this.toolbarButton3.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.toolbarButton3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.toolbarButton3.Location = new System.Drawing.Point(6, 55);
-            this.toolbarButton3.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
-            this.toolbarButton3.Name = "toolbarButton3";
-            this.toolbarButton3.Size = new System.Drawing.Size(120, 23);
-            this.toolbarButton3.TabIndex = 0;
-            this.toolbarButton3.Text = "Test 1";
-            this.toolbarButton3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.toolbarButton3.UseVisualStyleBackColor = true;
-            this.toolbarButton3.Click += new System.EventHandler(this.toolbarButton1_Click);
-            // 
-            // toolbarButton4
-            // 
-            this.toolbarButton4.Checked = false;
-            this.toolbarButton4.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.toolbarButton4.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.toolbarButton4.Location = new System.Drawing.Point(6, 81);
-            this.toolbarButton4.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
-            this.toolbarButton4.Name = "toolbarButton4";
-            this.toolbarButton4.Size = new System.Drawing.Size(120, 23);
-            this.toolbarButton4.TabIndex = 0;
-            this.toolbarButton4.Text = "Test 2";
-            this.toolbarButton4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.toolbarButton4.UseVisualStyleBackColor = true;
-            this.toolbarButton4.Click += new System.EventHandler(this.toolbarButton1_Click);
-            // 
-            // toolbarButton5
-            // 
-            this.toolbarButton5.Checked = false;
-            this.toolbarButton5.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.toolbarButton5.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.toolbarButton5.Location = new System.Drawing.Point(6, 107);
-            this.toolbarButton5.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
-            this.toolbarButton5.Name = "toolbarButton5";
-            this.toolbarButton5.Size = new System.Drawing.Size(120, 23);
-            this.toolbarButton5.TabIndex = 0;
-            this.toolbarButton5.Text = "Test 3";
-            this.toolbarButton5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.toolbarButton5.UseVisualStyleBackColor = true;
-            this.toolbarButton5.Click += new System.EventHandler(this.toolbarButton1_Click);
-            // 
-            // toolbarButton6
-            // 
-            this.toolbarButton6.Checked = false;
-            this.toolbarButton6.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.toolbarButton6.Enabled = false;
-            this.toolbarButton6.Image = global::OpenWiiManager.Properties.Resources.Save;
-            this.toolbarButton6.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.toolbarButton6.Location = new System.Drawing.Point(6, 133);
-            this.toolbarButton6.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
-            this.toolbarButton6.Name = "toolbarButton6";
-            this.toolbarButton6.Size = new System.Drawing.Size(120, 23);
-            this.toolbarButton6.TabIndex = 0;
-            this.toolbarButton6.Text = "Test 4";
-            this.toolbarButton6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.toolbarButton6.UseVisualStyleBackColor = true;
-            this.toolbarButton6.Click += new System.EventHandler(this.toolbarButton1_Click);
             // 
             // panel1
             // 
@@ -251,7 +146,6 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
-            this.flowLayoutPanel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -264,12 +158,6 @@
         private Button cancelButton;
         private Button applyButton;
         private FlowLayoutPanel flowLayoutPanel2;
-        private Controls.ToolbarButton toolbarButton1;
-        private Controls.ToolbarButton toolbarButton2;
-        private Controls.ToolbarButton toolbarButton3;
-        private Controls.ToolbarButton toolbarButton4;
-        private Controls.ToolbarButton toolbarButton5;
-        private Controls.ToolbarButton toolbarButton6;
         private Panel panel1;
     }
 }
