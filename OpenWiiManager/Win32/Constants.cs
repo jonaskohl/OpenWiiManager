@@ -1,0 +1,131 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace OpenWiiManager.Win32
+{
+    internal static class Constants
+    {
+        #region <WinUser.h>
+        #region Window messages
+        public const int WM_PAINT = 0x000F;
+        public const int WM_ERASEBKGND = 0x0014;
+        public const int WM_NCHITTEST = 0x0084;
+        public const int WM_CHANGEUISTATE = 0x0127;
+        #endregion
+
+        #region Window styles
+        public const int WS_POPUP = unchecked((int)0x80000000);
+        public const int WS_BORDER = 0x00800000;
+        public const int WS_CAPTION = 0x00C00000;
+        public const int WS_MAXIMIZE = 0x01000000;
+        public const int WS_MINIMIZE = 0x20000000;
+        public const int WS_THICKFRAME = 0x00040000;
+        #endregion
+
+        #region Extended window styles
+        public const int WS_EX_DLGMODALFRAME = 0x00000001;
+        public const int WS_EX_CLIENTEDGE = 0x00000200;
+        public const int WS_EX_STATICEDGE = 0x00020000;
+        public const int WS_EX_LAYERED = 0x00080000;
+        #endregion
+
+        #region Class Styles
+        public const int CS_SAVEBITS = 0x0800;
+        public const int CS_DROPSHADOW = 0x00020000;
+        #endregion
+
+        #region UI state constants
+        public const uint UIS_SET = 1;
+        public const uint UISF_HIDEFOCUS = 0x1;
+        #endregion
+
+        #region Scroll Bar constants
+        public const int SB_HORZ = 0;
+        public const int SB_VERT = 1;
+        public const int SB_CTL = 2;
+        public const int SB_BOTH = 3;
+        #endregion
+
+        #region Scroll Bar Messages
+        public const int SIF_RANGE = 0x0001;
+        public const int SIF_PAGE = 0x0002;
+        public const int SIF_POS = 0x0004;
+        public const int SIF_DISABLENOSCROLL = 0x0008;
+        public const int SIF_TRACKPOS = 0x0010;
+        public const int SIF_ALL = (SIF_RANGE | SIF_PAGE | SIF_POS | SIF_TRACKPOS);
+        #endregion
+
+        #region System Menu Command Values
+        public const int SC_SIZE = 0xF000;
+        public const int SC_MOVE = 0xF010;
+        public const int SC_MINIMIZE = 0xF020;
+        public const int SC_MAXIMIZE = 0xF030;
+        public const int SC_NEXTWINDOW = 0xF040;
+        public const int SC_PREVWINDOW = 0xF050;
+        public const int SC_CLOSE = 0xF060;
+        public const int SC_VSCROLL = 0xF070;
+        public const int SC_HSCROLL = 0xF080;
+        public const int SC_MOUSEMENU = 0xF090;
+        public const int SC_KEYMENU = 0xF100;
+        public const int SC_ARRANGE = 0xF110;
+        public const int SC_RESTORE = 0xF120;
+        public const int SC_TASKLIST = 0xF130;
+        public const int SC_SCREENSAVE = 0xF140;
+        public const int SC_HOTKEY = 0xF150;
+        public const int SC_DEFAULT = 0xF160;
+        public const int SC_MONITORPOWER = 0xF170;
+        public const int SC_CONTEXTHELP = 0xF180;
+        public const int SC_SEPARATOR = 0xF00F;
+        #endregion
+
+        #region WM_NCHITTEST and MOUSEHOOKSTRUCT Mouse Position Codes
+        public const int HTERROR = (-2);
+        public const int HTTRANSPARENT = (-1);
+        public const int HTNOWHERE = 0;
+        public const int HTCLIENT = 1;
+        public const int HTCAPTION = 2;
+        public const int HTSYSMENU = 3;
+        public const int HTGROWBOX = 4;
+        public const int HTSIZE = HTGROWBOX;
+        public const int HTMENU = 5;
+        public const int HTHSCROLL = 6;
+        public const int HTVSCROLL = 7;
+        public const int HTMINBUTTON = 8;
+        public const int HTMAXBUTTON = 9;
+        public const int HTLEFT = 10;
+        public const int HTRIGHT = 11;
+        public const int HTTOP = 12;
+        public const int HTTOPLEFT = 13;
+        public const int HTTOPRIGHT = 14;
+        public const int HTBOTTOM = 15;
+        public const int HTBOTTOMLEFT = 16;
+        public const int HTBOTTOMRIGHT = 17;
+        public const int HTBORDER = 18;
+        public const int HTREDUCE = HTMINBUTTON;
+        public const int HTZOOM = HTMAXBUTTON;
+        public const int HTSIZEFIRST = HTLEFT;
+        public const int HTSIZELAST = HTBOTTOMRIGHT;
+        public const int HTOBJECT = 19;
+        public const int HTCLOSE = 20;
+        public const int HTHELP = 21;
+        #endregion
+
+        #region UpdateLayeredWindow flags
+        public const int ULW_COLORKEY = 0x00000001;
+        public const int ULW_ALPHA = 0x00000002;
+        public const int ULW_OPAQUE = 0x00000004;
+        public const int ULW_EX_NORESIZE = 0x00000008;
+        #endregion
+        #endregion
+
+        #region <wingdi.h>
+        #region alpha format flags
+        public const byte AC_SRC_OVER = 0x00;
+        public const byte AC_SRC_ALPHA = 0x01;
+        #endregion
+        #endregion
+    }
+}
