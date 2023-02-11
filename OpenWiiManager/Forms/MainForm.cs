@@ -27,6 +27,7 @@ namespace OpenWiiManager.Forms
         private bool allowNotificationPopupClose = false;
         private Font IdColumnFont = new Font("Consolas", 10);
         private ListViewColumnSorter sorter;
+        private BalloonToolTip btt;
 
         public class BackgroundOperation
         {
@@ -67,6 +68,23 @@ namespace OpenWiiManager.Forms
             sorter.SortColumn = 0;
 
             Shown += MainForm_Shown;
+            statusStrip1.HandleCreated += StatusStrip1_HandleCreated;
+        }
+
+        private void MainForm_LocationChanged(object? sender, EventArgs e)
+        {
+            btt.Track(statusStrip1.PointToScreen(notificationsButton.Bounds.Location));
+        }
+
+        private void StatusStrip1_HandleCreated(object? sender, EventArgs e)
+        {
+            btt = new(statusStrip1);
+            btt.strTitle = "Title text";
+            btt.strText = "Lorem ipsum dolor sit amet";
+            btt.icon = ToolTipIcon.Info;
+            btt.Create();
+            LocationChanged += MainForm_LocationChanged;
+            Resize += MainForm_LocationChanged;
         }
 
         private void ListView1_HandleCreated(object? sender, EventArgs e)
@@ -260,6 +278,9 @@ namespace OpenWiiManager.Forms
             {
                 GC.Collect();
             });
+
+            //notificationToolTip.Show("Lorem ipsum dolor sit amet", statusStrip1, notificationsButton.Bounds.Location);
+            //UIUtil.ShowBalloon(statusStrip1, "Lorem ipsum dolor sit amet");
         }
 
         private Task ScanISOs()
@@ -291,6 +312,7 @@ namespace OpenWiiManager.Forms
                         item.SubItems.Add(""); // Publisher
                         item.SubItems.Add(""); // Languages
                         item.SubItems.Add(""); // Date
+                        item.Tag = file;
 
                         IndeterminateBackgroundOperationAsync($"Scanning database for file {basename}", Task.Run(() => GetDeferredWiiTDBInfo(meta.GameId, item, file))).ContinueWith(t =>
                         {
@@ -559,7 +581,7 @@ namespace OpenWiiManager.Forms
 
         public void InitializeWork()
         {
-            Thread.Sleep(2000);
+            //Thread.Sleep(2000);
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -668,7 +690,9 @@ namespace OpenWiiManager.Forms
 
         private void viewGameOnGameTDBToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenWiiTdb(listView1.SelectedItems.OfType<ListViewItem>().FirstOrDefault()?.SubItems[1]?.Text);
+            var id = listView1.SelectedItems.OfType<ListViewItem>().FirstOrDefault()?.SubItems[1]?.Text;
+            if (id != null)
+                OpenWiiTdb(id);
         }
 
         private void OpenWiiTdb(string? id)
@@ -696,6 +720,18 @@ namespace OpenWiiManager.Forms
             }
             listView1.SetSortIcon(sorter.SortColumn, sorter.Order);
             listView1.Sort();
+        }
+
+        private void propertiesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var file = listView1.SelectedItems.OfType<ListViewItem>().FirstOrDefault()?.Tag?.ToString();
+            if (file != null)
+                ShellUtil.ShowFileProperties(file);
+        }
+
+        private void debugShowBalloonToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            btt.Show(notificationsButton.Bounds.Location);
         }
     }
 

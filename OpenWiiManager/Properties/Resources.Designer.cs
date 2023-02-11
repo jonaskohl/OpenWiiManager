@@ -333,6 +333,16 @@ namespace OpenWiiManager.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Properties {
+            get {
+                object obj = ResourceManager.GetObject("Properties", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Recurring {
             get {
                 object obj = ResourceManager.GetObject("Recurring", resourceCulture);

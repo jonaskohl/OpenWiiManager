@@ -145,9 +145,6 @@
   <data name="Synchronise" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Synchronise.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Save" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Save.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="CD" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\CD.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -169,8 +166,14 @@
   <data name="owm_disc" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\owm_disc.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="digit8" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\digit8.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="digit2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\digit2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="gametdb_logo_small" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\gametdb_logo_small.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="digit6" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\digit6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -187,17 +190,20 @@
   <data name="TaskBusy" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\TaskBusy.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Folder" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Folder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="owm_3d_64s" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\owm_3d_64s.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="gametdb_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\gametdb_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Close Button" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Close Button.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="digit7" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\digit7.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Save" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Save.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="dot" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\dot.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -211,11 +217,11 @@
   <data name="digit4" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\digit4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="gametdb_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\gametdb_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="digit1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\digit1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="digit8" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\digit8.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Information" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Information.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -223,10 +229,7 @@
   <data name="digit5" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\digit5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="gametdb_logo_small" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\gametdb_logo_small.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Folder" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Folder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Properties" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Properties.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

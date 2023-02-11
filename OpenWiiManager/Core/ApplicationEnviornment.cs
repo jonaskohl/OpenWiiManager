@@ -12,6 +12,9 @@ namespace OpenWiiManager.Core
         public static string RoamingUserDataDirectory => Environment.ExpandEnvironmentVariables(@"%appdata%\Jonas Kohl\OWM\");
         public static string TempDataDirectory => Environment.ExpandEnvironmentVariables(@"%temp%\Jonas Kohl\OWM\");
 
+        public static string ReleaseCheckUrl => @"https://api.github.com/repos/jonaskohl/CapsLockIndicator/releases?per_page=1";
+        public static string WebUrl => @"http://owm.web.local/";
+
         public static string GameDatabaseFilePath => Path.Join(LocalUserDataDirectory, "wiidb.xml");
         public static string StateFilePath => Path.Join(LocalUserDataDirectory, "state.xml");
         public static string ConfigFilePath => Path.Join(RoamingUserDataDirectory, "owm.xml");

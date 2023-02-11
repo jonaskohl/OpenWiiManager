@@ -62,12 +62,15 @@
             this.columnHeader6 = new System.Windows.Forms.ColumnHeader();
             this.gameContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.viewGameOnGameTDBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.propertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.webPictureBox1 = new OpenWiiManager.Forms.WebPictureBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.webPictureBox2 = new OpenWiiManager.Forms.WebPictureBox();
+            this.notificationToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.debugShowBalloonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.gameContextMenuStrip.SuspendLayout();
@@ -175,7 +178,8 @@
             // toolsToolStripMenuItem
             // 
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.forceGarbageCollectionToolStripMenuItem});
+            this.forceGarbageCollectionToolStripMenuItem,
+            this.debugShowBalloonToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(42, 20);
@@ -341,18 +345,30 @@
             // gameContextMenuStrip
             // 
             this.gameContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.viewGameOnGameTDBToolStripMenuItem});
+            this.viewGameOnGameTDBToolStripMenuItem,
+            this.propertiesToolStripMenuItem});
             this.gameContextMenuStrip.Name = "gameContextMenuStrip";
-            this.gameContextMenuStrip.Size = new System.Drawing.Size(205, 26);
+            this.gameContextMenuStrip.Size = new System.Drawing.Size(274, 48);
             this.gameContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.gameContextMenuStrip_Opening);
             // 
             // viewGameOnGameTDBToolStripMenuItem
             // 
             this.viewGameOnGameTDBToolStripMenuItem.Image = global::OpenWiiManager.Properties.Resources.gametdb_16;
             this.viewGameOnGameTDBToolStripMenuItem.Name = "viewGameOnGameTDBToolStripMenuItem";
-            this.viewGameOnGameTDBToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.viewGameOnGameTDBToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.V)));
+            this.viewGameOnGameTDBToolStripMenuItem.Size = new System.Drawing.Size(273, 22);
             this.viewGameOnGameTDBToolStripMenuItem.Text = "View game on GameTDB";
             this.viewGameOnGameTDBToolStripMenuItem.Click += new System.EventHandler(this.viewGameOnGameTDBToolStripMenuItem_Click);
+            // 
+            // propertiesToolStripMenuItem
+            // 
+            this.propertiesToolStripMenuItem.Image = global::OpenWiiManager.Properties.Resources.Properties;
+            this.propertiesToolStripMenuItem.Name = "propertiesToolStripMenuItem";
+            this.propertiesToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Return)));
+            this.propertiesToolStripMenuItem.Size = new System.Drawing.Size(273, 22);
+            this.propertiesToolStripMenuItem.Text = "Properties...";
+            this.propertiesToolStripMenuItem.Click += new System.EventHandler(this.propertiesToolStripMenuItem_Click);
             // 
             // imageList1
             // 
@@ -427,6 +443,18 @@
             this.webPictureBox2.TabStop = false;
             this.webPictureBox2.URL = null;
             // 
+            // notificationToolTip
+            // 
+            this.notificationToolTip.IsBalloon = true;
+            this.notificationToolTip.ShowAlways = true;
+            // 
+            // debugShowBalloonToolStripMenuItem
+            // 
+            this.debugShowBalloonToolStripMenuItem.Name = "debugShowBalloonToolStripMenuItem";
+            this.debugShowBalloonToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.debugShowBalloonToolStripMenuItem.Text = "[Debug] Show balloon";
+            this.debugShowBalloonToolStripMenuItem.Click += new System.EventHandler(this.debugShowBalloonToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -497,5 +525,8 @@
         private WebPictureBox webPictureBox2;
         private ContextMenuStrip gameContextMenuStrip;
         private ToolStripMenuItem viewGameOnGameTDBToolStripMenuItem;
+        private ToolStripMenuItem propertiesToolStripMenuItem;
+        private ToolTip notificationToolTip;
+        private ToolStripMenuItem debugShowBalloonToolStripMenuItem;
     }
 }

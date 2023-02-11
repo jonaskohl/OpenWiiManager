@@ -81,12 +81,12 @@ namespace OpenWiiManager.Controls
                 cp.ExStyle &= ~(Constants.WS_EX_CLIENTEDGE | Constants.WS_EX_DLGMODALFRAME | Constants.WS_EX_STATICEDGE);
                 if (!this.IsDesignMode())
                 {
-                    cp.Style = Constants.WS_POPUP | Constants.WS_BORDER;
+                    cp.Style = unchecked((int)(Constants.WS_POPUP | Constants.WS_BORDER));
                     cp.ClassStyle |= Constants.CS_DROPSHADOW | Constants.CS_SAVEBITS;
                 }
                 else
                 {
-                    cp.Style &= ~(Constants.WS_CAPTION | Constants.WS_MAXIMIZE | Constants.WS_MINIMIZE | Constants.WS_BORDER | Constants.WS_THICKFRAME);
+                    cp.Style &= ~unchecked((int)(Constants.WS_CAPTION | Constants.WS_MAXIMIZE | Constants.WS_MINIMIZE | Constants.WS_BORDER | Constants.WS_THICKFRAME));
                 }
                 return cp;
             }

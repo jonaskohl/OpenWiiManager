@@ -34,7 +34,7 @@ namespace OpenWiiManager.Forms
             get
             {
                 var cp = base.CreateParams;
-                cp.Style &= ~Constants.WS_MAXIMIZE;
+                cp.Style &= ~unchecked((int)Constants.WS_MAXIMIZE);
                 return cp;
             }
         }

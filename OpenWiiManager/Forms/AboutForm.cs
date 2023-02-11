@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenWiiManager.Core;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -20,7 +21,7 @@ namespace OpenWiiManager.Forms
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-
+            Process.Start(new ProcessStartInfo(ApplicationEnviornment.WebUrl) { UseShellExecute = true });
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)

@@ -2,6 +2,7 @@
 using OpenWiiManager.Forms;
 using OpenWiiManager.Language.Attributes;
 using OpenWiiManager.Language.Types;
+using OpenWiiManager.Media;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -112,7 +113,7 @@ namespace OpenWiiManager.Core
                 Width = 24,
                 Height = 24,
                 Margin = new Padding(3, 0, 0, 0),
-                Image = Properties.Resources.Folder
+                Image = StockIcons.GetStockIconAsImage(StockIcons.SHSTOCKICONID.SIID_FOLDEROPEN, new Size(16, 16), StockIcons.IconSize.Small)//Properties.Resources.Folder
             };
             btn.Click += (sender, e) =>
             {
