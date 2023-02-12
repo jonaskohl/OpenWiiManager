@@ -8,6 +8,8 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<ApplicationIcon>owm.ico</ApplicationIcon>
 		<Version>1.0.0</Version>
+		<Authors>Jonas Kohl</Authors>
+		<Copyright>Copyright © 2023 $(Authors)</Copyright>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -22,6 +24,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Compile Update="Controls\BodyTitleLabel.cs">
+		  <SubType>Component</SubType>
+		</Compile>
 		<Compile Update="Properties\Resources.Designer.cs">
 			<DesignTime>True</DesignTime>
 			<AutoGen>True</AutoGen>

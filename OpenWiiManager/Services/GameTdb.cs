@@ -23,8 +23,8 @@ namespace OpenWiiManager.Services
     {
         const string USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/109.0";
 
-        const string URL_WII_RSS_FEED = "https://www.gametdb.com/Main/LatestGames?action=rss";
-        const string URL_WII_DATABASE = "https://www.gametdb.com/wiitdb.zip"; //?WIIWARE=1&GAMECUBE=1";
+        //const string URL_WII_RSS_FEED = "https://www.gametdb.com/Main/LatestGames?action=rss";
+        //const string URL_WII_DATABASE = "https://www.gametdb.com/wiitdb.zip"; //?WIIWARE=1&GAMECUBE=1";
 
         private XDocument? wiiTdbDatabase;
 
@@ -96,7 +96,7 @@ namespace OpenWiiManager.Services
 
         public async Task DownloadDatabase(DatabaseLanguage language = DatabaseLanguage.Original)
         {
-            var resp = await URL_WII_DATABASE
+            var resp = await ApplicationConfigurationSingleton.Instance.WiiDbZipUrl
                 .WithHeaders(new { User_Agent = USER_AGENT })
                 //.SetQueryParam("LANG", language.GetDefinedValue() ?? "")
                 .SetQueryParam("__owmCacheBuster", Guid.NewGuid().ToString("N"))
@@ -142,7 +142,7 @@ namespace OpenWiiManager.Services
 
         private async Task<SyndicationFeed> GetWiiRssFeed()
         {
-            using var reader = XmlReader.Create(URL_WII_RSS_FEED);
+            using var reader = XmlReader.Create(ApplicationConfigurationSingleton.Instance.WiiDbRssUrl);
             var feed = await Task.Run(() => SyndicationFeed.Load(reader));
             reader.Close();
             return feed;

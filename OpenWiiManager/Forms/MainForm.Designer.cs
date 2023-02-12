@@ -42,6 +42,7 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.forceGarbageCollectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.debugShowBalloonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -70,7 +71,7 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.webPictureBox2 = new OpenWiiManager.Forms.WebPictureBox();
             this.notificationToolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.debugShowBalloonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.playGameUsingDolphinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.gameContextMenuStrip.SuspendLayout();
@@ -193,6 +194,13 @@
             this.forceGarbageCollectionToolStripMenuItem.Text = "&Force garbage collection";
             this.forceGarbageCollectionToolStripMenuItem.Click += new System.EventHandler(this.forceGarbageCollectionToolStripMenuItem_Click);
             // 
+            // debugShowBalloonToolStripMenuItem
+            // 
+            this.debugShowBalloonToolStripMenuItem.Name = "debugShowBalloonToolStripMenuItem";
+            this.debugShowBalloonToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.debugShowBalloonToolStripMenuItem.Text = "[Debug] Show balloon";
+            this.debugShowBalloonToolStripMenuItem.Click += new System.EventHandler(this.debugShowBalloonToolStripMenuItem_Click);
+            // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -282,6 +290,7 @@
             // 
             // listView1
             // 
+            this.listView1.AllowColumnReorder = true;
             this.listView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
@@ -294,17 +303,17 @@
             this.columnHeader6});
             this.listView1.ContextMenuStrip = this.gameContextMenuStrip;
             this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listView1.EmptyText = "No games to show";
             this.listView1.FullRowSelect = true;
             this.listView1.Location = new System.Drawing.Point(0, 20);
-            this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
+            this.listView1.ShowItemToolTips = true;
             this.listView1.Size = new System.Drawing.Size(767, 630);
             this.listView1.SmallImageList = this.imageList1;
             this.listView1.TabIndex = 3;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
             this.listView1.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listView1_ColumnClick);
-            this.listView1.ItemActivate += new System.EventHandler(this.listView1_ItemActivate);
             this.listView1.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.listView1_ItemSelectionChanged);
             // 
             // columnHeader1
@@ -346,9 +355,10 @@
             // 
             this.gameContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.viewGameOnGameTDBToolStripMenuItem,
+            this.playGameUsingDolphinToolStripMenuItem,
             this.propertiesToolStripMenuItem});
             this.gameContextMenuStrip.Name = "gameContextMenuStrip";
-            this.gameContextMenuStrip.Size = new System.Drawing.Size(274, 48);
+            this.gameContextMenuStrip.Size = new System.Drawing.Size(291, 92);
             this.gameContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.gameContextMenuStrip_Opening);
             // 
             // viewGameOnGameTDBToolStripMenuItem
@@ -448,12 +458,15 @@
             this.notificationToolTip.IsBalloon = true;
             this.notificationToolTip.ShowAlways = true;
             // 
-            // debugShowBalloonToolStripMenuItem
+            // playGameUsingDolphinToolStripMenuItem
             // 
-            this.debugShowBalloonToolStripMenuItem.Name = "debugShowBalloonToolStripMenuItem";
-            this.debugShowBalloonToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
-            this.debugShowBalloonToolStripMenuItem.Text = "[Debug] Show balloon";
-            this.debugShowBalloonToolStripMenuItem.Click += new System.EventHandler(this.debugShowBalloonToolStripMenuItem_Click);
+            this.playGameUsingDolphinToolStripMenuItem.Image = global::OpenWiiManager.Properties.Resources.dolphin_16;
+            this.playGameUsingDolphinToolStripMenuItem.Name = "playGameUsingDolphinToolStripMenuItem";
+            this.playGameUsingDolphinToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.F12)));
+            this.playGameUsingDolphinToolStripMenuItem.Size = new System.Drawing.Size(290, 22);
+            this.playGameUsingDolphinToolStripMenuItem.Text = "Play game using Dolphin";
+            this.playGameUsingDolphinToolStripMenuItem.Click += new System.EventHandler(this.playGameUsingDolphinToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -469,7 +482,6 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
             this.Text = "Open Wii Manager";
-            this.Load += new System.EventHandler(this.MainForm_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
@@ -528,5 +540,6 @@
         private ToolStripMenuItem propertiesToolStripMenuItem;
         private ToolTip notificationToolTip;
         private ToolStripMenuItem debugShowBalloonToolStripMenuItem;
+        private ToolStripMenuItem playGameUsingDolphinToolStripMenuItem;
     }
 }

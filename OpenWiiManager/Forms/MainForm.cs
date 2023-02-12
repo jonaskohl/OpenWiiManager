@@ -28,6 +28,8 @@ namespace OpenWiiManager.Forms
         private Font IdColumnFont = new Font("Consolas", 10);
         private ListViewColumnSorter sorter;
         private BalloonToolTip btt;
+        private CancellationTokenSource gameSelectCancellationTokenSource = new();
+        private CancellationToken gameSelectCancellationToken;
 
         public class BackgroundOperation
         {
@@ -66,6 +68,8 @@ namespace OpenWiiManager.Forms
             listView1.SetSortIcon(0, SortOrder.Ascending);
             sorter.Order = SortOrder.Ascending;
             sorter.SortColumn = 0;
+
+            gameSelectCancellationToken = gameSelectCancellationTokenSource.Token;
 
             Shown += MainForm_Shown;
             statusStrip1.HandleCreated += StatusStrip1_HandleCreated;
@@ -289,9 +293,16 @@ namespace OpenWiiManager.Forms
             listView1.Items.Clear();
             return IndeterminateBackgroundOperationAsync("Scanning for games", Task.Run(async () =>
             {
+                if (string.IsNullOrWhiteSpace(ApplicationConfigurationSingleton.Instance.IsoPath) || !Directory.Exists(ApplicationConfigurationSingleton.Instance.IsoPath))
+                    return;
+
                 foreach (var file in Directory.EnumerateFiles(ApplicationConfigurationSingleton.Instance.IsoPath, "*.iso"))
                 {
                     var meta = await GetIsoMeta(file);
+
+                    if (meta == null)
+                        continue;
+
                     Debug.WriteLine(file);
                     listView1.Invoke(() =>
                     {
@@ -323,11 +334,11 @@ namespace OpenWiiManager.Forms
                 }
             }).ContinueWith(t =>
             {
-                t.ThrowIfFaulted();
                 Invoke(() =>
                 {
                     refreshToolStripMenuItem.Enabled = true;
                 });
+                t.ThrowIfFaulted();
             }));
         }
 
@@ -362,7 +373,7 @@ namespace OpenWiiManager.Forms
             { (byte)'U', GameRegion.Australia },
         };
 
-        struct IsoMeta
+        class IsoMeta
         {
             internal byte @__rawRegionByteValue;
 
@@ -372,13 +383,38 @@ namespace OpenWiiManager.Forms
             public byte Version;
         }
 
-        private Task<IsoMeta> GetIsoMeta(string file)
+        const uint WII_MAGICWORD_ONWII = 0xA39E1C5D; // Wii magic word is this value for Wii games (would be 0 for GameCube games)
+        const uint GAMECUBE_MAGICWORD_ONWII = 0x00000000; // GameCube magic word is all zeroes for Wii games (would be non-0 for GameCube games)
+        const uint SYSTEM_MAGICWORD = 0x8E1AF8C3;
+        const long ISO_LENGTH = 0x118240000;
+
+        private Task<IsoMeta?> GetIsoMeta(string file)
         {
             return Task.Run(() =>
             {
+                if (!File.Exists(file))
+                    return null;
+
+                var info = new FileInfo(file);
+                if (info.Length != ISO_LENGTH)
+                    return null;
+
                 using var hFile = File.Open(file, FileMode.Open);
                 using var breader = new BinaryReader(hFile);
                 var idBytes = breader.ReadBytes(6);
+                if (idBytes.All(b => b == 0)) // All null bytes. Never the case on an actual Wii game
+                    return null;
+                hFile.Seek(0x18, SeekOrigin.Begin);
+                var wiiMagicWord = breader.ReadUInt32();
+                if (wiiMagicWord != WII_MAGICWORD_ONWII) // Check if Wii magic word matches. See https://wiibrew.org/wiki/Wii_disc#Header
+                    return null;
+                var gcMagicWord = breader.ReadUInt32();
+                if (gcMagicWord != GAMECUBE_MAGICWORD_ONWII) // Check if GameCube magic word matches
+                    return null;
+                hFile.Seek(0x4FFFC, SeekOrigin.Begin);
+                var sysMagicWord = breader.ReadUInt32();
+                if (sysMagicWord != SYSTEM_MAGICWORD)
+                    return null;
                 hFile.Seek(0x20, SeekOrigin.Begin);
                 var titleBytes = breader.ReadBytes(0x40);
                 var idString = Encoding.ASCII.GetString(idBytes);
@@ -464,16 +500,8 @@ namespace OpenWiiManager.Forms
 
         private void CheckForOOBE()
         {
-            if (!ApplicationStateSingleton.Instance.IsFirstRun)
+            if (!ApplicationStateSingleton.Instance.IsFirstRun && ApplicationConfigurationSingleton.Instance.SettingsFileExists)
                 return;
-
-            //var page = new TaskDialogPage()
-            //{
-            //    Heading = "Welcome to Open Wii Manager!",
-            //    Caption = "Welcome to Open Wii Manager!",
-            //    Text = "This seems to be the first "
-            //};
-            //System.Windows.Forms.TaskDialog.ShowDialog(page);
 
             using var w = new OobeWizard();
             if (w.ShowDialog(this) == DialogResult.OK)
@@ -584,22 +612,15 @@ namespace OpenWiiManager.Forms
             //Thread.Sleep(2000);
         }
 
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ScanISOs();
         }
 
-        private void listView1_ItemActivate(object sender, EventArgs e)
-        {
-        }
-
         private void DeselectGame()
         {
+            gameSelectCancellationTokenSource.Cancel();
+            ResetCancellationTokenSourceAndToken(ref gameSelectCancellationTokenSource, ref gameSelectCancellationToken);
             webPictureBox1.URL = null;
             webPictureBox2.URL = null;
             textBox1.Text = "";
@@ -612,6 +633,7 @@ namespace OpenWiiManager.Forms
                 DeselectGame();
                 return;
             }
+
             GameTdbSingleton.Instance.LookupWiiTitleInfoAsync(gameId).ContinueWith(t =>
             {
                 var langs = t.Result?.Element("languages")?.Value?.Split(',');
@@ -622,11 +644,14 @@ namespace OpenWiiManager.Forms
 
                 Task.Run(async () =>
                 {
+                    gameSelectCancellationToken.ThrowIfCancellationRequested();
+
                     var langsCopy = new Stack<string>((string[])langs.Clone());
                     if (!langsCopy.Contains("EN"))
                         langsCopy.Push("EN");
                     while (langsCopy.Count > 0)
                     {
+                        gameSelectCancellationToken.ThrowIfCancellationRequested();
                         var language = langsCopy.Pop();
                         var coverUrl = $"https://art.gametdb.com/wii/cover3D/{language}/{gameId}.png";
                         Debug.WriteLine($"[COVER] Trying {coverUrl}");
@@ -641,11 +666,13 @@ namespace OpenWiiManager.Forms
 
                 Task.Run(async () =>
                 {
+                    gameSelectCancellationToken.ThrowIfCancellationRequested();
                     var langsCopy = new Stack<string>((string[])langs.Clone());
                     if (!langsCopy.Contains("EN"))
                         langsCopy.Push("EN");
                     while (langsCopy.Count > 0)
                     {
+                        gameSelectCancellationToken.ThrowIfCancellationRequested();
                         var language = langsCopy.Pop();
                         var discUrl = $"https://art.gametdb.com/wii/disc/{language}/{gameId}.png";
                         Debug.WriteLine($"[DISC] Trying {discUrl}");
@@ -669,6 +696,16 @@ namespace OpenWiiManager.Forms
             });
         }
 
+        private void ResetCancellationTokenSourceAndToken(ref CancellationTokenSource source, ref CancellationToken token)
+        {
+            if (!source.TryReset())
+            {
+                source.Dispose();
+                source = new();
+                token = source.Token;
+            }
+        }
+
         private void forceGarbageCollectionToolStripMenuItem_Click(object sender, EventArgs e)
         {
             GC.Collect();
@@ -676,10 +713,13 @@ namespace OpenWiiManager.Forms
 
         private void listView1_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
         {
-            if (listView1.SelectedIndices.Count < 1)
+            Debug.WriteLine(listView1.SelectedItems.Count);
+            if (listView1.SelectedItems.Count != 1)
                 DeselectGame();
             else
                 SelectGameWithId(listView1.SelectedItems.OfType<ListViewItem>().FirstOrDefault()?.SubItems[1]?.Text);
+
+            playGameUsingDolphinToolStripMenuItem.Enabled = IsDolphinConfigured() && listView1.SelectedItems.Count == 1;
         }
 
         private void gameContextMenuStrip_Opening(object sender, CancelEventArgs e)
@@ -690,9 +730,23 @@ namespace OpenWiiManager.Forms
 
         private void viewGameOnGameTDBToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var id = listView1.SelectedItems.OfType<ListViewItem>().FirstOrDefault()?.SubItems[1]?.Text;
-            if (id != null)
-                OpenWiiTdb(id);
+            var items = listView1.SelectedItems.OfType<ListViewItem>();
+
+            if (items.Count() > 1)
+            {
+                if (MessageBox.Show("There are multiple games selected. Do you want to open the GameTDB page for each of them?", "Caution", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                {
+                    var ids = items.Select(i => i.SubItems[1].Text);
+                    foreach (var id in ids)
+                        OpenWiiTdb(id);
+                }
+            }
+            else
+            {
+                var id = items.FirstOrDefault()?.SubItems[1]?.Text;
+                if (id != null)
+                    OpenWiiTdb(id);
+            }
         }
 
         private void OpenWiiTdb(string? id)
@@ -724,14 +778,37 @@ namespace OpenWiiManager.Forms
 
         private void propertiesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var file = listView1.SelectedItems.OfType<ListViewItem>().FirstOrDefault()?.Tag?.ToString();
-            if (file != null)
-                ShellUtil.ShowFileProperties(file);
+            var files = listView1.SelectedItems.OfType<ListViewItem>().Select(i => i.Tag?.ToString()).Where(i => i != null).Select(i => i ?? "").ToArray();
+            ShellUtil.ShowFileProperties(files);
         }
 
         private void debugShowBalloonToolStripMenuItem_Click(object sender, EventArgs e)
         {
             btt.Show(notificationsButton.Bounds.Location);
+        }
+
+        private void playGameUsingDolphinToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var file = listView1.SelectedItems.OfType<ListViewItem>().FirstOrDefault()?.Tag?.ToString();
+            if (file != null)
+                PlayGameInDolphin(file);
+        }
+
+        private void PlayGameInDolphin(string file)
+        {
+            if (!IsDolphinConfigured())
+                return;
+
+            Process.Start(new ProcessStartInfo()
+            {
+                FileName = ApplicationConfigurationSingleton.Instance.DolphinPath,
+                Arguments = ApplicationConfigurationSingleton.Instance.DolphinArgs?.Replace("%1", file)
+            });
+        }
+
+        private bool IsDolphinConfigured()
+        {
+            return !string.IsNullOrEmpty(ApplicationConfigurationSingleton.Instance.DolphinPath) && File.Exists(ApplicationConfigurationSingleton.Instance.DolphinPath);
         }
     }
 

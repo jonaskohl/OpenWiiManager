@@ -133,6 +133,16 @@ namespace OpenWiiManager.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap controller {
+            get {
+                object obj = ResourceManager.GetObject("controller", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Database {
             get {
                 object obj = ResourceManager.GetObject("Database", resourceCulture);
@@ -236,6 +246,16 @@ namespace OpenWiiManager.Properties {
         internal static System.Drawing.Bitmap digit9 {
             get {
                 object obj = ResourceManager.GetObject("digit9", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap dolphin_16 {
+            get {
+                object obj = ResourceManager.GetObject("dolphin_16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -436,6 +456,16 @@ namespace OpenWiiManager.Properties {
         internal static System.Drawing.Bitmap Waste_Bin {
             get {
                 object obj = ResourceManager.GetObject("Waste Bin", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Window_Options {
+            get {
+                object obj = ResourceManager.GetObject("Window_Options", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

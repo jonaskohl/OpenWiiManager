@@ -13,21 +13,27 @@ using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using ComboBox = System.Windows.Forms.ComboBox;
-using TextBox = System.Windows.Forms.TextBox;
 
 namespace OpenWiiManager.Forms
 {
     public partial class SettingsForm : Form
     {
+        public class SettingsFormCommonObjects
+        {
+            public ToolTip MainToolTip { get; internal init; }
+        }
+
         Dictionary<string, TableLayoutPanel> settingsPages = new();
         Dictionary<string, ToolbarButton> buttons = new();
         List<Action> reapplyFunctions = new();
         Dictionary<string, Image> categoryIcons = new()
         {
-            { "General", Properties.Resources.Tools }
+            { "General", Properties.Resources.Window_Options },
+            { "Emulation", Properties.Resources.controller },
+            { "Advanced", Properties.Resources.Tools },
         };
+
+        private SettingsFormCommonObjects commonObjects;
 
         bool isDirty = false;
         bool IsDirty
@@ -48,6 +54,11 @@ namespace OpenWiiManager.Forms
         public SettingsForm()
         {
             InitializeComponent();
+
+            commonObjects = new()
+            {
+                MainToolTip = toolTip1
+            };
 
             foreach (
                 var property
@@ -145,23 +156,24 @@ namespace OpenWiiManager.Forms
         private (Control, Control?, Action) GetSetingsControl(KeyValuePair<PropertyInfo, SettingsCategoryAttribute?> property)
         {
             var type = property.Key.PropertyType;
+            Action dirtyAction = () => IsDirty = true;
 
             if (property.Value?.GetEditorCreator != null)
             {
-                return property.Value.GetEditorCreator.GetEditor(property, () => IsDirty = true);
+                return property.Value.GetEditorCreator.GetEditor(property, commonObjects, dirtyAction);
             }
 
             if (type == typeof(string))
             {
-                return new StringEditorCreator().GetEditor(property);
+                return new StringEditorCreator().GetEditor(property, commonObjects, dirtyAction);
             }
             else if (IsFloatType(type))
             {
-                return (new NumericEditorCreator() { HasDecimals = true }).GetEditor(property);
+                return (new NumericEditorCreator() { HasDecimals = true }).GetEditor(property, commonObjects, dirtyAction);
             }
             else if (IsIntegerType(type))
             {
-                return (new NumericEditorCreator() { HasDecimals = true }).GetEditor(property);
+                return (new NumericEditorCreator() { HasDecimals = true }).GetEditor(property, commonObjects, dirtyAction);
             }
             else
                 return (new Label() { Text = $"No editor for type {type.FullName}", ForeColor = Color.Red }, null, () => { });

@@ -75,6 +75,9 @@ namespace OpenWiiManager.Forms
             {
                 try
                 {
+                    if (_url == null)
+                        return false;
+
                     var res = await _url.GetAsync();
                     if (res.StatusCode < 200 || res.StatusCode >= 400)
                     {
