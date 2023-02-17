@@ -68,6 +68,9 @@ namespace OpenWiiManager.Controls
                     else
                         ControlPaint.DrawImageDisabled(e.Graphics, Image, imBounds.X, imBounds.Y, Color.Transparent);
                 }
+
+                if (Focused && ShowFocusCues)
+                    ControlPaint.DrawFocusRectangle(e.Graphics, new Rectangle(4, 4, Width - 8, Height - 8));
             }
             else
             {
@@ -91,6 +94,9 @@ namespace OpenWiiManager.Controls
                     else
                         ControlPaint.DrawImageDisabled(e.Graphics, Image, imBounds.X, imBounds.Y, BackColor);
                 }
+
+                if (Focused && ShowFocusCues)
+                    ControlPaint.DrawFocusRectangle(e.Graphics, new Rectangle(4, 4, Width - 8, Height - 8));
             }
         }
     }
