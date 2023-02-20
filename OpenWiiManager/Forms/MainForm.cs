@@ -73,6 +73,8 @@ namespace OpenWiiManager.Forms
 
             Shown += MainForm_Shown;
             statusStrip1.HandleCreated += StatusStrip1_HandleCreated;
+
+            showFilesInExplorerToolStripMenuItem.Image = ShellUtil.GetIconAsImage(Environment.ExpandEnvironmentVariables(@"%systemroot%\explorer.exe"), ShellUtil.ShellIconSize.Small);
         }
 
         private void MainForm_LocationChanged(object? sender, EventArgs e)
@@ -82,13 +84,7 @@ namespace OpenWiiManager.Forms
 
         private void StatusStrip1_HandleCreated(object? sender, EventArgs e)
         {
-            btt = new(statusStrip1);
-            btt.strTitle = "Title text";
-            btt.strText = "Lorem ipsum dolor sit amet";
-            btt.icon = ToolTipIcon.Info;
-            btt.Create();
-            LocationChanged += MainForm_LocationChanged;
-            Resize += MainForm_LocationChanged;
+            
         }
 
         private void ListView1_HandleCreated(object? sender, EventArgs e)
@@ -784,6 +780,17 @@ namespace OpenWiiManager.Forms
 
         private void debugShowBalloonToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (btt == null)
+            {
+                btt = new(this);
+                btt.strTitle = "Title text";
+                btt.strText = "Lorem ipsum dolor sit amet";
+                btt.icon = ToolTipIcon.Info;
+                btt.Create();
+                LocationChanged += MainForm_LocationChanged;
+                Resize += MainForm_LocationChanged;
+            }
+
             btt.Show(notificationsButton.Bounds.Location);
         }
 
@@ -809,6 +816,12 @@ namespace OpenWiiManager.Forms
         private bool IsDolphinConfigured()
         {
             return !string.IsNullOrEmpty(ApplicationConfigurationSingleton.Instance.DolphinPath) && File.Exists(ApplicationConfigurationSingleton.Instance.DolphinPath);
+        }
+
+        private void showFilesInExplorerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var files = listView1.SelectedItems.OfType<ListViewItem>().Select(i => i.Tag?.ToString()).Where(i => i != null).Select(i => i ?? "").ToArray();
+            ShellUtil.ShowFilesInExplorer(files);
         }
     }
 

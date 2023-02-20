@@ -10,12 +10,20 @@ namespace OpenWiiManager.Win32
     {
         #region <WinUser.h>
         #region Window messages
+        public const int WM_ACTIVATE = 0x0006;
         public const int WM_PAINT = 0x000F;
         public const int WM_ERASEBKGND = 0x0014;
         public const int WM_SHOWWINDOW = 0x0018;
         public const int WM_NCHITTEST = 0x0084;
         public const int WM_CHANGEUISTATE = 0x0127;
+        public const int WM_LBUTTONUP = 0x202;
         public const int WM_USER = 0x0400;
+        #endregion
+
+        #region WM_ACTIVATE state values
+        public const int WA_INACTIVE = 0;
+        public const int WA_ACTIVE = 1;
+        public const int WA_CLICKACTIVE = 2;
         #endregion
 
         #region Window styles
@@ -175,6 +183,15 @@ namespace OpenWiiManager.Win32
         #region Begin ShellExecuteEx and family
         public const uint SEE_MASK_INVOKEIDLIST = 12;
         #endregion
+
+        #region Image lists
+        public const int SHIL_LARGE = 0x0;
+        public const int SHIL_SMALL = 0x1;
+        public const int SHIL_EXTRALARGE = 0x2;
+        public const int SHIL_SYSSMALL = 0x3;
+        public const int SHIL_JUMBO = 0x4;
+        public const int SHIL_LAST = 0x4;
+        #endregion
         #endregion
 
         #region <CommCtrl.h>
@@ -219,6 +236,16 @@ namespace OpenWiiManager.Win32
         public const int TTM_SETTOOLINFO = (WM_USER + 54);
         public const int TTM_UPDATETIPTEXT = (WM_USER + 57);
         #endregion
+
+        #region IMAGE APIS
+        public const int ILD_TRANSPARENT = 0x00000001;
+        public const int ILD_IMAGE = 0x00000020;
+        #endregion
+        #endregion
+
+        #region Misc (GUIDS etc.)
+        public const string IID_IImageList = @"{46EB5926-582E-4017-9FDF-E8998DAA0950}";
+        public const string IID_IImageList2 = @"{192B9D83-50FC-457B-90A0-2B82A8B5DAE1}";
         #endregion
     }
 }

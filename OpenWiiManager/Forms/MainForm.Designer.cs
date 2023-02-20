@@ -63,6 +63,8 @@
             this.columnHeader6 = new System.Windows.Forms.ColumnHeader();
             this.gameContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.viewGameOnGameTDBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.playGameUsingDolphinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showFilesInExplorerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.propertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
@@ -71,7 +73,6 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.webPictureBox2 = new OpenWiiManager.Forms.WebPictureBox();
             this.notificationToolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.playGameUsingDolphinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.gameContextMenuStrip.SuspendLayout();
@@ -356,6 +357,7 @@
             this.gameContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.viewGameOnGameTDBToolStripMenuItem,
             this.playGameUsingDolphinToolStripMenuItem,
+            this.showFilesInExplorerToolStripMenuItem,
             this.propertiesToolStripMenuItem});
             this.gameContextMenuStrip.Name = "gameContextMenuStrip";
             this.gameContextMenuStrip.Size = new System.Drawing.Size(291, 92);
@@ -367,17 +369,34 @@
             this.viewGameOnGameTDBToolStripMenuItem.Name = "viewGameOnGameTDBToolStripMenuItem";
             this.viewGameOnGameTDBToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.V)));
-            this.viewGameOnGameTDBToolStripMenuItem.Size = new System.Drawing.Size(273, 22);
+            this.viewGameOnGameTDBToolStripMenuItem.Size = new System.Drawing.Size(290, 22);
             this.viewGameOnGameTDBToolStripMenuItem.Text = "View game on GameTDB";
             this.viewGameOnGameTDBToolStripMenuItem.Click += new System.EventHandler(this.viewGameOnGameTDBToolStripMenuItem_Click);
+            // 
+            // playGameUsingDolphinToolStripMenuItem
+            // 
+            this.playGameUsingDolphinToolStripMenuItem.Image = global::OpenWiiManager.Properties.Resources.dolphin_16;
+            this.playGameUsingDolphinToolStripMenuItem.Name = "playGameUsingDolphinToolStripMenuItem";
+            this.playGameUsingDolphinToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.F12)));
+            this.playGameUsingDolphinToolStripMenuItem.Size = new System.Drawing.Size(290, 22);
+            this.playGameUsingDolphinToolStripMenuItem.Text = "Play game using Dolphin";
+            this.playGameUsingDolphinToolStripMenuItem.Click += new System.EventHandler(this.playGameUsingDolphinToolStripMenuItem_Click);
+            // 
+            // showFilesInExplorerToolStripMenuItem
+            // 
+            this.showFilesInExplorerToolStripMenuItem.Name = "showFilesInExplorerToolStripMenuItem";
+            this.showFilesInExplorerToolStripMenuItem.Size = new System.Drawing.Size(290, 22);
+            this.showFilesInExplorerToolStripMenuItem.Text = "Show file(s) in Explorer";
+            this.showFilesInExplorerToolStripMenuItem.Click += new System.EventHandler(this.showFilesInExplorerToolStripMenuItem_Click);
             // 
             // propertiesToolStripMenuItem
             // 
             this.propertiesToolStripMenuItem.Image = global::OpenWiiManager.Properties.Resources.Properties;
             this.propertiesToolStripMenuItem.Name = "propertiesToolStripMenuItem";
             this.propertiesToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Return)));
-            this.propertiesToolStripMenuItem.Size = new System.Drawing.Size(273, 22);
-            this.propertiesToolStripMenuItem.Text = "Properties...";
+            this.propertiesToolStripMenuItem.Size = new System.Drawing.Size(290, 22);
+            this.propertiesToolStripMenuItem.Text = "Properties";
             this.propertiesToolStripMenuItem.Click += new System.EventHandler(this.propertiesToolStripMenuItem_Click);
             // 
             // imageList1
@@ -458,16 +477,6 @@
             this.notificationToolTip.IsBalloon = true;
             this.notificationToolTip.ShowAlways = true;
             // 
-            // playGameUsingDolphinToolStripMenuItem
-            // 
-            this.playGameUsingDolphinToolStripMenuItem.Image = global::OpenWiiManager.Properties.Resources.dolphin_16;
-            this.playGameUsingDolphinToolStripMenuItem.Name = "playGameUsingDolphinToolStripMenuItem";
-            this.playGameUsingDolphinToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
-            | System.Windows.Forms.Keys.F12)));
-            this.playGameUsingDolphinToolStripMenuItem.Size = new System.Drawing.Size(290, 22);
-            this.playGameUsingDolphinToolStripMenuItem.Text = "Play game using Dolphin";
-            this.playGameUsingDolphinToolStripMenuItem.Click += new System.EventHandler(this.playGameUsingDolphinToolStripMenuItem_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -541,5 +550,6 @@
         private ToolTip notificationToolTip;
         private ToolStripMenuItem debugShowBalloonToolStripMenuItem;
         private ToolStripMenuItem playGameUsingDolphinToolStripMenuItem;
+        private ToolStripMenuItem showFilesInExplorerToolStripMenuItem;
     }
 }

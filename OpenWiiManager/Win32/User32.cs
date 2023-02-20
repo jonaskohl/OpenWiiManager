@@ -10,13 +10,13 @@ namespace OpenWiiManager.Win32
 {
     internal static class User32
     {
-        [DllImport("user32.dll", SetLastError = true)]
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, IntPtr lParam);
 
-        [DllImport("user32.dll", SetLastError = true)]
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern int SendMessage(IntPtr hWnd, uint msg, uint wParam, uint lParam);
 
-        [DllImport("user32.dll", SetLastError = true)]
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern int SendMessage(IntPtr hWnd, int msg, int wParam, int lParam);
 
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
@@ -64,7 +64,34 @@ namespace OpenWiiManager.Win32
         [DllImport("user32.dll")]
         public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, int uFlags);
 
+        [DllImport("user32.dll", SetLastError = true, EntryPoint = "SetWindowLongW")]
+        public static extern IntPtr SetWindowLongPtr32(IntPtr hWnd, int nIndex, IntPtr dwNewLong);
+
+        [DllImport("user32.dll", SetLastError = true, EntryPoint = "SetWindowLongPtrW")]
+        public static extern IntPtr SetWindowLongPtr64(IntPtr hWnd, int nIndex, IntPtr dwNewLong);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern IntPtr CallWindowProc(WndProcDelegate lpPrevWndFunc, IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern bool DestroyIcon(IntPtr hIcon);
+
+        // Delegates
+        public delegate IntPtr WndProcDelegate(IntPtr hWnd, int message, IntPtr wParam, IntPtr lParam);
+
         // Macros
+        public static WndProcDelegate SetWindowProc(IntPtr hWnd, WndProcDelegate newWndProc)
+        {
+            IntPtr newWndProcPtr = Marshal.GetFunctionPointerForDelegate(newWndProc);
+            IntPtr oldWndProcPtr;
+
+            if (IntPtr.Size == 4)
+                oldWndProcPtr = SetWindowLongPtr32(hWnd, -4, newWndProcPtr);
+            else
+                oldWndProcPtr = SetWindowLongPtr64(hWnd, -4, newWndProcPtr);
+
+            return (WndProcDelegate)Marshal.GetDelegateForFunctionPointer(oldWndProcPtr, typeof(WndProcDelegate));
+        }
 
         public static IntPtr CreateWindow(string lpClassName, string lpWindowName, uint dwStyle, int x, int y, int nWidth, int nHeight, IntPtr hWndParent, IntPtr hMenu, IntPtr hInstance, IntPtr lpParam)
         {

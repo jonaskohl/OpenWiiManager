@@ -70,7 +70,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(384, 214);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(490, 480);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // pictureBox1
@@ -103,12 +103,12 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.Controls.Add(this.flowLayoutPanel1, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.flowLayoutPanel2, 0, 0);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 184);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 450);
             this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(384, 30);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(490, 30);
             this.tableLayoutPanel2.TabIndex = 3;
             // 
             // flowLayoutPanel1
@@ -117,7 +117,7 @@
             this.flowLayoutPanel1.AutoSize = true;
             this.flowLayoutPanel1.Controls.Add(this.linkLabel1);
             this.flowLayoutPanel1.Controls.Add(this.button1);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(205, 3);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(311, 3);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(176, 24);
             this.flowLayoutPanel1.TabIndex = 0;
@@ -193,8 +193,8 @@
             // bodyTitleLabel1
             // 
             this.bodyTitleLabel1.AutoSize = true;
-            this.bodyTitleLabel1.Location = new System.Drawing.Point(73, 39);
-            this.bodyTitleLabel1.Margin = new System.Windows.Forms.Padding(3);
+            this.bodyTitleLabel1.Location = new System.Drawing.Point(73, 42);
+            this.bodyTitleLabel1.Margin = new System.Windows.Forms.Padding(3, 6, 3, 3);
             this.bodyTitleLabel1.Name = "bodyTitleLabel1";
             this.bodyTitleLabel1.Size = new System.Drawing.Size(73, 15);
             this.bodyTitleLabel1.TabIndex = 5;
@@ -203,12 +203,12 @@
             // textBox1
             // 
             this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox1.Location = new System.Drawing.Point(73, 60);
+            this.textBox1.Location = new System.Drawing.Point(73, 63);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(308, 121);
+            this.textBox1.Size = new System.Drawing.Size(414, 384);
             this.textBox1.TabIndex = 6;
             // 
             // AboutForm
@@ -217,7 +217,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.button1;
-            this.ClientSize = new System.Drawing.Size(402, 232);
+            this.ClientSize = new System.Drawing.Size(508, 498);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));

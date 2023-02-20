@@ -8,6 +8,7 @@ using System.Drawing;
 using System.ComponentModel;
 using OpenWiiManager.Win32;
 using OpenWiiManager.Win32.Structures;
+using System.Diagnostics;
 
 namespace OpenWiiManager.Controls
 {
@@ -113,7 +114,13 @@ namespace OpenWiiManager.Controls
         /// <param name="pt">The point at which the tracking ToolTip will be displayed, in screen coordinates.</param>
         internal static void TrackPosition(IntPtr _wndTooltip, Point pt)
         {
-            User32.SendMessage(_wndTooltip, Constants.TTM_TRACKPOSITION, 0, makeLParam(pt));
+#pragma warning disable CS0618 // Type or member is obsolete
+            try
+            {
+                User32.SendMessage(_wndTooltip, Constants.TTM_TRACKPOSITION, 0, makeLParam(pt));
+            }
+            catch (ExecutionEngineException) {}
+#pragma warning restore CS0618 // Type or member is obsolete
         }
 
         /// <summary>Sets the maximum width for a ToolTip window</summary>
@@ -208,7 +215,21 @@ namespace OpenWiiManager.Controls
                         Constants.SWP_NOMOVE | Constants.SWP_NOSIZE | Constants.SWP_NOACTIVATE))
                 throw new Win32Exception();
 
+            //prevWndProc = User32.SetWindowProc(m_wndToolTip, WndProc);
+
             SetMaxTipWidth(m_wndToolTip, m_pxMaxWidth);
+        }
+
+        User32.WndProcDelegate prevWndProc;
+
+        private IntPtr WndProc(IntPtr hWnd, int message, IntPtr wParam, IntPtr lParam)
+        {
+            if (message == Constants.WM_LBUTTONUP)
+            {
+                Hide();
+                return IntPtr.Zero;
+            }
+            return prevWndProc(hWnd, message, wParam, lParam);
         }
 
         bool m_bVisible = false;
@@ -255,7 +276,7 @@ namespace OpenWiiManager.Controls
 
             // http://www.deez.info/sengelha/2008/06/12/balloon-tooltips/
             if (!AddTool(m_wndToolTip, m_toolinfo))
-                throw new ApplicationException("Unable to register the tooltip");
+                throw new Win32Exception("Unable to register the tooltip");
 
             SetTitle(m_wndToolTip, icon, strTitle);
 
