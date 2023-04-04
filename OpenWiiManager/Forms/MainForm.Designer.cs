@@ -66,6 +66,7 @@
             this.playGameUsingDolphinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showFilesInExplorerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.propertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.detailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -358,9 +359,10 @@
             this.viewGameOnGameTDBToolStripMenuItem,
             this.playGameUsingDolphinToolStripMenuItem,
             this.showFilesInExplorerToolStripMenuItem,
-            this.propertiesToolStripMenuItem});
+            this.propertiesToolStripMenuItem,
+            this.detailsToolStripMenuItem});
             this.gameContextMenuStrip.Name = "gameContextMenuStrip";
-            this.gameContextMenuStrip.Size = new System.Drawing.Size(291, 92);
+            this.gameContextMenuStrip.Size = new System.Drawing.Size(291, 114);
             this.gameContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.gameContextMenuStrip_Opening);
             // 
             // viewGameOnGameTDBToolStripMenuItem
@@ -398,6 +400,16 @@
             this.propertiesToolStripMenuItem.Size = new System.Drawing.Size(290, 22);
             this.propertiesToolStripMenuItem.Text = "Properties";
             this.propertiesToolStripMenuItem.Click += new System.EventHandler(this.propertiesToolStripMenuItem_Click);
+            // 
+            // detailsToolStripMenuItem
+            // 
+            this.detailsToolStripMenuItem.Image = global::OpenWiiManager.Properties.Resources.CD_View_1_;
+            this.detailsToolStripMenuItem.Name = "detailsToolStripMenuItem";
+            this.detailsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.I)));
+            this.detailsToolStripMenuItem.Size = new System.Drawing.Size(290, 22);
+            this.detailsToolStripMenuItem.Text = "Details...";
+            this.detailsToolStripMenuItem.Click += new System.EventHandler(this.detailsToolStripMenuItem_Click);
             // 
             // imageList1
             // 
@@ -551,5 +563,6 @@
         private ToolStripMenuItem debugShowBalloonToolStripMenuItem;
         private ToolStripMenuItem playGameUsingDolphinToolStripMenuItem;
         private ToolStripMenuItem showFilesInExplorerToolStripMenuItem;
+        private ToolStripMenuItem detailsToolStripMenuItem;
     }
 }

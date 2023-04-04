@@ -2,6 +2,7 @@ using OpenWiiManager.Controls;
 using OpenWiiManager.Forms;
 using OpenWiiManager.Language.Types;
 using System.ComponentModel;
+using System.Globalization;
 
 namespace OpenWiiManager
 {
@@ -17,6 +18,11 @@ namespace OpenWiiManager
         [STAThread]
         static void Main()
         {
+            CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("en-US");
+            CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo("en-US");
+            CultureInfo.DefaultThreadCurrentCulture = CultureInfo.GetCultureInfo("en-US"); 
+            CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.GetCultureInfo("en-US");
+
             TypeDescriptor.AddAttributes(
                 typeof(Keys),
                 new TypeConverterAttribute(typeof(ExtraKeysConverter))

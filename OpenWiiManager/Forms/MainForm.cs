@@ -1,3 +1,5 @@
+//#define FEATURE__SHA1_ISO
+
 using OpenWiiManager.Controls;
 using OpenWiiManager.Controls.Data;
 using OpenWiiManager.Core;
@@ -11,6 +13,8 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
+using System.Security.Policy;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
@@ -41,6 +45,10 @@ namespace OpenWiiManager.Forms
 
         readonly ObservableCollection<BackgroundOperation> backgroundOperations = new();
 
+#if FEATURE__SHA1_ISO
+        int __hashColumnIndex = -1;
+#endif
+
         public MainForm()
         {
             InitializeComponent();
@@ -69,6 +77,10 @@ namespace OpenWiiManager.Forms
             sorter.Order = SortOrder.Ascending;
             sorter.SortColumn = 0;
 
+#if FEATURE__SHA1_ISO
+            __hashColumnIndex = listView1.Columns.Add("Hash (SHA1)").Index;
+#endif
+
             gameSelectCancellationToken = gameSelectCancellationTokenSource.Token;
 
             Shown += MainForm_Shown;
@@ -84,7 +96,7 @@ namespace OpenWiiManager.Forms
 
         private void StatusStrip1_HandleCreated(object? sender, EventArgs e)
         {
-            
+
         }
 
         private void ListView1_HandleCreated(object? sender, EventArgs e)
@@ -319,6 +331,9 @@ namespace OpenWiiManager.Forms
                         item.SubItems.Add(""); // Publisher
                         item.SubItems.Add(""); // Languages
                         item.SubItems.Add(""); // Date
+#if FEATURE__SHA1_ISO
+                        item.SubItems.Add(""); // Hash
+#endif
                         item.Tag = file;
 
                         IndeterminateBackgroundOperationAsync($"Scanning database for file {basename}", Task.Run(() => GetDeferredWiiTDBInfo(meta.GameId, item, file))).ContinueWith(t =>
@@ -328,8 +343,16 @@ namespace OpenWiiManager.Forms
                         });
                     });
                 }
-            }).ContinueWith(t =>
+            }).ContinueWith(async t =>
             {
+#if FEATURE__SHA1_ISO
+                await listView1.Items.OfType<ListViewItem>().ParallelForEachAsync(async itm =>
+                {
+                    var file = itm.Tag?.ToString() ?? "";
+                    await IndeterminateBackgroundOperationAsync($"Calculating hash of {Path.GetFileName(file)}", GetDeferredFileHash(itm, file));
+                }, maxDegreeOfParallelism: 1);
+#endif
+
                 Invoke(() =>
                 {
                     refreshToolStripMenuItem.Enabled = true;
@@ -493,6 +516,36 @@ namespace OpenWiiManager.Forms
                 }
             });
         }
+
+#if FEATURE__SHA1_ISO
+        private async Task GetDeferredFileHash(ListViewItem item, string filename)
+        {
+            Color prevColor = default;
+            Font? prevFont = null;
+            Invoke(() =>
+            {
+                prevColor = item.SubItems[__hashColumnIndex].ForeColor;
+                prevFont = item.SubItems[__hashColumnIndex].Font;
+
+                item.SubItems[__hashColumnIndex].Text = "Calculating...";
+                item.SubItems[__hashColumnIndex].ForeColor = SystemColors.GrayText;
+                item.SubItems[__hashColumnIndex].Font = new Font(item.SubItems[8].Font, FontStyle.Italic);
+            });
+            var total = new FileInfo(filename).Length;
+            var hash = await IOUtil.GetFileSHA1Async(filename, new Progress<long>(l =>
+            {
+                item.SubItems[__hashColumnIndex].Text = $"Calculating... ({Math.Round(l / (decimal)total * 100l, 1)}%)";
+            }));
+            Invoke(() =>
+            {
+                item.SubItems[__hashColumnIndex].Text = hash;
+                item.SubItems[__hashColumnIndex].ForeColor = prevColor;
+                var newFont = item.SubItems[__hashColumnIndex].Font;
+                item.SubItems[__hashColumnIndex].Font = prevFont;
+                newFont.Dispose();
+            });
+        }
+#endif
 
         private void CheckForOOBE()
         {
@@ -716,6 +769,7 @@ namespace OpenWiiManager.Forms
                 SelectGameWithId(listView1.SelectedItems.OfType<ListViewItem>().FirstOrDefault()?.SubItems[1]?.Text);
 
             playGameUsingDolphinToolStripMenuItem.Enabled = IsDolphinConfigured() && listView1.SelectedItems.Count == 1;
+            detailsToolStripMenuItem.Enabled = listView1.SelectedItems.Count == 1;
         }
 
         private void gameContextMenuStrip_Opening(object sender, CancelEventArgs e)
@@ -776,6 +830,20 @@ namespace OpenWiiManager.Forms
         {
             var files = listView1.SelectedItems.OfType<ListViewItem>().Select(i => i.Tag?.ToString()).Where(i => i != null).Select(i => i ?? "").ToArray();
             ShellUtil.ShowFileProperties(files);
+        }
+
+        private void detailsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var items = listView1.SelectedItems.OfType<ListViewItem>();
+
+            if (items.Count() == 1)
+            {
+                using var f = new DetailsForm();
+                // TODO
+                f.IsoFileName = items.First().Tag.ToString();
+                f.GameId = items.First().SubItems[1].Text;
+                f.ShowDialog(this);
+            }
         }
 
         private void debugShowBalloonToolStripMenuItem_Click(object sender, EventArgs e)
