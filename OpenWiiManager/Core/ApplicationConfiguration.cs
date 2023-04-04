@@ -21,6 +21,9 @@ namespace OpenWiiManager.Core
         private string? isoPath;
 
         [StateSerialization]
+        private bool upperCaseHashes;
+
+        [StateSerialization]
         private string? dolphinPath;
 
         [StateSerialization]
@@ -38,6 +41,12 @@ namespace OpenWiiManager.Core
             editorCreatorType: typeof(FolderBrowserEditorCreator)
         )]
         public string? IsoPath { get => isoPath; set { isoPath = value; Serialize(); } }
+
+        [SettingsCategory("Details",
+            label: "Use uppercase letters in file hashes",
+            description: "If checked, letters in the hexadecimal strings of file hashes will be upper case"
+        )]
+        public bool UpperCaseHashes { get => upperCaseHashes; set { upperCaseHashes = value; Serialize(); } }
 
         [SettingsCategory("Emulation",
             label: "Path to Dolphin",
@@ -90,6 +99,28 @@ namespace OpenWiiManager.Core
         }
 
         public abstract (Control, Control?, Action) GetEditor(KeyValuePair<PropertyInfo, SettingsCategoryAttribute?> property, SettingsForm.SettingsFormCommonObjects commonObjects, Action? triggerDirty = null);
+    }
+
+    public class BooleanEditorCreator : BaseEditorCreator
+    {
+        public override (Control, Control?, Action) GetEditor(KeyValuePair<PropertyInfo, SettingsCategoryAttribute?> property, SettingsForm.SettingsFormCommonObjects commonObjects, Action? triggerDirty = null)
+        {
+            var editControl = new CheckBox()
+            {
+                AutoSize = true,
+                Anchor = AnchorStyles.Left,
+                Margin = new Padding(3, 1, 3, 1),
+                Text = property.Value?.Label ?? property.Key.Name,
+                Checked = (bool?)Convert.ChangeType(property.Key.GetValue(ApplicationConfigurationSingleton.Instance), typeof(bool)) ?? false
+            };
+
+            editControl.CheckedChanged += (sender, e) => triggerDirty?.Invoke();
+
+            if (!string.IsNullOrEmpty(property.Value?.Description))
+                commonObjects.MainToolTip.SetToolTip(editControl, property.Value?.Description);
+
+            return (editControl, null, () => property.Key.SetValue(ApplicationConfigurationSingleton.Instance, Convert.ChangeType(editControl.Checked, property.Key.PropertyType)));
+        }
     }
 
     public class NumericEditorCreator : BaseEditorCreator

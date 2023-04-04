@@ -60,5 +60,82 @@ Ookii.Dialogs.WinForms: {GetAssemblyVersion<VistaFileDialog>()}";
         {
             Process.Start(new ProcessStartInfo("https://www.gametdb.com/") { UseShellExecute = true });
         }
+
+        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            using var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("OpenWiiManager.LICENSE.txt");
+            if (stream == null)
+                return;
+            using var reader = new StreamReader(stream, Encoding.UTF8);
+            var text = reader.ReadToEnd();
+            Form? f = default;
+            using var m = new MenuStrip()
+            {
+                Padding = Padding.Empty,
+                AutoSize = false,
+                Height = 20,
+                Items = {
+                        new ToolStripMenuItem()
+                        {
+                            Padding = new Padding(2, 0, 2, 0),
+                            DropDownItems = {
+                                new ToolStripMenuItem("Exit", null, (sender, e) =>
+                                {
+                                    f?.Close();
+                                })
+                                {
+                                    ShortcutKeyDisplayString = Keys.Escape.ToString()
+                                }
+                            },
+                            Text = "&File"
+                        }
+                    }
+            };
+            f = new Form()
+            {
+                AutoScaleMode = AutoScaleMode.Dpi,
+                Size = new Size(600, 400),
+                Text = "License",
+                ShowIcon = false,
+                StartPosition = FormStartPosition.CenterParent,
+                ShowInTaskbar = false,
+                MaximizeBox = false,
+                MinimizeBox = false,
+                KeyPreview = true
+            };
+            using var t = new TextBox()
+            {
+                Font = new Font("Consolas", 10, FontStyle.Regular, GraphicsUnit.Point),
+                Multiline = true,
+                ReadOnly = true,
+                BorderStyle = BorderStyle.None,
+                WordWrap = true,
+                ScrollBars = ScrollBars.Vertical,
+                Dock = DockStyle.Fill,
+                Margin = Padding.Empty,
+                Text = text.Replace("\n", Environment.NewLine).Trim()
+            };
+            t.KeyDown += (sender, e) =>
+            {
+                Debug.WriteLine(e.KeyData.ToString());
+                if (e.KeyData == Keys.Escape)
+                {
+                    f.Close();
+                }
+            };
+            f.PreviewKeyDown += (sender, e) =>
+            {
+                Debug.WriteLine(e.KeyData.ToString());
+                if (e.KeyData == Keys.Escape)
+                {
+                    f.Close();
+                }
+            };
+            f.Controls.Add(t);
+            f.Controls.Add(m);
+            f.MainMenuStrip = m;
+            f.ShowDialog(this);
+            f.Dispose();
+        }
     }
 }

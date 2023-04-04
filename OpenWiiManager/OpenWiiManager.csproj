@@ -12,8 +12,22 @@
 		<Copyright>Copyright © 2023 $(Authors)</Copyright>
 	</PropertyGroup>
 
+	<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+		<Exec Command="copy ..\COPYING .\LICENSE.txt" />
+	</Target>
+
+	<ItemGroup>
+	  <None Remove="license.txt" />
+	</ItemGroup>
+
 	<ItemGroup>
 	  <Content Include="owm.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="LICENSE.txt">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </EmbeddedResource>
 	</ItemGroup>
 
 	<ItemGroup>

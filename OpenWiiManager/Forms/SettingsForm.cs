@@ -29,6 +29,7 @@ namespace OpenWiiManager.Forms
         Dictionary<string, Image> categoryIcons = new()
         {
             { "General", Properties.Resources.Window_Options },
+            { "Details", Properties.Resources.CD_View_1_ },
             { "Emulation", Properties.Resources.controller },
             { "Advanced", Properties.Resources.Tools },
         };
@@ -174,6 +175,10 @@ namespace OpenWiiManager.Forms
             else if (IsIntegerType(type))
             {
                 return (new NumericEditorCreator() { HasDecimals = true }).GetEditor(property, commonObjects, dirtyAction);
+            }
+            else if (type == typeof(bool))
+            {
+                return new BooleanEditorCreator().GetEditor(property, commonObjects, dirtyAction);
             }
             else
                 return (new Label() { Text = $"No editor for type {type.FullName}", ForeColor = Color.Red }, null, () => { });

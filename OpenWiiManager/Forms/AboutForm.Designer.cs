@@ -42,6 +42,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.bodyTitleLabel1 = new OpenWiiManager.Controls.BodyTitleLabel();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
@@ -99,8 +100,8 @@
             this.tableLayoutPanel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.tableLayoutPanel2.ColumnCount = 2;
             this.tableLayoutPanel1.SetColumnSpan(this.tableLayoutPanel2, 2);
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.Controls.Add(this.flowLayoutPanel1, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.flowLayoutPanel2, 0, 0);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 450);
@@ -115,19 +116,21 @@
             // 
             this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.flowLayoutPanel1.AutoSize = true;
+            this.flowLayoutPanel1.Controls.Add(this.linkLabel2);
             this.flowLayoutPanel1.Controls.Add(this.linkLabel1);
             this.flowLayoutPanel1.Controls.Add(this.button1);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(311, 3);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(234, 3);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(176, 24);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(253, 24);
             this.flowLayoutPanel1.TabIndex = 0;
+            this.flowLayoutPanel1.WrapContents = false;
             // 
             // linkLabel1
             // 
             this.linkLabel1.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.linkLabel1.AutoSize = true;
             this.linkLabel1.LinkColor = System.Drawing.SystemColors.HotTrack;
-            this.linkLabel1.Location = new System.Drawing.Point(3, 4);
+            this.linkLabel1.Location = new System.Drawing.Point(80, 4);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(98, 15);
             this.linkLabel1.TabIndex = 1;
@@ -138,7 +141,7 @@
             // button1
             // 
             this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.button1.Location = new System.Drawing.Point(104, 0);
+            this.button1.Location = new System.Drawing.Point(181, 0);
             this.button1.Margin = new System.Windows.Forms.Padding(0);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(72, 24);
@@ -157,6 +160,7 @@
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
             this.flowLayoutPanel2.Size = new System.Drawing.Size(156, 16);
             this.flowLayoutPanel2.TabIndex = 1;
+            this.flowLayoutPanel2.WrapContents = false;
             // 
             // label1
             // 
@@ -211,6 +215,19 @@
             this.textBox1.Size = new System.Drawing.Size(414, 384);
             this.textBox1.TabIndex = 6;
             // 
+            // linkLabel2
+            // 
+            this.linkLabel2.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.linkLabel2.AutoSize = true;
+            this.linkLabel2.LinkColor = System.Drawing.SystemColors.HotTrack;
+            this.linkLabel2.Location = new System.Drawing.Point(3, 4);
+            this.linkLabel2.Name = "linkLabel2";
+            this.linkLabel2.Size = new System.Drawing.Size(71, 15);
+            this.linkLabel2.TabIndex = 2;
+            this.linkLabel2.TabStop = true;
+            this.linkLabel2.Text = "View license";
+            this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked);
+            // 
             // AboutForm
             // 
             this.AcceptButton = this.button1;
@@ -257,5 +274,6 @@
         private Label label2;
         private Controls.BodyTitleLabel bodyTitleLabel1;
         private TextBox textBox1;
+        private LinkLabel linkLabel2;
     }
 }
