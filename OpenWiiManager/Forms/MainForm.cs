@@ -306,7 +306,7 @@ namespace OpenWiiManager.Forms
 
                 foreach (var file in
                            Directory.EnumerateFiles(ApplicationConfigurationSingleton.Instance.IsoPath, "*.iso")
-                    //.Union(Directory.EnumerateFiles(ApplicationConfigurationSingleton.Instance.IsoPath, "*.rvz"))
+                    .Union(Directory.EnumerateFiles(ApplicationConfigurationSingleton.Instance.IsoPath, "*.rvz"))
                     //.Union(Directory.EnumerateFiles(ApplicationConfigurationSingleton.Instance.IsoPath, "*.nkit"))
                     .Union(Directory.EnumerateFiles(ApplicationConfigurationSingleton.Instance.IsoPath, "*.wbfs"))
                 )
@@ -420,8 +420,48 @@ namespace OpenWiiManager.Forms
             {
                 ".iso" => await GetIsoMeta(file),
                 ".wbfs" => await GetWbfsMeta(file),
+                ".rvz" => await GetRvzMeta(file),
                 _ => null
             };
+        }
+
+        private Task<IsoMeta?> GetRvzMeta(string file)
+        {
+            return Task.Run(() =>
+            {
+                if (!File.Exists(file))
+                    return null;
+
+                var info = new FileInfo(file);
+
+                using var hFile = File.Open(file, FileMode.Open);
+                using var breader = new BinaryReader(hFile);
+                var rvzBytes = breader.ReadBytes(3);
+                if (rvzBytes.All(b => b == 0)) // All null bytes. Never the case on an RVZ file
+                    return null;
+                hFile.Seek(0x58, SeekOrigin.Begin);
+                var idBytes = breader.ReadBytes(6);
+                if (idBytes.All(b => b == 0)) // All null bytes. Never the case on an RVZ file
+                    return null;
+                hFile.Seek(0x5F, SeekOrigin.Begin);
+                var version = breader.ReadByte();
+                hFile.Seek(0x78, SeekOrigin.Begin);
+                var titleBytes = breader.ReadBytes(0x40);
+                var idString = Encoding.ASCII.GetString(idBytes);
+                var titleString = Encoding.ASCII.GetString(titleBytes);
+                var regionByte = idBytes[3];
+                GameRegion region;
+                if (!regionMapping.TryGetValue(regionByte, out region))
+                    region = GameRegion._UNKNOWN_;
+                return new IsoMeta()
+                {
+                    @__rawRegionByteValue = regionByte,
+                    GameId = idString,
+                    Region = region,
+                    Title = titleString,
+                    Version = version,
+                };
+            });
         }
 
         private Task<IsoMeta?> GetWbfsMeta(string file)

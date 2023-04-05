@@ -140,6 +140,64 @@ namespace OpenWiiManager.Forms
             generalTableLayoutPanel.Controls.Add(label, 0, i);
             generalTableLayoutPanel.Controls.Add(flpanel, 1, i);
         }
+        public void AddRatingsProperty(string name, XElement? ratingElem)
+        {
+            var label = new Label()
+            {
+                Text = name,
+                AutoSize = true,
+                Anchor = AnchorStyles.Left
+            };
+            var flpanel = new FlowLayoutPanel()
+            {
+                AutoSize = true,
+                AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                WrapContents = true,
+                Location = Point.Empty,
+                Dock = DockStyle.Fill,
+                Margin = new Padding(3, 1, 3, 1)
+            };
+            var ratingText = "n/a";
+            if (ratingElem != null)
+            {
+                ratingText = $"{ratingElem?.Attribute("value")?.Value} ({ratingElem?.Attribute("type")?.Value})";
+                var ratingDescElems = ratingElem?.Elements("descriptor");
+                if (ratingDescElems?.Any() == true)
+                    ratingText += $": {string.Join(", ", ratingDescElems.Select(e => e?.Value?.ToTitleCase() ?? ""))}";
+            }
+            var ratingType = ratingElem?.Attribute("type")?.Value.ToLower();
+            var ratingValue = ratingElem?.Attribute("value")?.Value.ToLower();
+
+            if (ratingType == null || ratingValue == null)
+            {
+
+            }
+            else
+            {
+                var img = Properties.Pictograms.ResourceManager.GetObject(ratingType + "_" + ratingValue) as Image;
+                if (img == null)
+                {
+                    Debug.WriteLine($"[WARN] Could not find icon resource named {ratingType}_{ratingValue}");
+                }
+                else
+                {
+                    var pbox = new PictureBox()
+                    {
+                        Size = new Size(32, 32),
+                        Image = img,
+                        Margin = new Padding(0, 2, 4, 2)
+                    };
+                    flpanel.Controls.Add(pbox);
+                    globalToolTip.SetToolTip(pbox, ratingText);
+                }
+            }
+
+            var i = Math.Max(generalTableLayoutPanel.RowStyles.Count, generalTableLayoutPanel.RowCount) - 1;
+            Debug.WriteLine($"Add ratings property {name} as row index {i}");
+            generalTableLayoutPanel.RowStyles.Insert(i, new RowStyle(SizeType.AutoSize));
+            generalTableLayoutPanel.Controls.Add(label, 0, i);
+            generalTableLayoutPanel.Controls.Add(flpanel, 1, i);
+        }
 
         public void AddPeripheralsProperty(string name, IEnumerable<(string, bool)> peripherals)
         {
@@ -158,7 +216,8 @@ namespace OpenWiiManager.Forms
                 Dock = DockStyle.Fill,
                 Margin = new Padding(3, 1, 3, 1)
             };
-            flpanel.Controls.AddRange(peripherals.Select(itm => {
+            flpanel.Controls.AddRange(peripherals.Select(itm =>
+            {
                 if (itm.Item1 == null)
                 {
                     Debug.WriteLine("[WARN] itm.Item1 == null");
@@ -215,14 +274,6 @@ namespace OpenWiiManager.Forms
             }
 
             var ratingElem = GameTDBEntry?.Element("rating");
-            var ratingText = "n/a";
-            if (ratingElem != null)
-            {
-                ratingText = $"{ratingElem?.Attribute("value")?.Value} ({ratingElem?.Attribute("type")?.Value})";
-                var ratingDescElems = ratingElem?.Elements("descriptor");
-                if (ratingDescElems?.Any() == true)
-                    ratingText += $": {string.Join(", ", ratingDescElems.Select(e => e?.Value?.ToTitleCase() ?? ""))}";
-            }
 
             var dateElem = GameTDBEntry?.Element("date");
 
@@ -237,7 +288,8 @@ namespace OpenWiiManager.Forms
             AddGeneralProperty("Publisher", GameTDBEntry?.Element("publisher")?.Value);
             AddGeneralProperty("Release date", $"{dateElem?.Attribute("year")?.Value}-{dateElem?.Attribute("month")?.Value?.PadLeft(2, '0')}-{dateElem?.Attribute("day")?.Value?.PadLeft(2, '0')}");
             AddTagListProperty("Genre(s)", (GameTDBEntry?.Element("genre")?.Value ?? "").Split(",").Select(s => s.ToTitleCase()).Select(s => HandleGenreSpecialCases(s)));
-            AddGeneralProperty("Rating", ratingText);
+            //AddGeneralProperty("Rating", ratingText);
+            AddRatingsProperty("Rating", ratingElem);
             AddGeneralProperty("Player count", GameTDBEntry?.Element("input")?.Attribute("players")?.Value);
             AddPeripheralsProperty("Required peripherals", peripherals?.Where(e => e.Item2)!);
             AddPeripheralsProperty("Optional peripherals", peripherals?.Where(e => !e.Item2)!);
