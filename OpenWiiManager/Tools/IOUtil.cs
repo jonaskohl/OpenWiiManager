@@ -34,26 +34,26 @@ namespace OpenWiiManager.Tools
             return s[0].Substring(0, k);
         }
 
-        public static async Task<string> GetFileSHA1Async(string filename, IProgress<long> progress)
+        public static async Task<string> GetFileSHA1Async(string filename, IProgress<long> progress, CancellationToken cancellationToken = default)
         {
             using var stream = new BufferedStream(File.OpenRead(filename), 1048576);
             var sha = SHA1.Create();
-            var checksum = await sha.ComputeHashAsync(stream, progress: progress);
+            var checksum = await sha.ComputeHashAsync(stream, cancellationToken: cancellationToken, progress: progress);
             return BitConverter.ToString(checksum).Replace("-", string.Empty).ToLower();
         }
 
-        public static async Task<string> GetFileMD5Async(string filename, IProgress<long> progress)
+        public static async Task<string> GetFileMD5Async(string filename, IProgress<long> progress, CancellationToken cancellationToken = default)
         {
             using var stream = new BufferedStream(File.OpenRead(filename), 1048576);
             var sha = MD5.Create();
-            var checksum = await sha.ComputeHashAsync(stream, progress: progress);
+            var checksum = await sha.ComputeHashAsync(stream, cancellationToken: cancellationToken, progress: progress);
             return BitConverter.ToString(checksum).Replace("-", string.Empty).ToLower();
         }
 
-        public static async Task<string> GetFileCRC32Async(string filename, IProgress<long> progress)
+        public static async Task<string> GetFileCRC32Async(string filename, IProgress<long> progress, CancellationToken cancellationToken = default)
         {
             using var stream = new BufferedStream(File.OpenRead(filename), 1048576);
-            var checksum = await Crc32Hash.CalculateAsync(stream, progress);
+            var checksum = await Crc32Hash.CalculateAsync(stream, progress, cancellationToken);
             return checksum.ToString("x8");
         }
     }

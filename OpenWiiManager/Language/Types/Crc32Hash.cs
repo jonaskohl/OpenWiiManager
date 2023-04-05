@@ -73,7 +73,7 @@ namespace OpenWiiManager.Language.Types
             return crc ^ 0xffffffff;
         }
 
-        public static async Task<uint> CalculateAsync(Stream stream, IProgress<long> progress, int chunkSize = 1024*1024)
+        public static async Task<uint> CalculateAsync(Stream stream, IProgress<long> progress, CancellationToken cancellationToken = default, int chunkSize = 1024*1024)
         {
             return await Task.Run(() =>
             {
@@ -84,18 +84,20 @@ namespace OpenWiiManager.Language.Types
                 using var reader = new BinaryReader(stream);
                 while (stream.Position < len)
                 {
+                    cancellationToken.ThrowIfCancellationRequested();
                     pos = stream.Position;
                     vals = reader.ReadBytes(chunkSize);
                     l = vals.Length;
                     for (i = 0; i < l; ++i)
                     {
+                        cancellationToken.ThrowIfCancellationRequested();
                         crc = CrcTable[((int)crc ^ vals[i]) & 0xff] ^ (crc >> 8);
                         //progress.Report(pos + i);
                     }
                     progress.Report(pos + l);
                 }
                 return crc ^ 0xffffffff;
-            });
+            }, cancellationToken);
         }
     }
 }

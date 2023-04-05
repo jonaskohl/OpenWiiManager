@@ -32,6 +32,9 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.generalTabPage = new System.Windows.Forms.TabPage();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.generalTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.artworkTabPage = new System.Windows.Forms.TabPage();
             this.hashesTabPage = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.progressBar3 = new System.Windows.Forms.ProgressBar();
@@ -46,9 +49,10 @@
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.button1 = new System.Windows.Forms.Button();
             this.globalToolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.artworkTabPage = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
+            this.generalTabPage.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.hashesTabPage.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -86,13 +90,52 @@
             // 
             // generalTabPage
             // 
+            this.generalTabPage.BackColor = System.Drawing.SystemColors.Window;
+            this.generalTabPage.Controls.Add(this.panel1);
+            this.generalTabPage.ForeColor = System.Drawing.SystemColors.WindowText;
             this.generalTabPage.Location = new System.Drawing.Point(4, 24);
             this.generalTabPage.Name = "generalTabPage";
             this.generalTabPage.Padding = new System.Windows.Forms.Padding(3);
             this.generalTabPage.Size = new System.Drawing.Size(387, 381);
             this.generalTabPage.TabIndex = 0;
             this.generalTabPage.Text = "General";
-            this.generalTabPage.UseVisualStyleBackColor = true;
+            // 
+            // panel1
+            // 
+            this.panel1.AutoScroll = true;
+            this.panel1.Controls.Add(this.generalTableLayoutPanel);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(3, 3);
+            this.panel1.Margin = new System.Windows.Forms.Padding(0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(381, 375);
+            this.panel1.TabIndex = 1;
+            // 
+            // generalTableLayoutPanel
+            // 
+            this.generalTableLayoutPanel.AutoSize = true;
+            this.generalTableLayoutPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.generalTableLayoutPanel.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
+            this.generalTableLayoutPanel.ColumnCount = 2;
+            this.generalTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.generalTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.generalTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.generalTableLayoutPanel.Location = new System.Drawing.Point(0, 0);
+            this.generalTableLayoutPanel.Name = "generalTableLayoutPanel";
+            this.generalTableLayoutPanel.RowCount = 1;
+            this.generalTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.generalTableLayoutPanel.Size = new System.Drawing.Size(381, 2);
+            this.generalTableLayoutPanel.TabIndex = 0;
+            // 
+            // artworkTabPage
+            // 
+            this.artworkTabPage.Location = new System.Drawing.Point(4, 24);
+            this.artworkTabPage.Name = "artworkTabPage";
+            this.artworkTabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.artworkTabPage.Size = new System.Drawing.Size(387, 381);
+            this.artworkTabPage.TabIndex = 2;
+            this.artworkTabPage.Text = "Artwork";
+            this.artworkTabPage.UseVisualStyleBackColor = true;
             // 
             // hashesTabPage
             // 
@@ -100,7 +143,7 @@
             this.hashesTabPage.Location = new System.Drawing.Point(4, 24);
             this.hashesTabPage.Name = "hashesTabPage";
             this.hashesTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.hashesTabPage.Size = new System.Drawing.Size(387, 376);
+            this.hashesTabPage.Size = new System.Drawing.Size(387, 381);
             this.hashesTabPage.TabIndex = 1;
             this.hashesTabPage.Text = "Hashes";
             this.hashesTabPage.UseVisualStyleBackColor = true;
@@ -130,7 +173,7 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(381, 370);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(381, 375);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // progressBar3
@@ -241,16 +284,6 @@
             this.button1.Text = "&OK";
             this.button1.UseVisualStyleBackColor = true;
             // 
-            // artworkTabPage
-            // 
-            this.artworkTabPage.Location = new System.Drawing.Point(4, 24);
-            this.artworkTabPage.Name = "artworkTabPage";
-            this.artworkTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.artworkTabPage.Size = new System.Drawing.Size(387, 376);
-            this.artworkTabPage.TabIndex = 2;
-            this.artworkTabPage.Text = "Artwork";
-            this.artworkTabPage.UseVisualStyleBackColor = true;
-            // 
             // DetailsForm
             // 
             this.AcceptButton = this.button1;
@@ -270,6 +303,9 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
+            this.generalTabPage.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.hashesTabPage.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
@@ -301,5 +337,7 @@
         private FlowLayoutPanel flowLayoutPanel1;
         private Button button1;
         private TabPage artworkTabPage;
+        private TableLayoutPanel generalTableLayoutPanel;
+        private Panel panel1;
     }
 }

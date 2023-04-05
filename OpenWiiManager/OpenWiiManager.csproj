@@ -41,6 +41,11 @@
 		<Compile Update="Controls\BodyTitleLabel.cs">
 		  <SubType>Component</SubType>
 		</Compile>
+		<Compile Update="Properties\Pictograms.Designer.cs">
+		  <DesignTime>True</DesignTime>
+		  <AutoGen>True</AutoGen>
+		  <DependentUpon>Pictograms.resx</DependentUpon>
+		</Compile>
 		<Compile Update="Properties\Resources.Designer.cs">
 			<DesignTime>True</DesignTime>
 			<AutoGen>True</AutoGen>
@@ -49,6 +54,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<EmbeddedResource Update="Properties\Pictograms.resx">
+		  <Generator>ResXFileCodeGenerator</Generator>
+		  <LastGenOutput>Pictograms.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
 		<EmbeddedResource Update="Properties\Resources.resx">
 			<Generator>ResXFileCodeGenerator</Generator>
 			<LastGenOutput>Resources.Designer.cs</LastGenOutput>

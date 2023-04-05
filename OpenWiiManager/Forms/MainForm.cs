@@ -304,9 +304,14 @@ namespace OpenWiiManager.Forms
                 if (string.IsNullOrWhiteSpace(ApplicationConfigurationSingleton.Instance.IsoPath) || !Directory.Exists(ApplicationConfigurationSingleton.Instance.IsoPath))
                     return;
 
-                foreach (var file in Directory.EnumerateFiles(ApplicationConfigurationSingleton.Instance.IsoPath, "*.iso"))
+                foreach (var file in
+                           Directory.EnumerateFiles(ApplicationConfigurationSingleton.Instance.IsoPath, "*.iso")
+                    //.Union(Directory.EnumerateFiles(ApplicationConfigurationSingleton.Instance.IsoPath, "*.rvz"))
+                    //.Union(Directory.EnumerateFiles(ApplicationConfigurationSingleton.Instance.IsoPath, "*.nkit"))
+                    .Union(Directory.EnumerateFiles(ApplicationConfigurationSingleton.Instance.IsoPath, "*.wbfs"))
+                )
                 {
-                    var meta = await GetIsoMeta(file);
+                    var meta = await GetGameFileMeta(file);
 
                     if (meta == null)
                         continue;
@@ -407,6 +412,57 @@ namespace OpenWiiManager.Forms
         const uint SYSTEM_MAGICWORD = 0x8E1AF8C3;
         const long ISO_LENGTH = 0x118240000;
 
+
+        private async Task<IsoMeta?> GetGameFileMeta(string file)
+        {
+            var ext = new FileInfo(file).Extension.ToLower();
+            return ext switch
+            {
+                ".iso" => await GetIsoMeta(file),
+                ".wbfs" => await GetWbfsMeta(file),
+                _ => null
+            };
+        }
+
+        private Task<IsoMeta?> GetWbfsMeta(string file)
+        {
+            return Task.Run(() =>
+            {
+                if (!File.Exists(file))
+                    return null;
+
+                var info = new FileInfo(file);
+
+                using var hFile = File.Open(file, FileMode.Open);
+                using var breader = new BinaryReader(hFile);
+                var wbfsBytes = breader.ReadBytes(4);
+                if (wbfsBytes.All(b => b == 0)) // All null bytes. Never the case on an WBFS file
+                    return null;
+                hFile.Seek(0x200, SeekOrigin.Begin);
+                var idBytes = breader.ReadBytes(6);
+                if (idBytes.All(b => b == 0)) // All null bytes. Never the case on an WBFS file
+                    return null;
+                hFile.Seek(0x207, SeekOrigin.Begin);
+                var version = breader.ReadByte();
+                hFile.Seek(0x220, SeekOrigin.Begin);
+                var titleBytes = breader.ReadBytes(0x40);
+                var idString = Encoding.ASCII.GetString(idBytes);
+                var titleString = Encoding.ASCII.GetString(titleBytes);
+                var regionByte = idBytes[3];
+                GameRegion region;
+                if (!regionMapping.TryGetValue(regionByte, out region))
+                    region = GameRegion._UNKNOWN_;
+                return new IsoMeta()
+                {
+                    @__rawRegionByteValue = regionByte,
+                    GameId = idString,
+                    Region = region,
+                    Title = titleString,
+                    Version = version,
+                };
+            });
+        }
+
         private Task<IsoMeta?> GetIsoMeta(string file)
         {
             return Task.Run(() =>
@@ -476,18 +532,18 @@ namespace OpenWiiManager.Forms
                     )
                 );
 
-                try
-                {
-                    File.WriteAllText(filename + ":owminfo", xdoc.ToString(), Encoding.UTF8);
-                }
-                catch
-                {
-                    var fname = filename + ".INFO.xog";
-                    if (File.Exists(fname))
-                        File.SetAttributes(fname, FileAttributes.Normal);
-                    File.WriteAllText(fname, xdoc.ToString(), Encoding.UTF8);
-                    File.SetAttributes(fname, FileAttributes.Hidden);
-                }
+                //try
+                //{
+                //    File.WriteAllText(filename + ":owminfo", xdoc.ToString(), Encoding.UTF8);
+                //}
+                //catch
+                //{
+                //    var fname = filename + ".INFO.xog";
+                //    if (File.Exists(fname))
+                //        File.SetAttributes(fname, FileAttributes.Normal);
+                //    File.WriteAllText(fname, xdoc.ToString(), Encoding.UTF8);
+                //    File.SetAttributes(fname, FileAttributes.Hidden);
+                //}
 
                 if (region != null)
                     item.SubItems[3].Text = region;

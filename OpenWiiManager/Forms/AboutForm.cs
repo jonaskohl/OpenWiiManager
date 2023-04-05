@@ -37,7 +37,10 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with this program.  If not, see <https://www.gnu.org/licenses/>.";
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+Wii, Wii Remote, Nintendo DS, GameCube, Wii Wheel, Wii Speak, Wii Balance Board and Wii MotionPlus are registered trademarks of Nintendo, Inc.
+uDraw GameTablet is a registered trademark of Embracer Group AB";
 
             textBox1.Text = $@"Flurl: {GetAssemblyVersion<Flurl.Url>()}
 Flurl.Http: {GetAssemblyVersion<FlurlCall>()}
@@ -113,7 +116,9 @@ Ookii.Dialogs.WinForms: {GetAssemblyVersion<VistaFileDialog>()}";
                 ScrollBars = ScrollBars.Vertical,
                 Dock = DockStyle.Fill,
                 Margin = Padding.Empty,
-                Text = text.Replace("\n", Environment.NewLine).Trim()
+                Text = text.Replace("\n", Environment.NewLine).Trim(),
+                SelectionStart = 0,
+                SelectionLength = 0
             };
             t.KeyDown += (sender, e) =>
             {

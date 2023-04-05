@@ -1,4 +1,5 @@
 ﻿using OpenWiiManager.Core;
+using OpenWiiManager.Language.Extensions;
 using OpenWiiManager.Services;
 using OpenWiiManager.Tools;
 using System;
@@ -26,17 +27,228 @@ namespace OpenWiiManager.Forms
 
         bool hashCalculationStarted = false;
 
+        Task? fetchDatabaseTask;
+
+        CancellationTokenSource ctsHashes = new();
+        CancellationToken ctHashes;
+
+        static readonly Dictionary<string, string> peripheralNames = new()
+        {
+            { "wiimote", "Wii Remote™" },
+            { "nunchuk", "Nunchuk" },
+            { "gamecube", "GameCube™ Controller" },
+            { "motionplus", "Wii MotionPlus" },
+            { "balanceboard", "Wii Balance Board™" },
+            { "classiccontroller", "Wii Classic Controller/Classic Controller Pro" },
+            { "wheel", "Wii Wheel™" },
+            { "zapper", "Wii Zapper" },
+            { "drums", "Drums" },
+            { "guitar", "Guitar" },
+            { "microphone", "Microphone" },
+            { "wiispeak", "Wii Speak™" },
+            { "3dglasses", "3D Glasses" },
+            { "mii", "Mii" },
+            { "dancepad", "Dance Pad" },
+            { "nintendods", "Nintendo DS™" },
+            { "keyboard", "Keyboard" },
+            { "udraw", "uDraw GameTablet™" },
+        };
+
         public DetailsForm()
         {
             InitializeComponent();
 
-            tabControl1.SelectedIndexChanged += TabControl1_SelectedIndexChanged; ;
+            tabControl1.SelectedIndexChanged += TabControl1_SelectedIndexChanged;
+
+            ctHashes = ctsHashes.Token;
+
+            Shown += DetailsForm_Shown;
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+            ctsHashes.Cancel();
+        }
+
+        private void DetailsForm_Shown(object? sender, EventArgs e)
+        {
+            FetchDatabaseEntry();
         }
 
         private void TabControl1_SelectedIndexChanged(object? sender, EventArgs e)
         {
             if (tabControl1.SelectedTab == hashesTabPage)
                 CalculateHashes();
+        }
+
+        public void AddGeneralProperty(string name, string? text)
+        {
+            var label = new Label()
+            {
+                Text = name,
+                AutoSize = true,
+                Anchor = AnchorStyles.Left
+            };
+            var textBox = new TextBox()
+            {
+                BackColor = SystemColors.Window,
+                ForeColor = SystemColors.WindowText,
+                BorderStyle = BorderStyle.None,
+                Text = text ?? "",
+                ReadOnly = true,
+                Anchor = AnchorStyles.Left | AnchorStyles.Right
+            };
+            var i = Math.Max(generalTableLayoutPanel.RowStyles.Count, generalTableLayoutPanel.RowCount) - 1;
+            Debug.WriteLine($"Add property {name} as row index {i}");
+            generalTableLayoutPanel.RowStyles.Insert(i, new RowStyle(SizeType.AutoSize));
+            generalTableLayoutPanel.Controls.Add(label, 0, i);
+            generalTableLayoutPanel.Controls.Add(textBox, 1, i);
+        }
+
+        public void AddTagListProperty(string name, IEnumerable<string> items)
+        {
+            var label = new Label()
+            {
+                Text = name,
+                AutoSize = true,
+                Anchor = AnchorStyles.Left
+            };
+            var flpanel = new FlowLayoutPanel()
+            {
+                AutoSize = true,
+                AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                WrapContents = true,
+                Location = Point.Empty,
+                Dock = DockStyle.Fill,
+                Margin = new Padding(3, 1, 3, 1)
+            };
+            flpanel.Controls.AddRange(items.Select(itm => new Label()
+            {
+                Text = itm,
+                //BackColor = SystemColors.Control,
+                //ForeColor = SystemColors.ControlText,
+                BackColor = Color.FromArgb(128, 0, 209),
+                ForeColor = Color.White,
+                AutoSize = true,
+                //BorderStyle = BorderStyle.FixedSingle,
+                Margin = new Padding(0, 2, 4, 2)
+            }).ToArray());
+            var i = Math.Max(generalTableLayoutPanel.RowStyles.Count, generalTableLayoutPanel.RowCount) - 1;
+            Debug.WriteLine($"Add tag list property {name} as row index {i}");
+            generalTableLayoutPanel.RowStyles.Insert(i, new RowStyle(SizeType.AutoSize));
+            generalTableLayoutPanel.Controls.Add(label, 0, i);
+            generalTableLayoutPanel.Controls.Add(flpanel, 1, i);
+        }
+
+        public void AddPeripheralsProperty(string name, IEnumerable<(string, bool)> peripherals)
+        {
+            var label = new Label()
+            {
+                Text = name,
+                AutoSize = true,
+                Anchor = AnchorStyles.Left
+            };
+            var flpanel = new FlowLayoutPanel()
+            {
+                AutoSize = true,
+                AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                WrapContents = true,
+                Location = Point.Empty,
+                Dock = DockStyle.Fill,
+                Margin = new Padding(3, 1, 3, 1)
+            };
+            flpanel.Controls.AddRange(peripherals.Select(itm => {
+                if (itm.Item1 == null)
+                {
+                    Debug.WriteLine("[WARN] itm.Item1 == null");
+                    return null;
+                }
+                var img = Properties.Pictograms.ResourceManager.GetObject("wii_peripheral_" + itm.Item1) as Image;
+                if (img == null)
+                {
+                    Debug.WriteLine($"[WARN] Could not find icon for peripheral {itm.Item1}");
+                    return null;
+                }
+                var pbox = new PictureBox()
+                {
+                    Size = new Size(24, 24),
+                    Image = img,
+                    Margin = new Padding(0, 2, 4, 2)
+                };
+                globalToolTip.SetToolTip(pbox, (itm.Item2 == true ? "Requires " : "Supports ") + (peripheralNames.ContainsKey(itm.Item1) ? peripheralNames[itm.Item1] : itm.Item1.ToTitleCase()));
+                return pbox;
+            }).Where(x => x != null).ToArray());
+            var i = Math.Max(generalTableLayoutPanel.RowStyles.Count, generalTableLayoutPanel.RowCount) - 1;
+            Debug.WriteLine($"Add peripheral property {name} as row index {i}");
+            generalTableLayoutPanel.RowStyles.Insert(i, new RowStyle(SizeType.AutoSize));
+            generalTableLayoutPanel.Controls.Add(label, 0, i);
+            generalTableLayoutPanel.Controls.Add(flpanel, 1, i);
+        }
+
+        private void FetchDatabaseEntry()
+        {
+            if (fetchDatabaseTask != null) return;
+
+            fetchDatabaseTask = GameTdbSingleton.Instance.LookupWiiTitleInfoAsync(GameId).ContinueWith(t =>
+            {
+                if (t.Result == null)
+                {
+                    MessageBox.Show("Database lookup failed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                GameTDBEntry = t.Result;
+                Invoke(() =>
+                {
+                    PopulateGeneralPage();
+                });
+            });
+        }
+
+        private void PopulateGeneralPage()
+        {
+            if (GameTDBEntry == null)
+            {
+                MessageBox.Show("Database entry was null", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            var ratingElem = GameTDBEntry?.Element("rating");
+            var ratingText = "n/a";
+            if (ratingElem != null)
+            {
+                ratingText = $"{ratingElem?.Attribute("value")?.Value} ({ratingElem?.Attribute("type")?.Value})";
+                var ratingDescElems = ratingElem?.Elements("descriptor");
+                if (ratingDescElems?.Any() == true)
+                    ratingText += $": {string.Join(", ", ratingDescElems.Select(e => e?.Value?.ToTitleCase() ?? ""))}";
+            }
+
+            var dateElem = GameTDBEntry?.Element("date");
+
+            var peripherals = GameTDBEntry?.Element("input")?.Elements("control")?.Select(e => (e?.Attribute("type")?.Value, e?.Attribute("required")?.Value == "true"));
+
+            generalTableLayoutPanel.SuspendLayout();
+            AddGeneralProperty("ID", GameTDBEntry?.Element("id")?.Value);
+            AddGeneralProperty("Title", GameTDBEntry?.Attribute("name")?.Value);
+            AddGeneralProperty("Region", GameTDBEntry?.Element("region")?.Value);
+            AddTagListProperty("Language(s)", (GameTDBEntry?.Element("languages")?.Value ?? "").Split(","));
+            AddGeneralProperty("Developer", GameTDBEntry?.Element("developer")?.Value);
+            AddGeneralProperty("Publisher", GameTDBEntry?.Element("publisher")?.Value);
+            AddGeneralProperty("Release date", $"{dateElem?.Attribute("year")?.Value}-{dateElem?.Attribute("month")?.Value?.PadLeft(2, '0')}-{dateElem?.Attribute("day")?.Value?.PadLeft(2, '0')}");
+            AddTagListProperty("Genre(s)", (GameTDBEntry?.Element("genre")?.Value ?? "").Split(",").Select(s => s.ToTitleCase()).Select(s => HandleGenreSpecialCases(s)));
+            AddGeneralProperty("Rating", ratingText);
+            AddGeneralProperty("Player count", GameTDBEntry?.Element("input")?.Attribute("players")?.Value);
+            AddPeripheralsProperty("Required peripherals", peripherals?.Where(e => e.Item2)!);
+            AddPeripheralsProperty("Optional peripherals", peripherals?.Where(e => !e.Item2)!);
+            generalTableLayoutPanel.ResumeLayout(true);
+        }
+
+        private string HandleGenreSpecialCases(string s)
+        {
+            return s
+                .Replace("3d ", "3D ")
+            ;
         }
 
         private void CalculateHashes()
@@ -66,55 +278,62 @@ namespace OpenWiiManager.Forms
             Task.WhenAll(
                 GetCRC32Async(GameId, IsoFileName, new Progress<long>(p =>
                 {
-                    Invoke(() =>
-                    {
-                        progressBar1.Value = (int)(p / (decimal)total * int.MaxValue);
-                    });
-                })).ContinueWith(t =>
+                    if (!IsDisposed)
+                        Invoke(() =>
+                        {
+                            progressBar1.Value = (int)(p / (decimal)total * int.MaxValue);
+                        });
+                }), ctHashes).ContinueWith(t =>
                 {
-                    Invoke(() =>
-                    {
-                        var hash = t.Result;
-                        if (ApplicationConfigurationSingleton.Instance.UpperCaseHashes)
-                            hash = hash.ToUpperInvariant();
-                        textBox1.Text = hash;
-                        hashCrc = hash;
-                        progressBar1.Hide();
-                        textBox1.Show();
+                    if (!IsDisposed)
+                        Invoke(() =>
+                        {
+                            var hash = t.Result;
+                            if (ApplicationConfigurationSingleton.Instance.UpperCaseHashes)
+                                hash = hash.ToUpperInvariant();
+                            textBox1.Text = hash;
+                            hashCrc = hash;
+                            progressBar1.Hide();
+                            textBox1.Show();
 
-                        globalToolTip.SetToolTip(pictureBox1, "Waiting for other hashes and/or game lookup to finish...");
-                    });
+                            globalToolTip.SetToolTip(pictureBox1, "Waiting for other hashes and/or game lookup to finish...");
+                        });
                 }),
                 GetMD5Async(GameId, IsoFileName, new Progress<long>(p =>
                 {
-                    Invoke(() =>
-                    {
-                        progressBar2.Value = (int)(p / (decimal)total * int.MaxValue);
-                    });
-                })).ContinueWith(t =>
+                    if (!IsDisposed)
+                        Invoke(() =>
+                        {
+                            progressBar2.Value = (int)(p / (decimal)total * int.MaxValue);
+                        });
+                }), ctHashes).ContinueWith(t =>
                 {
-                    Invoke(() =>
-                    {
-                        var hash = t.Result;
-                        if (ApplicationConfigurationSingleton.Instance.UpperCaseHashes)
-                            hash = hash.ToUpperInvariant();
-                        textBox2.Text = hash;
-                        hashMd5 = hash;
-                        progressBar2.Hide();
-                        textBox2.Show();
+                    if (!IsDisposed)
+                        Invoke(() =>
+                        {
+                            var hash = t.Result;
+                            if (ApplicationConfigurationSingleton.Instance.UpperCaseHashes)
+                                hash = hash.ToUpperInvariant();
+                            textBox2.Text = hash;
+                            hashMd5 = hash;
+                            progressBar2.Hide();
+                            textBox2.Show();
 
-                        globalToolTip.SetToolTip(pictureBox2, "Waiting for other hashes and/or game lookup to finish...");
-                    });
+                            globalToolTip.SetToolTip(pictureBox2, "Waiting for other hashes and/or game lookup to finish...");
+                        });
                 }),
                 GetSHA1Async(GameId, IsoFileName, new Progress<long>(p =>
                 {
-                    Invoke(() =>
-                    {
-                        progressBar3.Value = (int)(p / (decimal)total * int.MaxValue);
-                    });
-                })).ContinueWith(t =>
+
+                    if (!IsDisposed)
+                        Invoke(() =>
+                        {
+                            progressBar3.Value = (int)(p / (decimal)total * int.MaxValue);
+                        });
+                }), ctHashes).ContinueWith(t =>
                 {
-                    Invoke(() =>
+                    if (!IsDisposed)
+                        Invoke(() =>
                     {
                         var hash = t.Result;
                         if (ApplicationConfigurationSingleton.Instance.UpperCaseHashes)
@@ -127,12 +346,12 @@ namespace OpenWiiManager.Forms
                         globalToolTip.SetToolTip(pictureBox3, "Waiting for other hashes and/or game lookup to finish...");
                     });
                 }),
-                GameTdbSingleton.Instance.LookupWiiTitleInfoAsync(GameId).ContinueWith(t =>
-                {
-                    GameTDBEntry = t.Result;
-                })
+                fetchDatabaseTask ?? Task.CompletedTask
             ).ContinueWith(t =>
             {
+                if (IsDisposed)
+                    return;
+
                 var romElement = GameTDBEntry?.Element("rom");
                 if (romElement != null)
                 {
@@ -201,29 +420,29 @@ namespace OpenWiiManager.Forms
             });
         }
 
-        private async Task<string> GetCRC32Async(string gameId, string isoFileName, IProgress<long> progress)
+        private async Task<string> GetCRC32Async(string gameId, string isoFileName, IProgress<long> progress, CancellationToken cancellationToken = default)
         {
             var hash = HashCache.GetCrc32(gameId);
             if (hash == null)
-                hash = await IOUtil.GetFileCRC32Async(isoFileName, progress);
+                hash = await IOUtil.GetFileCRC32Async(isoFileName, progress, cancellationToken);
             HashCache.CacheCrc32(gameId, hash);
             return hash;
         }
 
-        private async Task<string> GetMD5Async(string gameId, string isoFileName, IProgress<long> progress)
+        private async Task<string> GetMD5Async(string gameId, string isoFileName, IProgress<long> progress, CancellationToken cancellationToken = default)
         {
             var hash = HashCache.GetMD5(gameId);
             if (hash == null)
-                hash = await IOUtil.GetFileMD5Async(isoFileName, progress);
+                hash = await IOUtil.GetFileMD5Async(isoFileName, progress, cancellationToken);
             HashCache.CacheMD5(gameId, hash);
             return hash;
         }
 
-        private async Task<string> GetSHA1Async(string gameId, string isoFileName, IProgress<long> progress)
+        private async Task<string> GetSHA1Async(string gameId, string isoFileName, IProgress<long> progress, CancellationToken cancellationToken = default)
         {
             var hash = HashCache.GetSHA1(gameId);
             if (hash == null)
-                hash = await IOUtil.GetFileSHA1Async(isoFileName, progress);
+                hash = await IOUtil.GetFileSHA1Async(isoFileName, progress, cancellationToken);
             HashCache.CacheSHA1(gameId, hash);
             return hash;
         }

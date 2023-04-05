@@ -23,5 +23,10 @@ namespace OpenWiiManager.Language.Extensions
                 str = str.Replace($"{{{p.Name}}}", p.GetValue(values)?.ToString());
             return str;
         }
+
+        public static string ToTitleCase(this string str)
+        {
+            return string.Join(" ", str.Split(' ').Select(s => s.Substring(0, 1).ToUpper() + s.Substring(1).ToLower()));
+        }
     }
 }
