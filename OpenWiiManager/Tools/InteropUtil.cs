@@ -6,11 +6,15 @@ using System.Reflection.Metadata;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace OpenWiiManager.Tools
 {
     public static class InteropUtil
     {
+        private delegate IntPtr WndProcDelegate(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
+
+        public delegate IntPtr WndProcDelegatePublic(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam, ref bool breakMessageChain);
         public static int HiWord(int number)
         {
             if ((number & 0x80000000) == 0x80000000)
@@ -37,6 +41,51 @@ namespace OpenWiiManager.Tools
         public static IntPtr MakeLParam(int LoWord, int HiWord)
         {
             return new IntPtr((HiWord << 16) | (LoWord & 0xffff));
+        }
+
+        public static int RemoveSubclass(IWin32Window win, IntPtr hOldWndProc)
+        {
+            var result = -1;
+            if (win != null)
+                result = User32.SetWindowLong(win.Handle, Constants.GWL_WNDPROC, hOldWndProc);
+            return result;
+        }
+
+        public static int AddSubclass(IWin32Window win, WndProcDelegatePublic newWndProc, out IntPtr hOldWndProc)
+        {
+            var result = -1;
+            if (win != null && newWndProc != null)
+            {
+                hOldWndProc = User32.GetWindowLong(win.Handle, Constants.GWL_WNDPROC);
+                var hOldWndProc2 = hOldWndProc;
+                WndProcDelegate wndProcWrapper = (IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam) =>
+                {
+                    var @break = false;
+                    var procRes = IntPtr.Zero;
+
+                    if (msg == Constants.WM_DESTROY)
+                    {
+                        RemoveSubclass(win, hOldWndProc2);
+                    }
+                    else
+                    {
+                        try
+                        {
+                            procRes = newWndProc(hWnd, msg, wParam, lParam, ref @break);
+                        }
+                        catch { }
+                    }
+
+                    if (!@break)
+                        return User32.CallWindowProc(hOldWndProc2, hWnd, msg, wParam, lParam);
+                    else
+                        return procRes;
+                };
+                result = User32.SetWindowLong(win.Handle, Constants.GWL_WNDPROC, Marshal.GetFunctionPointerForDelegate(wndProcWrapper));
+            }
+            else
+                hOldWndProc = IntPtr.Zero;
+            return result;
         }
 
         /// <summary>A SafeHandle to track DC handles.</summary>

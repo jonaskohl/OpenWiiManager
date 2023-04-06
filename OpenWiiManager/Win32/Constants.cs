@@ -10,6 +10,7 @@ namespace OpenWiiManager.Win32
     {
         #region <WinUser.h>
         #region Window messages
+        public const int WM_DESTROY = 0x0002;
         public const int WM_ACTIVATE = 0x0006;
         public const int WM_PAINT = 0x000F;
         public const int WM_ERASEBKGND = 0x0014;
@@ -18,6 +19,8 @@ namespace OpenWiiManager.Win32
         public const int WM_CHANGEUISTATE = 0x0127;
         public const int WM_LBUTTONUP = 0x202;
         public const int WM_USER = 0x0400;
+        public const int WM_CLOSE = 0x0010;
+        public const int WM_PARENTNOTIFY = 0x0210;
         #endregion
 
         #region WM_ACTIVATE state values
@@ -169,6 +172,17 @@ namespace OpenWiiManager.Win32
         public static readonly IntPtr HWND_BOTTOM = new IntPtr(1);
         public static readonly IntPtr HWND_TOPMOST = new IntPtr(-1);
         public static readonly IntPtr HWND_NOTOPMOST = new IntPtr(-2);
+        #endregion
+
+        #region Edit Control Messages
+        public const int EM_SETMARGINS = 0x00D3;
+        public const int EM_SETCUEBANNER = 0x1501;
+        #endregion
+
+        #region Edit Control Notification Codes
+        public const int EC_LEFTMARGIN = 0x0001;
+        public const int EC_RIGHTMARGIN = 0x0002;
+        public const int EC_USEFONTINFO = 0xffff;
         #endregion
         #endregion
 

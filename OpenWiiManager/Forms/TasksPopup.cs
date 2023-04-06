@@ -85,6 +85,10 @@ namespace OpenWiiManager.Forms
                     {
                         goto gotoConsideredHarmful;
                     }
+                    catch (IndexOutOfRangeException)
+                    {
+                        goto gotoConsideredHarmful;
+                    }
                     finally
                     {
                         listBox1.EndUpdate();

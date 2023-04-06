@@ -118,32 +118,17 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="cero_a" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\cero_a.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="cero_b" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\cero_b.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="cero_c" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\cero_c.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="cero_d" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\cero_d.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="cero_z" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\cero_z.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="esrb_ao" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\esbr_ao.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="esrb_e" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\esbr_e.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="pegi_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pegi_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="esrb_e10plus" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\esbr_e10plus.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="wii_peripheral_udraw" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\wii_peripheral_udraw.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="esrb_m" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\esbr_m.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="cero_b" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cero_b.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="esrb_rp" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\esbr_rp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -151,80 +136,11 @@
   <data name="esrb_t" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\esbr_t.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="grb_12" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\grb_12.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="grb_15" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\grb_15.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="grb_18" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\grb_18.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="grb_all" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\grb_all.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="pegi_12" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\pegi_12.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="pegi_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\pegi_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="pegi_18" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\pegi_18.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="pegi_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pegi_3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="pegi_7" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\pegi_7.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="pegi_d_discrimination" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\pegi_d_discrimination.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="pegi_d_drugs" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\pegi_d_drugs.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="pegi_d_fear" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\pegi_d_fear.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="pegi_d_gambling" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\pegi_d_gambling.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="pegi_d_language" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\pegi_d_language.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="pegi_d_sex" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\pegi_d_sex.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="pegi_d_violence" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\pegi_d_violence.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="wii_peripheral_3dglasses" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\wii_peripheral_3dglasses.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="wii_peripheral_balanceboard" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\wii_peripheral_balanceboard.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="wii_peripheral_classiccontroller" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\wii_peripheral_classiccontroller.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="wii_peripheral_dancepad" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\wii_peripheral_dancepad.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="wii_peripheral_drums" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\wii_peripheral_drums.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="wii_peripheral_gamecube" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\wii_peripheral_gamecube.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="wii_peripheral_guitar" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\wii_peripheral_guitar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="wii_peripheral_keyboard" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\wii_peripheral_keyboard.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="wii_peripheral_microphone" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\wii_peripheral_microphone.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="wii_peripheral_mii" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\wii_peripheral_mii.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -232,25 +148,112 @@
   <data name="wii_peripheral_motionplus" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\wii_peripheral_motionplus.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="wii_peripheral_nintendods" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\wii_peripheral_nintendods.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="wii_peripheral_dancepad" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\wii_peripheral_dancepad.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="wii_peripheral_nunchuk" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\wii_peripheral_nunchuck.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="cero_c" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cero_c.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="wii_peripheral_udraw" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\wii_peripheral_udraw.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="pegi_d_gambling" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pegi_d_gambling.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="wii_peripheral_wheel" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\wii_peripheral_wheel.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="esrb_e" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\esbr_e.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="wii_peripheral_wiimote" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\wii_peripheral_wiimote.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="wii_peripheral_wiispeak" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\wii_peripheral_wiispeak.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="wii_peripheral_nintendods" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\wii_peripheral_nintendods.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="wii_peripheral_zapper" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\wii_peripheral_zapper.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="wii_peripheral_balanceboard" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\wii_peripheral_balanceboard.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pegi_d_language" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pegi_d_language.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pegi_d_discrimination" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pegi_d_discrimination.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="wii_peripheral_guitar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\wii_peripheral_guitar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="wii_peripheral_3dglasses" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\wii_peripheral_3dglasses.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="wii_peripheral_nunchuk" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\wii_peripheral_nunchuck.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pegi_d_fear" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pegi_d_fear.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pegi_12" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pegi_12.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="grb_all" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\grb_all.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pegi_18" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pegi_18.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="grb_12" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\grb_12.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="wii_peripheral_drums" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\wii_peripheral_drums.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cero_a" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cero_a.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="esrb_m" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\esbr_m.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pegi_d_violence" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pegi_d_violence.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="grb_18" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\grb_18.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="wii_peripheral_classiccontroller" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\wii_peripheral_classiccontroller.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="grb_15" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\grb_15.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="esrb_e10plus" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\esbr_e10plus.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="wii_peripheral_keyboard" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\wii_peripheral_keyboard.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="wii_peripheral_wiispeak" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\wii_peripheral_wiispeak.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pegi_d_drugs" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pegi_d_drugs.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cero_d" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cero_d.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="wii_peripheral_wheel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\wii_peripheral_wheel.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pegi_d_sex" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pegi_d_sex.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cero_z" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cero_z.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pegi_7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pegi_7.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="wii_peripheral_microphone" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\wii_peripheral_microphone.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Column Shrink 2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Column Shrink 2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

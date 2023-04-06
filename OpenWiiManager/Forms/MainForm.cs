@@ -13,6 +13,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Security.Policy;
 using System.Text;
@@ -85,8 +86,57 @@ namespace OpenWiiManager.Forms
 
             Shown += MainForm_Shown;
             statusStrip1.HandleCreated += StatusStrip1_HandleCreated;
+            searchToolStripTextBox.TextBox.HandleCreated += TextBox_HandleCreated;
 
             showFilesInExplorerToolStripMenuItem.Image = ShellUtil.GetIconAsImage(Environment.ExpandEnvironmentVariables(@"%systemroot%\explorer.exe"), ShellUtil.ShellIconSize.Small);
+
+
+        }
+
+        private void SearchToolStripTextBox_Paint(object? sender, PaintEventArgs e)
+        {
+            e.Graphics.DrawImage(Properties.Resources.Zoom, new Rectangle(2, (searchToolStripTextBox.Height - 16) / 2, 16, 16));
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == (Keys.Control | Keys.F))
+            {
+                msg.Result = IntPtr.Zero;
+                searchToolStripTextBox.Focus();
+                searchToolStripTextBox.SelectAll();
+                return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void TextBox_HandleCreated(object? sender, EventArgs e)
+        {
+            User32.SendMessage(searchToolStripTextBox.TextBox.Handle, Constants.EM_SETCUEBANNER, 0, "Search... (Ctrl+F)");
+            //User32.SendMessage(searchToolStripTextBox.TextBox.Handle, Constants.EM_SETMARGINS, Constants.EC_LEFTMARGIN, 30);
+
+            /*
+            Kernel32.SetLastError(0);
+            var result = InteropUtil.AddSubclass(searchToolStripTextBox.TextBox, (IntPtr hWnd, uint msg, IntPtr lParam, IntPtr wParam, ref bool @break) =>
+            {
+                Debug.WriteLine("Window message 0x" + msg.ToString("X8"));
+
+                if (msg == Constants.WM_ACTIVATE)
+                {
+                    @break = true;
+                    return IntPtr.Zero;
+                }
+
+                return IntPtr.Zero;
+            }, out IntPtr textBoxOldWndProc);
+
+            if (result == 0)
+            {
+                MessageBox.Show("Error with HRESULT 0x" + Marshal.GetLastWin32Error().ToString("X8") + " occurred while calling AddSubclass", "Win32 error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+                Debug.WriteLine("Subclass result: " + result);
+            */
         }
 
         private void MainForm_LocationChanged(object? sender, EventArgs e)
@@ -938,7 +988,8 @@ namespace OpenWiiManager.Forms
 
             if (items.Count() == 1)
             {
-                /*using */var f = new DetailsForm();
+                /*using */
+                var f = new DetailsForm();
                 // TODO
                 f.IsoFileName = items.First().Tag.ToString();
                 f.GameId = items.First().SubItems[1].Text;
@@ -991,6 +1042,74 @@ namespace OpenWiiManager.Forms
         {
             var files = listView1.SelectedItems.OfType<ListViewItem>().Select(i => i.Tag?.ToString()).Where(i => i != null).Select(i => i ?? "").ToArray();
             ShellUtil.ShowFilesInExplorer(files);
+        }
+
+        private void expandColumnsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (ColumnHeader col in listView1.Columns)
+                col.Width = -1;
+        }
+
+        private void shrinkColumnsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var totalWidth = listView1.Columns.OfType<ColumnHeader>().Sum(c => c.Width);
+            var targetWidth = listView1.ClientSize.Width;
+            var factor = targetWidth / (double)totalWidth;
+            foreach (ColumnHeader col in listView1.Columns)
+                col.Width = (int)(col.Width * factor);
+        }
+
+        private void searchToolStripTextBox_TextChanged(object sender, EventArgs e)
+        {
+            searchDelayTimer.Stop();
+            searchDelayTimer.Start();
+        }
+
+        private void searchDelayTimer_Tick(object sender, EventArgs e)
+        {
+            PerformSearch();
+        }
+
+        private void PerformSearch()
+        {
+            searchDelayTimer.Stop();
+            var query = searchToolStripTextBox.Text;
+            var emptyQuery = string.IsNullOrWhiteSpace(query);
+            UseWaitCursor = true;
+            Application.DoEvents();
+            listView1.BeginUpdate();
+            foreach (ListViewItem item in listView1.Items)
+            {
+                if (emptyQuery)
+                {
+                    foreach (ListViewItem.ListViewSubItem subitem in item.SubItems)
+                    {
+                        subitem.ForeColor = listView1.ForeColor;
+                        subitem.BackColor = listView1.BackColor;
+                    }
+                }
+                else
+                {
+                    var isVisible = false;
+                    foreach (ListViewItem.ListViewSubItem subitem in item.SubItems)
+                    {
+                        if (subitem.Text.Contains(query, StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            Debug.WriteLine("Subitem " + subitem.Text + " contains query " + query);
+                            isVisible = true;
+                            break;
+                        }
+                    }
+
+                    foreach (ListViewItem.ListViewSubItem subitem in item.SubItems)
+                    {
+                        subitem.ForeColor = isVisible ? Color.Black : SystemColors.GrayText;
+                        subitem.BackColor = isVisible ? Color.Yellow : listView1.BackColor;
+                    }
+                }
+            }
+            listView1.EndUpdate();
+            UseWaitCursor = false;
         }
     }
 
