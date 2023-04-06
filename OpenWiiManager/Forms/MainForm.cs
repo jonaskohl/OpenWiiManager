@@ -1336,7 +1336,14 @@ namespace OpenWiiManager.Forms
                     // TODO More expressions
                     if (word.StartsWith("{") && word.EndsWith("}"))
                     {
-                        ComplexExpessions.Add(ComplexExpression.Parse(word));
+                        try
+                        {
+                            ComplexExpessions.Add(ComplexExpression.Parse(word));
+                        }
+                        catch (FormatException)
+                        {
+                            Keywords.Add(word);
+                        }
                     }
                     else
                     {
