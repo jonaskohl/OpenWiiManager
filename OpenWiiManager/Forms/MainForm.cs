@@ -1,5 +1,6 @@
 //#define FEATURE__SHA1_ISO
 
+using Flurl.Util;
 using OpenWiiManager.Controls;
 using OpenWiiManager.Controls.Data;
 using OpenWiiManager.Core;
@@ -12,6 +13,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
+using System.Reflection.Emit;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
@@ -413,7 +415,19 @@ namespace OpenWiiManager.Forms
                     refreshToolStripMenuItem.Enabled = true;
                 });
                 t.ThrowIfFaulted();
-            }));
+            })).ContinueWith(_ =>
+            {
+                Invoke(() =>
+                {
+                    var source = new AutoCompleteStringCollection();
+                    foreach (ListViewItem item in listView1.Items)
+                        foreach (ListViewItem.ListViewSubItem subitem in item.SubItems)
+                            source.Add(subitem.Text);
+                    searchToolStripTextBox.AutoCompleteMode = AutoCompleteMode.Suggest;
+                    searchToolStripTextBox.AutoCompleteSource = AutoCompleteSource.CustomSource;
+                    searchToolStripTextBox.AutoCompleteCustomSource = source;
+                });
+            });
         }
 
         public enum GameRegion
@@ -1046,17 +1060,21 @@ namespace OpenWiiManager.Forms
 
         private void expandColumnsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            listView1.BeginUpdate();
             foreach (ColumnHeader col in listView1.Columns)
                 col.Width = -1;
+            listView1.EndUpdate();
         }
 
         private void shrinkColumnsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            listView1.BeginUpdate();
             var totalWidth = listView1.Columns.OfType<ColumnHeader>().Sum(c => c.Width);
             var targetWidth = listView1.ClientSize.Width;
             var factor = targetWidth / (double)totalWidth;
             foreach (ColumnHeader col in listView1.Columns)
                 col.Width = (int)(col.Width * factor);
+            listView1.EndUpdate();
         }
 
         private void searchToolStripTextBox_TextChanged(object sender, EventArgs e)
@@ -1073,8 +1091,12 @@ namespace OpenWiiManager.Forms
         private void PerformSearch()
         {
             searchDelayTimer.Stop();
-            var query = searchToolStripTextBox.Text;
+            var query = searchToolStripTextBox.TextBox.Text;
+            Debug.WriteLine($"Raw query (as entered) is {query}");
+            var parsedQuery = SearchQuery.Parse(query);
+            var totalTokenCount = parsedQuery.TokenCount;
             var emptyQuery = string.IsNullOrWhiteSpace(query);
+            //return;
             UseWaitCursor = true;
             Application.DoEvents();
             listView1.BeginUpdate();
@@ -1091,25 +1113,263 @@ namespace OpenWiiManager.Forms
                 else
                 {
                     var isVisible = false;
-                    foreach (ListViewItem.ListViewSubItem subitem in item.SubItems)
+                    Dictionary<string, int> matchedTokens = new();
+                    List<ListViewItem.ListViewSubItem> matchedItems = new();
+                    foreach (var token in parsedQuery.Tokens)
+                        matchedTokens[token ?? ""] = 0;
+                    for (var i = 0; i < item.SubItems.Count; ++i)
                     {
-                        if (subitem.Text.Contains(query, StringComparison.InvariantCultureIgnoreCase))
+                        var subitem = item.SubItems[i];
+                        var column = listView1.Columns[i];
+                        var siMatchedTokens = SubItemMatchesQuery(subitem, column, parsedQuery);
+                        var didMatch = siMatchedTokens.Length > 0;
+
+                        foreach (var token in siMatchedTokens)
                         {
-                            Debug.WriteLine("Subitem " + subitem.Text + " contains query " + query);
-                            isVisible = true;
-                            break;
+                            if (!matchedTokens.ContainsKey(token))
+                                matchedTokens[token] = 0;
+                            ++matchedTokens[token];
+                        }
+
+                        if (didMatch)
+                        {
+                            Debug.WriteLine("Subitem " + subitem.Text + " matches query " + query);
+                            matchedItems.Add(subitem);
+                        }
+                        else
+                        {
+                            Debug.WriteLine($"Subitem {subitem.Text} does not match query {query}");
                         }
                     }
+
+                    Debug.WriteLine("----------------");
+                    Debug.WriteLine("Result:");
+                    foreach (var i in matchedTokens)
+                        Debug.WriteLine($"{i.Key}: {i.Value}");
+                    Debug.WriteLine("----------------");
+
+                    isVisible = matchedTokens.All(v => v.Value > 0);
 
                     foreach (ListViewItem.ListViewSubItem subitem in item.SubItems)
                     {
                         subitem.ForeColor = isVisible ? Color.Black : SystemColors.GrayText;
-                        subitem.BackColor = isVisible ? Color.Yellow : listView1.BackColor;
+                        subitem.BackColor = isVisible ? (
+                            matchedItems.Contains(subitem) ?
+                            Color.Yellow : Color.FromArgb(-64)
+                        ) : listView1.BackColor;
                     }
                 }
             }
             listView1.EndUpdate();
             UseWaitCursor = false;
+        }
+
+        private enum ExpressionComparatorType
+        {
+            Contains,
+            Equals,
+            EqualsExact,
+            StartsWith,
+            EndsWith,
+            Greater,
+            GreaterOrEqual,
+            Less,
+            LessOrEqual
+        }
+
+        private struct ComplexExpression
+        {
+            public string Key { get; private set; }
+            public string Value { get; private set; }
+            public ExpressionComparatorType Comparator { get; private set; }
+            public bool Negate { get; private set; }
+
+            public string OriginalToken { get; private set; }
+
+            public static ComplexExpression Parse(string expr)
+            {
+                var oToken = expr;
+
+                if (!expr.StartsWith("{") && !expr.EndsWith("}"))
+                    throw new FormatException("Invalid format");
+
+                expr = expr.Substring(1, expr.Length - 2);
+
+                var negate = false;
+                if (expr.StartsWith("!"))
+                {
+                    negate = true;
+                    expr = expr.Substring(1);
+                }
+
+                string key, value, comp;
+
+                var match = Regex.Match(expr, @"^(.+?)(\*=|==|#=|\^=|\$=|>:|>=|<:|<=)(.+)$");
+
+                if (!match.Success)
+                    throw new FormatException("Invalid format");
+
+                key = match.Groups[1].Value;
+                value = match.Groups[3].Value;
+                comp = match.Groups[2].Value;
+
+                var ctype = comp switch
+                {
+                    "*=" => ExpressionComparatorType.Contains,
+                    "==" => ExpressionComparatorType.Equals,
+                    "#=" => ExpressionComparatorType.EqualsExact,
+                    "^=" => ExpressionComparatorType.StartsWith,
+                    "$=" => ExpressionComparatorType.EndsWith,
+                    ">:" => ExpressionComparatorType.Greater,
+                    ">=" => ExpressionComparatorType.GreaterOrEqual,
+                    "<:" => ExpressionComparatorType.Less,
+                    "<=" => ExpressionComparatorType.LessOrEqual,
+                    _ => throw new UnreachableException()
+                };
+
+                return new()
+                {
+                    Key = key,
+                    Value = value,
+                    Comparator = ctype,
+                    Negate = negate,
+                    OriginalToken = oToken
+                };
+            }
+
+            public override string ToString()
+            {
+                return $"ComplexExpression{{{Key} {(Negate ? "Not " : "")}{Comparator} {Value}}}";
+            }
+
+            public bool Matches(string compKey, string compValue)
+            {
+                if (compKey != Key)
+                    return false;
+
+                switch (Comparator)
+                {
+                    case ExpressionComparatorType.Contains:
+                        return Negate ^ compValue.Contains(Value, StringComparison.InvariantCultureIgnoreCase);
+                    case ExpressionComparatorType.Equals:
+                        return Negate ^ compValue.Equals(Value, StringComparison.InvariantCultureIgnoreCase);
+                    case ExpressionComparatorType.EqualsExact:
+                        return Negate ^ compValue.Equals(Value, StringComparison.InvariantCulture);
+                    case ExpressionComparatorType.StartsWith:
+                        return Negate ^ compValue.StartsWith(Value, StringComparison.InvariantCulture);
+                    case ExpressionComparatorType.EndsWith:
+                        return Negate ^ compValue.EndsWith(Value, StringComparison.InvariantCulture);
+                    case ExpressionComparatorType.Greater:
+                        return Negate ^ (string.Compare(compValue, Value, StringComparison.InvariantCultureIgnoreCase) > 0);
+                    case ExpressionComparatorType.GreaterOrEqual:
+                        return Negate ^ (string.Compare(compValue, Value, StringComparison.InvariantCultureIgnoreCase) >= 0);
+                    case ExpressionComparatorType.Less:
+                        return Negate ^ (string.Compare(compValue, Value, StringComparison.InvariantCultureIgnoreCase) < 0);
+                    case ExpressionComparatorType.LessOrEqual:
+                        return Negate ^ (string.Compare(compValue, Value, StringComparison.InvariantCultureIgnoreCase) <= 0);
+                    default:
+                        throw new UnreachableException();
+                }
+            }
+        }
+
+        private class SearchQuery
+        {
+            public readonly List<ComplexExpression> ComplexExpessions = new();
+            public readonly List<string> Keywords = new();
+            public readonly List<string> Tokens = new();
+            public int TokenCount => Tokens.Count;
+
+            private void Load(string query)
+            {
+                if (string.IsNullOrWhiteSpace(query))
+                    return;
+
+                StringBuilder currentTokenBuffer = new();
+                bool isInsideExpression = false;
+                for (var i = 0; i < query.Length; ++i)
+                {
+                    var cchar = query[i];
+                    if (cchar == '{' && !isInsideExpression)
+                    {
+                        if (currentTokenBuffer.Length > 0)
+                        {
+                            Debug.WriteLine($"Adding text [{currentTokenBuffer}] to token list");
+                            Tokens.Add(currentTokenBuffer.ToString());
+                            currentTokenBuffer.Clear();
+                        }
+                        currentTokenBuffer.Append(cchar);
+                        isInsideExpression = true;
+                    }
+                    else if (cchar == '}' && isInsideExpression)
+                    {
+                        currentTokenBuffer.Append(cchar);
+                        isInsideExpression = false;
+                        Debug.WriteLine($"Adding text [{currentTokenBuffer}] to token list");
+                        Tokens.Add(currentTokenBuffer.ToString());
+                        currentTokenBuffer.Clear();
+                    }
+                    else if (cchar == ' ' && !isInsideExpression)
+                    {
+                        if (currentTokenBuffer.Length > 0)
+                        {
+                            Debug.WriteLine($"Adding text [{currentTokenBuffer}] to token list");
+                            Tokens.Add(currentTokenBuffer.ToString());
+                            currentTokenBuffer.Clear();
+                        }
+                    }
+                    else
+                    {
+                        currentTokenBuffer.Append(cchar);
+                    }
+                }
+                if (currentTokenBuffer.Length > 0)
+                {
+                    Debug.WriteLine($"Adding text [{currentTokenBuffer}] to token list");
+                    Tokens.Add(currentTokenBuffer.ToString());
+                }
+
+                Debug.WriteLine($"Token list({Tokens.Count}): {string.Join("||", Tokens.ToArray())}");
+
+                foreach (var word in Tokens)
+                {
+                    // TODO More expressions
+                    if (word.StartsWith("{") && word.EndsWith("}"))
+                    {
+                        ComplexExpessions.Add(ComplexExpression.Parse(word));
+                    }
+                    else
+                    {
+                        Debug.WriteLine($"Item {word}");
+                        Keywords.Add(word);
+                    }
+                }
+            }
+
+            public static SearchQuery Parse(string query)
+            {
+                var instance = new SearchQuery();
+                instance.Load(query);
+                return instance;
+            }
+        }
+
+        private string[] SubItemMatchesQuery(ListViewItem.ListViewSubItem subitem, ColumnHeader column, SearchQuery query)
+        {
+            List<string> matchedTokens = new();
+
+            foreach (var kword in query.Keywords)
+                if (subitem.Text.Contains(kword, StringComparison.InvariantCultureIgnoreCase))
+                    matchedTokens.Add(kword);
+
+            foreach (var expr in query.ComplexExpessions)
+            {
+                Debug.WriteLine($"Testing expression {expr} on {column.Text}.{subitem.Text}");
+                if (expr.Matches(column.Text, subitem.Text))
+                    matchedTokens.Add(expr.OriginalToken);
+            }
+
+            return matchedTokens.ToArray();
         }
     }
 

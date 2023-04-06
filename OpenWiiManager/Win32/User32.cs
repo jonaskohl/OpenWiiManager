@@ -50,6 +50,9 @@ namespace OpenWiiManager.Win32
         public static extern IntPtr GetDC(IntPtr hWnd);
 
         [DllImport("user32.dll", SetLastError = true)]
+        public static extern IntPtr GetWindowDC(IntPtr hWnd);
+
+        [DllImport("user32.dll", SetLastError = true)]
         public static extern int ReleaseDC(IntPtr hWnd, IntPtr hDc);
 
         [DllImport("user32.dll", SetLastError = true)]

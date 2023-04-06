@@ -21,6 +21,24 @@ namespace OpenWiiManager.Win32
         public const int WM_USER = 0x0400;
         public const int WM_CLOSE = 0x0010;
         public const int WM_PARENTNOTIFY = 0x0210;
+        public const int WM_HSCROLL = 0x114;
+        public const int WM_VSCROLL = 0x115;
+        public const int WM_MOUSEWHEEL = 0x20A;
+        public const int WM_SETFOCUS = 0x7;
+        public const int WM_KILLFOCUS = 0x8;
+        public const int WM_SETFONT = 0x30;
+        public const int WM_MOUSEMOVE = 0x200;
+        public const int WM_LBUTTONDOWN = 0x201;
+        public const int WM_RBUTTONDOWN = 0x204;
+        public const int WM_MBUTTONDOWN = 0x207;
+        public const int WM_RBUTTONUP = 0x205;
+        public const int WM_MBUTTONUP = 0x208;
+        public const int WM_LBUTTONDBLCLK = 0x203;
+        public const int WM_RBUTTONDBLCLK = 0x206;
+        public const int WM_MBUTTONDBLCLK = 0x209;
+        public const int WM_KEYDOWN = 0x0100;
+        public const int WM_KEYUP = 0x0101;
+        public const int WM_CHAR = 0x0102;
         #endregion
 
         #region WM_ACTIVATE state values
