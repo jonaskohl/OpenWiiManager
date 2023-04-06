@@ -423,6 +423,13 @@ namespace OpenWiiManager.Forms
                     foreach (ListViewItem item in listView1.Items)
                         foreach (ListViewItem.ListViewSubItem subitem in item.SubItems)
                             source.Add(subitem.Text);
+
+                    foreach (ColumnHeader header in listView1.Columns)
+                    {
+                        Debug.WriteLine("Header: " + header.Text);
+                        source.Add($"{{{header.Text}");
+                    }
+
                     searchToolStripTextBox.AutoCompleteMode = AutoCompleteMode.Suggest;
                     searchToolStripTextBox.AutoCompleteSource = AutoCompleteSource.CustomSource;
                     searchToolStripTextBox.AutoCompleteCustomSource = source;
