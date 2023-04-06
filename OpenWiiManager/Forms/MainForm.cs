@@ -792,6 +792,8 @@ namespace OpenWiiManager.Forms
                     gameSelectCancellationToken.ThrowIfCancellationRequested();
 
                     var langsCopy = new Stack<string>((string[])langs.Clone());
+                    if (t.Result?.Element("region")?.Value == "NTSC-U")
+                        langsCopy.Push("US");
                     if (!langsCopy.Contains("EN"))
                         langsCopy.Push("EN");
                     while (langsCopy.Count > 0)
@@ -813,6 +815,8 @@ namespace OpenWiiManager.Forms
                 {
                     gameSelectCancellationToken.ThrowIfCancellationRequested();
                     var langsCopy = new Stack<string>((string[])langs.Clone());
+                    if (t.Result?.Element("region")?.Value == "NTSC-U")
+                        langsCopy.Push("US");
                     if (!langsCopy.Contains("EN"))
                         langsCopy.Push("EN");
                     while (langsCopy.Count > 0)
@@ -934,11 +938,12 @@ namespace OpenWiiManager.Forms
 
             if (items.Count() == 1)
             {
-                using var f = new DetailsForm();
+                /*using */var f = new DetailsForm();
                 // TODO
                 f.IsoFileName = items.First().Tag.ToString();
                 f.GameId = items.First().SubItems[1].Text;
-                f.ShowDialog(this);
+                //f.ShowDialog(this);
+                f.Show(this);
             }
         }
 

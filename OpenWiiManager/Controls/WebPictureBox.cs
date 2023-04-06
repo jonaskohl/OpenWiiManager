@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenWiiManager.Forms
+namespace OpenWiiManager.Controls
 {
     public class WebPictureBox : PictureBox
     {

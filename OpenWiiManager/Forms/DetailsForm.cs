@@ -63,6 +63,13 @@ namespace OpenWiiManager.Forms
             ctHashes = ctsHashes.Token;
 
             Shown += DetailsForm_Shown;
+
+            button1.Click += Button1_Click;
+        }
+
+        private void Button1_Click(object? sender, EventArgs e)
+        {
+            Close();
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -98,6 +105,31 @@ namespace OpenWiiManager.Forms
                 Text = text ?? "",
                 ReadOnly = true,
                 Anchor = AnchorStyles.Left | AnchorStyles.Right
+            };
+            var i = Math.Max(generalTableLayoutPanel.RowStyles.Count, generalTableLayoutPanel.RowCount) - 1;
+            Debug.WriteLine($"Add property {name} as row index {i}");
+            generalTableLayoutPanel.RowStyles.Insert(i, new RowStyle(SizeType.AutoSize));
+            generalTableLayoutPanel.Controls.Add(label, 0, i);
+            generalTableLayoutPanel.Controls.Add(textBox, 1, i);
+        }
+
+        public void AddGeneralPropertyMonospaced(string name, string? text)
+        {
+            var label = new Label()
+            {
+                Text = name,
+                AutoSize = true,
+                Anchor = AnchorStyles.Left
+            };
+            var textBox = new TextBox()
+            {
+                BackColor = SystemColors.Window,
+                ForeColor = SystemColors.WindowText,
+                BorderStyle = BorderStyle.None,
+                Text = text ?? "",
+                ReadOnly = true,
+                Anchor = AnchorStyles.Left | AnchorStyles.Right,
+                Font = new Font("Consolas", 10, FontStyle.Regular)
             };
             var i = Math.Max(generalTableLayoutPanel.RowStyles.Count, generalTableLayoutPanel.RowCount) - 1;
             Debug.WriteLine($"Add property {name} as row index {i}");
@@ -158,38 +190,45 @@ namespace OpenWiiManager.Forms
                 Margin = new Padding(3, 1, 3, 1)
             };
             var ratingText = "n/a";
+            var ratingDescElems = ratingElem?.Elements("descriptor");
             if (ratingElem != null)
-            {
-                ratingText = $"{ratingElem?.Attribute("value")?.Value} ({ratingElem?.Attribute("type")?.Value})";
-                var ratingDescElems = ratingElem?.Elements("descriptor");
-                if (ratingDescElems?.Any() == true)
-                    ratingText += $": {string.Join(", ", ratingDescElems.Select(e => e?.Value?.ToTitleCase() ?? ""))}";
-            }
+                ratingText = $"{ratingElem?.Attribute("type")?.Value} {ratingElem?.Attribute("value")?.Value}";
             var ratingType = ratingElem?.Attribute("type")?.Value.ToLower();
             var ratingValue = ratingElem?.Attribute("value")?.Value.ToLower();
 
             if (ratingType == null || ratingValue == null)
             {
-
+                Debug.WriteLine("[WARN] Rating did not have required attributes");
             }
             else
             {
                 var img = Properties.Pictograms.ResourceManager.GetObject(ratingType + "_" + ratingValue) as Image;
-                if (img == null)
+                var pbox = new PictureBox()
                 {
-                    Debug.WriteLine($"[WARN] Could not find icon resource named {ratingType}_{ratingValue}");
-                }
-                else
+                    SizeMode = PictureBoxSizeMode.AutoSize,
+                    Size = new Size(32, 32),
+                    Margin = new Padding(0, 2, 4, 2)
+                };
+                pbox.Image = img ?? pbox.ErrorImage;
+                globalToolTip.SetToolTip(pbox, ratingText);
+                flpanel.Controls.Add(pbox);
+            }
+
+            if (ratingType == "pegi" && ratingDescElems?.Any() == true)
+            {
+                flpanel.Controls.AddRange(ratingDescElems.Select(e =>
                 {
+                    var img = Properties.Pictograms.ResourceManager.GetObject(ratingType + "_d_" + e?.Value?.ToLower()) as Image;
                     var pbox = new PictureBox()
                     {
+                        SizeMode = PictureBoxSizeMode.AutoSize,
                         Size = new Size(32, 32),
-                        Image = img,
                         Margin = new Padding(0, 2, 4, 2)
                     };
-                    flpanel.Controls.Add(pbox);
-                    globalToolTip.SetToolTip(pbox, ratingText);
-                }
+                    pbox.Image = img ?? pbox.ErrorImage;
+                    globalToolTip.SetToolTip(pbox, e?.Value?.ToTitleCase() ?? "???");
+                    return pbox;
+                }).Where(v => v != null).ToArray());
             }
 
             var i = Math.Max(generalTableLayoutPanel.RowStyles.Count, generalTableLayoutPanel.RowCount) - 1;
@@ -224,17 +263,12 @@ namespace OpenWiiManager.Forms
                     return null;
                 }
                 var img = Properties.Pictograms.ResourceManager.GetObject("wii_peripheral_" + itm.Item1) as Image;
-                if (img == null)
-                {
-                    Debug.WriteLine($"[WARN] Could not find icon for peripheral {itm.Item1}");
-                    return null;
-                }
                 var pbox = new PictureBox()
                 {
                     Size = new Size(24, 24),
-                    Image = img,
                     Margin = new Padding(0, 2, 4, 2)
                 };
+                pbox.Image = img ?? pbox.ErrorImage;
                 globalToolTip.SetToolTip(pbox, (itm.Item2 == true ? "Requires " : "Supports ") + (peripheralNames.ContainsKey(itm.Item1) ? peripheralNames[itm.Item1] : itm.Item1.ToTitleCase()));
                 return pbox;
             }).Where(x => x != null).ToArray());
@@ -280,7 +314,7 @@ namespace OpenWiiManager.Forms
             var peripherals = GameTDBEntry?.Element("input")?.Elements("control")?.Select(e => (e?.Attribute("type")?.Value, e?.Attribute("required")?.Value == "true"));
 
             generalTableLayoutPanel.SuspendLayout();
-            AddGeneralProperty("ID", GameTDBEntry?.Element("id")?.Value);
+            AddGeneralPropertyMonospaced("ID", GameTDBEntry?.Element("id")?.Value);
             AddGeneralProperty("Title", GameTDBEntry?.Attribute("name")?.Value);
             AddGeneralProperty("Region", GameTDBEntry?.Element("region")?.Value);
             AddTagListProperty("Language(s)", (GameTDBEntry?.Element("languages")?.Value ?? "").Split(","));

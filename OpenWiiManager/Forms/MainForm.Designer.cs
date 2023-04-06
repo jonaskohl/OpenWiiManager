@@ -1,4 +1,6 @@
-﻿namespace OpenWiiManager.Forms
+﻿using OpenWiiManager.Controls;
+
+namespace OpenWiiManager.Forms
 {
     partial class MainForm
     {
@@ -70,9 +72,9 @@
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.webPictureBox1 = new OpenWiiManager.Forms.WebPictureBox();
+            this.webPictureBox1 = new OpenWiiManager.Controls.WebPictureBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.webPictureBox2 = new OpenWiiManager.Forms.WebPictureBox();
+            this.webPictureBox2 = new OpenWiiManager.Controls.WebPictureBox();
             this.notificationToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
