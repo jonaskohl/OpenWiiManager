@@ -136,6 +136,7 @@ namespace OpenWiiManager.Forms
             this.checkForUpdateToolStripMenuItem.Name = "checkForUpdateToolStripMenuItem";
             this.checkForUpdateToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
             this.checkForUpdateToolStripMenuItem.Text = "Check for update";
+            this.checkForUpdateToolStripMenuItem.Click += new System.EventHandler(this.checkForUpdateToolStripMenuItem_Click);
             // 
             // purgeToolStripMenuItem
             // 
@@ -143,6 +144,7 @@ namespace OpenWiiManager.Forms
             this.purgeToolStripMenuItem.Name = "purgeToolStripMenuItem";
             this.purgeToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
             this.purgeToolStripMenuItem.Text = "Purge";
+            this.purgeToolStripMenuItem.Click += new System.EventHandler(this.purgeToolStripMenuItem_Click);
             // 
             // gamesToolStripMenuItem
             // 
@@ -160,6 +162,7 @@ namespace OpenWiiManager.Forms
             this.refreshToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
             this.refreshToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.refreshToolStripMenuItem.Text = "Refresh";
+            this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
             // 
             // settingsToolStripMenuItem
             // 
@@ -168,6 +171,7 @@ namespace OpenWiiManager.Forms
             this.settingsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Oemcomma)));
             this.settingsToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
             this.settingsToolStripMenuItem.Text = "&Settings";
+            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
@@ -199,6 +203,7 @@ namespace OpenWiiManager.Forms
             this.expandColumnsToolStripMenuItem.Name = "expandColumnsToolStripMenuItem";
             this.expandColumnsToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.expandColumnsToolStripMenuItem.Text = "&Expand columns";
+            this.expandColumnsToolStripMenuItem.Click += new System.EventHandler(this.expandColumnsToolStripMenuItem_Click);
             // 
             // shrinkColumnsToolStripMenuItem
             // 
@@ -206,6 +211,7 @@ namespace OpenWiiManager.Forms
             this.shrinkColumnsToolStripMenuItem.Name = "shrinkColumnsToolStripMenuItem";
             this.shrinkColumnsToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.shrinkColumnsToolStripMenuItem.Text = "&Fit columns";
+            this.shrinkColumnsToolStripMenuItem.Click += new System.EventHandler(this.shrinkColumnsToolStripMenuItem_Click);
             // 
             // toolsToolStripMenuItem
             // 
@@ -223,12 +229,14 @@ namespace OpenWiiManager.Forms
             this.forceGarbageCollectionToolStripMenuItem.Name = "forceGarbageCollectionToolStripMenuItem";
             this.forceGarbageCollectionToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
             this.forceGarbageCollectionToolStripMenuItem.Text = "&Force garbage collection";
+            this.forceGarbageCollectionToolStripMenuItem.Click += new System.EventHandler(this.forceGarbageCollectionToolStripMenuItem_Click);
             // 
             // debugShowBalloonToolStripMenuItem
             // 
             this.debugShowBalloonToolStripMenuItem.Name = "debugShowBalloonToolStripMenuItem";
             this.debugShowBalloonToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
             this.debugShowBalloonToolStripMenuItem.Text = "[Debug] Show balloon";
+            this.debugShowBalloonToolStripMenuItem.Click += new System.EventHandler(this.debugShowBalloonToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -246,6 +254,7 @@ namespace OpenWiiManager.Forms
             this.aboutToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Shift | System.Windows.Forms.Keys.F1)));
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.aboutToolStripMenuItem.Text = "&About...";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // searchToolStripTextBox
             // 
@@ -253,6 +262,7 @@ namespace OpenWiiManager.Forms
             this.searchToolStripTextBox.AutoSize = false;
             this.searchToolStripTextBox.Name = "searchToolStripTextBox";
             this.searchToolStripTextBox.Size = new System.Drawing.Size(230, 20);
+            this.searchToolStripTextBox.TextChanged += new System.EventHandler(this.searchToolStripTextBox_TextChanged);
             // 
             // statusStrip1
             // 
@@ -278,6 +288,7 @@ namespace OpenWiiManager.Forms
             this.backgroundTaskPopupButton.ShowDropDownArrow = false;
             this.backgroundTaskPopupButton.Size = new System.Drawing.Size(20, 20);
             this.backgroundTaskPopupButton.Text = "Show running background tasks";
+            this.backgroundTaskPopupButton.Click += new System.EventHandler(this.backgroundTaskPopupButton_ButtonClick);
             // 
             // backgroundOperationProgressBar
             // 
@@ -309,6 +320,7 @@ namespace OpenWiiManager.Forms
             this.notificationsButton.Size = new System.Drawing.Size(33, 20);
             this.notificationsButton.Text = "0";
             this.notificationsButton.ToolTipText = "Notifications";
+            this.notificationsButton.Click += new System.EventHandler(this.notificationsButton_ButtonClick);
             // 
             // splitter1
             // 
@@ -344,6 +356,8 @@ namespace OpenWiiManager.Forms
             this.listView1.TabIndex = 3;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
+            this.listView1.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listView1_ColumnClick);
+            this.listView1.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.listView1_ItemSelectionChanged);
             // 
             // columnHeader1
             // 
@@ -389,7 +403,8 @@ namespace OpenWiiManager.Forms
             this.propertiesToolStripMenuItem,
             this.detailsToolStripMenuItem});
             this.gameContextMenuStrip.Name = "gameContextMenuStrip";
-            this.gameContextMenuStrip.Size = new System.Drawing.Size(291, 114);
+            this.gameContextMenuStrip.Size = new System.Drawing.Size(291, 136);
+            this.gameContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.gameContextMenuStrip_Opening);
             // 
             // viewGameOnGameTDBToolStripMenuItem
             // 
@@ -399,6 +414,7 @@ namespace OpenWiiManager.Forms
             | System.Windows.Forms.Keys.V)));
             this.viewGameOnGameTDBToolStripMenuItem.Size = new System.Drawing.Size(290, 22);
             this.viewGameOnGameTDBToolStripMenuItem.Text = "View game on GameTDB";
+            this.viewGameOnGameTDBToolStripMenuItem.Click += new System.EventHandler(this.viewGameOnGameTDBToolStripMenuItem_Click);
             // 
             // playGameUsingDolphinToolStripMenuItem
             // 
@@ -408,12 +424,14 @@ namespace OpenWiiManager.Forms
             | System.Windows.Forms.Keys.F12)));
             this.playGameUsingDolphinToolStripMenuItem.Size = new System.Drawing.Size(290, 22);
             this.playGameUsingDolphinToolStripMenuItem.Text = "Play game using Dolphin";
+            this.playGameUsingDolphinToolStripMenuItem.Click += new System.EventHandler(this.playGameUsingDolphinToolStripMenuItem_Click);
             // 
             // showFilesInExplorerToolStripMenuItem
             // 
             this.showFilesInExplorerToolStripMenuItem.Name = "showFilesInExplorerToolStripMenuItem";
             this.showFilesInExplorerToolStripMenuItem.Size = new System.Drawing.Size(290, 22);
             this.showFilesInExplorerToolStripMenuItem.Text = "Show file(s) in Explorer";
+            this.showFilesInExplorerToolStripMenuItem.Click += new System.EventHandler(this.showFilesInExplorerToolStripMenuItem_Click);
             // 
             // propertiesToolStripMenuItem
             // 
@@ -422,6 +440,7 @@ namespace OpenWiiManager.Forms
             this.propertiesToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Return)));
             this.propertiesToolStripMenuItem.Size = new System.Drawing.Size(290, 22);
             this.propertiesToolStripMenuItem.Text = "Properties";
+            this.propertiesToolStripMenuItem.Click += new System.EventHandler(this.propertiesToolStripMenuItem_Click);
             // 
             // detailsToolStripMenuItem
             // 
@@ -431,6 +450,7 @@ namespace OpenWiiManager.Forms
             | System.Windows.Forms.Keys.I)));
             this.detailsToolStripMenuItem.Size = new System.Drawing.Size(290, 22);
             this.detailsToolStripMenuItem.Text = "Details...";
+            this.detailsToolStripMenuItem.Click += new System.EventHandler(this.detailsToolStripMenuItem_Click);
             // 
             // imageList1
             // 
@@ -513,6 +533,7 @@ namespace OpenWiiManager.Forms
             // searchDelayTimer
             // 
             this.searchDelayTimer.Interval = 500;
+            this.searchDelayTimer.Tick += new System.EventHandler(this.searchDelayTimer_Tick);
             // 
             // MainForm
             // 
