@@ -13,20 +13,48 @@ namespace OpenWiiManager.Forms
 {
     public partial class SplashForm : Form
     {
-        Version ver;
+        string fullVer;
 
-        private static readonly Bitmap[] digitImages = new[]
+        private static Dictionary<char, Bitmap> charImages = new()
         {
-            Properties.Resources.digit0,
-            Properties.Resources.digit1,
-            Properties.Resources.digit2,
-            Properties.Resources.digit3,
-            Properties.Resources.digit4,
-            Properties.Resources.digit5,
-            Properties.Resources.digit6,
-            Properties.Resources.digit7,
-            Properties.Resources.digit8,
-            Properties.Resources.digit9,
+            { '0', Properties.Resources.digit0 },
+            { '1', Properties.Resources.digit1 },
+            { '2', Properties.Resources.digit2 },
+            { '3', Properties.Resources.digit3 },
+            { '4', Properties.Resources.digit4 },
+            { '5', Properties.Resources.digit5 },
+            { '6', Properties.Resources.digit6 },
+            { '7', Properties.Resources.digit7 },
+            { '8', Properties.Resources.digit8 },
+            { '9', Properties.Resources.digit9 },
+            { '.', Properties.Resources.dot },
+            { '-', Properties.Resources.dash },
+            { 'a', Properties.Resources.a },
+            { 'b', Properties.Resources.b },
+            { 'c', Properties.Resources.c },
+            { 'd', Properties.Resources.d },
+            { 'e', Properties.Resources.e },
+            { 'f', Properties.Resources.f },
+            { 'g', Properties.Resources.g },
+            { 'h', Properties.Resources.h },
+            { 'i', Properties.Resources.i },
+            { 'j', Properties.Resources.j },
+            { 'k', Properties.Resources.k },
+            { 'l', Properties.Resources.l },
+            { 'm', Properties.Resources.m },
+            { 'n', Properties.Resources.n },
+            { 'o', Properties.Resources.o },
+            { 'p', Properties.Resources.p },
+            { 'q', Properties.Resources.q },
+            { 'r', Properties.Resources.r },
+            { 's', Properties.Resources.s },
+            { 't', Properties.Resources.t },
+            { 'u', Properties.Resources.u },
+            { 'v', Properties.Resources.v },
+            { 'w', Properties.Resources.w },
+            { 'x', Properties.Resources.x },
+            { 'y', Properties.Resources.y },
+            { 'z', Properties.Resources.z },
         };
 
         protected override CreateParams CreateParams
@@ -43,7 +71,7 @@ namespace OpenWiiManager.Forms
         {
             InitializeComponent();
 
-            ver = Version.Parse(Application.ProductVersion.Substring(0, Application.ProductVersion.IndexOf("-")));
+            fullVer = Application.ProductVersion;
         }
 
         protected override void OnPaintBackground(PaintEventArgs e)
@@ -51,59 +79,34 @@ namespace OpenWiiManager.Forms
             base.OnPaintBackground(e);
             DrawDigits(e.Graphics);
         }
-
+        
         private void DrawDigits(Graphics g)
         {
             const int xstart = 58;
             const int ystart = 302;
             const int kerning = 1;
 
-            int[] verParts = new[] { ver.Major, ver.Minor, ver.Build, ver.Revision };
-            List<int> numbers = new();
-            foreach (var p in verParts)
-            {
-                if (p < 0)
-                    break;
-                numbers.Add(p);
-            }
-
             var xpos = xstart;
 
-            for (var i = 0; i < numbers.Count; ++i)
+            for (var i = 0; i < fullVer.Length; ++i)
             {
-                foreach (var d in GetDigitsOf(numbers[i]))
+                var curChar = fullVer[i];
+                Image charBmp;
+                if (!charImages.ContainsKey(curChar))
                 {
-                    var bmp = digitImages[d];
-                    g.DrawImage(bmp, new Rectangle(
-                        xpos, ystart,
-                        bmp.Width, bmp.Height
-                    ));
-                    xpos += bmp.Width + kerning;
+                    charBmp = Properties.Resources.fallback;
                 }
-                if (i < numbers.Count - 1)
+                else
                 {
-                    g.DrawImage(Properties.Resources.dot, new Rectangle(
-                        xpos, ystart,
-                        Properties.Resources.dot.Width, Properties.Resources.dot.Height
-                    ));
-                    xpos += Properties.Resources.dot.Width + kerning;
+                    charBmp = charImages[curChar];
                 }
-            }
-        }
 
-        private int[] GetDigitsOf(int num)
-        {
-            var numDigits = num == 0 ? 1 : (int)Math.Floor(Math.Log10(num) + 1);
-            int[] digits = new int[numDigits];
-            int c = 0;
-            while (num > 0)
-            {
-                var d = num % 10;
-                digits[numDigits - 1 - c] = d;
-                num /= 10;
-                ++c;
+                g.DrawImage(charBmp, new Rectangle(
+                    xpos, ystart,
+                    charBmp.Width, charBmp.Height
+                ));
+                xpos += charBmp.Width + kerning;
             }
-            return digits;
         }
     }
 }
