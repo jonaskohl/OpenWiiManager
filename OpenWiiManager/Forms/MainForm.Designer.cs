@@ -30,500 +30,517 @@ namespace OpenWiiManager.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            menuStrip1 = new MenuStrip();
-            fileToolStripMenuItem = new ToolStripMenuItem();
-            databaseToolStripMenuItem = new ToolStripMenuItem();
-            checkForUpdateToolStripMenuItem = new ToolStripMenuItem();
-            purgeToolStripMenuItem = new ToolStripMenuItem();
-            gamesToolStripMenuItem = new ToolStripMenuItem();
-            refreshToolStripMenuItem = new ToolStripMenuItem();
-            settingsToolStripMenuItem = new ToolStripMenuItem();
-            toolStripSeparator1 = new ToolStripSeparator();
-            exitToolStripMenuItem = new ToolStripMenuItem();
-            viewToolStripMenuItem = new ToolStripMenuItem();
-            expandColumnsToolStripMenuItem = new ToolStripMenuItem();
-            shrinkColumnsToolStripMenuItem = new ToolStripMenuItem();
-            toolsToolStripMenuItem = new ToolStripMenuItem();
-            forceGarbageCollectionToolStripMenuItem = new ToolStripMenuItem();
-            debugShowBalloonToolStripMenuItem = new ToolStripMenuItem();
-            helpToolStripMenuItem = new ToolStripMenuItem();
-            aboutToolStripMenuItem = new ToolStripMenuItem();
-            searchToolStripTextBox = new ToolStripTextBoxWithHeight();
-            statusStrip1 = new StatusStrip();
-            backgroundTaskPopupButton = new ToolStripDropDownButton();
-            backgroundOperationProgressBar = new ToolStripProgressBar();
-            backgroundOperationLabel = new ToolStripStatusLabel();
-            statusStripSpring = new ToolStripStatusLabel();
-            notificationsButton = new ToolStripDropDownButton();
-            splitter1 = new Splitter();
-            listView1 = new ListViewEx();
-            columnHeader1 = new ColumnHeader();
-            columnHeader2 = new ColumnHeader();
-            columnHeader3 = new ColumnHeader();
-            columnHeader4 = new ColumnHeader();
-            columnHeader8 = new ColumnHeader();
-            columnHeader7 = new ColumnHeader();
-            columnHeader5 = new ColumnHeader();
-            columnHeader6 = new ColumnHeader();
-            gameContextMenuStrip = new ContextMenuStrip(components);
-            viewGameOnGameTDBToolStripMenuItem = new ToolStripMenuItem();
-            playGameUsingDolphinToolStripMenuItem = new ToolStripMenuItem();
-            showFilesInExplorerToolStripMenuItem = new ToolStripMenuItem();
-            propertiesToolStripMenuItem = new ToolStripMenuItem();
-            detailsToolStripMenuItem = new ToolStripMenuItem();
-            imageList1 = new ImageList(components);
-            panel1 = new Panel();
-            tableLayoutPanel1 = new TableLayoutPanel();
-            webPictureBox1 = new WebPictureBox();
-            textBox1 = new TextBox();
-            webPictureBox2 = new WebPictureBox();
-            notificationToolTip = new ToolTip(components);
-            searchDelayTimer = new System.Windows.Forms.Timer(components);
-            menuStrip1.SuspendLayout();
-            statusStrip1.SuspendLayout();
-            gameContextMenuStrip.SuspendLayout();
-            panel1.SuspendLayout();
-            tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)webPictureBox1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)webPictureBox2).BeginInit();
-            SuspendLayout();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.databaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkForUpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.purgeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gamesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.expandColumnsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.shrinkColumnsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.forceGarbageCollectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.debugShowBalloonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.searchToolStripTextBox = new OpenWiiManager.Controls.ToolStripTextBoxWithHeight();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.backgroundTaskPopupButton = new System.Windows.Forms.ToolStripDropDownButton();
+            this.backgroundOperationProgressBar = new System.Windows.Forms.ToolStripProgressBar();
+            this.backgroundOperationLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.statusStripSpring = new System.Windows.Forms.ToolStripStatusLabel();
+            this.notificationsButton = new System.Windows.Forms.ToolStripDropDownButton();
+            this.splitter1 = new System.Windows.Forms.Splitter();
+            this.listView1 = new OpenWiiManager.Controls.ListViewEx();
+            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader4 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader8 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader7 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader5 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader6 = new System.Windows.Forms.ColumnHeader();
+            this.gameContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.viewGameOnGameTDBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.playGameUsingDolphinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showFilesInExplorerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.propertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.detailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.webPictureBox1 = new OpenWiiManager.Controls.WebPictureBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.webPictureBox2 = new OpenWiiManager.Controls.WebPictureBox();
+            this.notificationToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.searchDelayTimer = new System.Windows.Forms.Timer(this.components);
+            this.menuStrip1.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
+            this.gameContextMenuStrip.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.webPictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.webPictureBox2)).BeginInit();
+            this.SuspendLayout();
             // 
             // menuStrip1
             // 
-            menuStrip1.AutoSize = false;
-            menuStrip1.GripMargin = new Padding(0);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, viewToolStripMenuItem, toolsToolStripMenuItem, helpToolStripMenuItem, searchToolStripTextBox });
-            menuStrip1.Location = new Point(0, 0);
-            menuStrip1.Name = "menuStrip1";
-            menuStrip1.Padding = new Padding(0);
-            menuStrip1.Size = new Size(1130, 20);
-            menuStrip1.TabIndex = 0;
-            menuStrip1.Text = "menuStrip1";
+            this.menuStrip1.AutoSize = false;
+            this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(0);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.viewToolStripMenuItem,
+            this.toolsToolStripMenuItem,
+            this.helpToolStripMenuItem,
+            this.searchToolStripTextBox});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(0);
+            this.menuStrip1.Size = new System.Drawing.Size(1130, 20);
+            this.menuStrip1.TabIndex = 0;
+            this.menuStrip1.Text = "menuStrip1";
             // 
             // fileToolStripMenuItem
             // 
-            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { databaseToolStripMenuItem, gamesToolStripMenuItem, settingsToolStripMenuItem, toolStripSeparator1, exitToolStripMenuItem });
-            fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            fileToolStripMenuItem.Padding = new Padding(2, 0, 2, 0);
-            fileToolStripMenuItem.Size = new Size(33, 20);
-            fileToolStripMenuItem.Text = "&File";
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.databaseToolStripMenuItem,
+            this.gamesToolStripMenuItem,
+            this.settingsToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.exitToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(33, 20);
+            this.fileToolStripMenuItem.Text = "&File";
             // 
             // databaseToolStripMenuItem
             // 
-            databaseToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { checkForUpdateToolStripMenuItem, purgeToolStripMenuItem });
-            databaseToolStripMenuItem.Image = Properties.Resources.Database;
-            databaseToolStripMenuItem.Name = "databaseToolStripMenuItem";
-            databaseToolStripMenuItem.Size = new Size(219, 22);
-            databaseToolStripMenuItem.Text = "Database";
+            this.databaseToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.checkForUpdateToolStripMenuItem,
+            this.purgeToolStripMenuItem});
+            this.databaseToolStripMenuItem.Image = global::OpenWiiManager.Properties.Resources.Database;
+            this.databaseToolStripMenuItem.Name = "databaseToolStripMenuItem";
+            this.databaseToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
+            this.databaseToolStripMenuItem.Text = "Database";
             // 
             // checkForUpdateToolStripMenuItem
             // 
-            checkForUpdateToolStripMenuItem.Image = Properties.Resources.Synchronise;
-            checkForUpdateToolStripMenuItem.Name = "checkForUpdateToolStripMenuItem";
-            checkForUpdateToolStripMenuItem.Size = new Size(165, 22);
-            checkForUpdateToolStripMenuItem.Text = "Check for update";
-            checkForUpdateToolStripMenuItem.Click += checkForUpdateToolStripMenuItem_Click;
+            this.checkForUpdateToolStripMenuItem.Image = global::OpenWiiManager.Properties.Resources.Synchronise;
+            this.checkForUpdateToolStripMenuItem.Name = "checkForUpdateToolStripMenuItem";
+            this.checkForUpdateToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.checkForUpdateToolStripMenuItem.Text = "Check for update";
             // 
             // purgeToolStripMenuItem
             // 
-            purgeToolStripMenuItem.Image = Properties.Resources.Waste_Bin;
-            purgeToolStripMenuItem.Name = "purgeToolStripMenuItem";
-            purgeToolStripMenuItem.Size = new Size(165, 22);
-            purgeToolStripMenuItem.Text = "Purge";
-            purgeToolStripMenuItem.Click += purgeToolStripMenuItem_Click;
+            this.purgeToolStripMenuItem.Image = global::OpenWiiManager.Properties.Resources.Waste_Bin;
+            this.purgeToolStripMenuItem.Name = "purgeToolStripMenuItem";
+            this.purgeToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.purgeToolStripMenuItem.Text = "Purge";
             // 
             // gamesToolStripMenuItem
             // 
-            gamesToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { refreshToolStripMenuItem });
-            gamesToolStripMenuItem.Image = Properties.Resources.CD;
-            gamesToolStripMenuItem.Name = "gamesToolStripMenuItem";
-            gamesToolStripMenuItem.Size = new Size(219, 22);
-            gamesToolStripMenuItem.Text = "Games";
+            this.gamesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.refreshToolStripMenuItem});
+            this.gamesToolStripMenuItem.Image = global::OpenWiiManager.Properties.Resources.CD;
+            this.gamesToolStripMenuItem.Name = "gamesToolStripMenuItem";
+            this.gamesToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
+            this.gamesToolStripMenuItem.Text = "Games";
             // 
             // refreshToolStripMenuItem
             // 
-            refreshToolStripMenuItem.Image = Properties.Resources.Refresh;
-            refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
-            refreshToolStripMenuItem.ShortcutKeys = Keys.F5;
-            refreshToolStripMenuItem.Size = new Size(132, 22);
-            refreshToolStripMenuItem.Text = "Refresh";
-            refreshToolStripMenuItem.Click += refreshToolStripMenuItem_Click;
+            this.refreshToolStripMenuItem.Image = global::OpenWiiManager.Properties.Resources.Refresh;
+            this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
+            this.refreshToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.refreshToolStripMenuItem.Text = "Refresh";
             // 
             // settingsToolStripMenuItem
             // 
-            settingsToolStripMenuItem.Image = Properties.Resources.Tools;
-            settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            settingsToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Oemcomma;
-            settingsToolStripMenuItem.Size = new Size(219, 22);
-            settingsToolStripMenuItem.Text = "&Settings";
-            settingsToolStripMenuItem.Click += settingsToolStripMenuItem_Click;
+            this.settingsToolStripMenuItem.Image = global::OpenWiiManager.Properties.Resources.Tools;
+            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            this.settingsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Oemcomma)));
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
+            this.settingsToolStripMenuItem.Text = "&Settings";
             // 
             // toolStripSeparator1
             // 
-            toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(216, 6);
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(214, 6);
             // 
             // exitToolStripMenuItem
             // 
-            exitToolStripMenuItem.Image = Properties.Resources.Exit;
-            exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            exitToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Q;
-            exitToolStripMenuItem.Size = new Size(219, 22);
-            exitToolStripMenuItem.Text = "&Exit";
-            exitToolStripMenuItem.Click += ExitToolStripMenuItem_Click;
+            this.exitToolStripMenuItem.Image = global::OpenWiiManager.Properties.Resources.Exit;
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
+            this.exitToolStripMenuItem.Text = "&Exit";
             // 
             // viewToolStripMenuItem
             // 
-            viewToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { expandColumnsToolStripMenuItem, shrinkColumnsToolStripMenuItem });
-            viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            viewToolStripMenuItem.Padding = new Padding(2, 0, 2, 0);
-            viewToolStripMenuItem.Size = new Size(40, 20);
-            viewToolStripMenuItem.Text = "&View";
+            this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.expandColumnsToolStripMenuItem,
+            this.shrinkColumnsToolStripMenuItem});
+            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+            this.viewToolStripMenuItem.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
+            this.viewToolStripMenuItem.Text = "&View";
             // 
             // expandColumnsToolStripMenuItem
             // 
-            expandColumnsToolStripMenuItem.Image = Properties.Resources.Column_Width;
-            expandColumnsToolStripMenuItem.Name = "expandColumnsToolStripMenuItem";
-            expandColumnsToolStripMenuItem.Size = new Size(162, 22);
-            expandColumnsToolStripMenuItem.Text = "&Expand columns";
-            expandColumnsToolStripMenuItem.Click += expandColumnsToolStripMenuItem_Click;
+            this.expandColumnsToolStripMenuItem.Image = global::OpenWiiManager.Properties.Resources.Column_Width;
+            this.expandColumnsToolStripMenuItem.Name = "expandColumnsToolStripMenuItem";
+            this.expandColumnsToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.expandColumnsToolStripMenuItem.Text = "&Expand columns";
             // 
             // shrinkColumnsToolStripMenuItem
             // 
-            shrinkColumnsToolStripMenuItem.Image = Properties.Pictograms.Column_Shrink_2;
-            shrinkColumnsToolStripMenuItem.Name = "shrinkColumnsToolStripMenuItem";
-            shrinkColumnsToolStripMenuItem.Size = new Size(162, 22);
-            shrinkColumnsToolStripMenuItem.Text = "&Fit columns";
-            shrinkColumnsToolStripMenuItem.Click += shrinkColumnsToolStripMenuItem_Click;
+            this.shrinkColumnsToolStripMenuItem.Image = global::OpenWiiManager.Properties.Pictograms.Column_Shrink_2;
+            this.shrinkColumnsToolStripMenuItem.Name = "shrinkColumnsToolStripMenuItem";
+            this.shrinkColumnsToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.shrinkColumnsToolStripMenuItem.Text = "&Fit columns";
             // 
             // toolsToolStripMenuItem
             // 
-            toolsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { forceGarbageCollectionToolStripMenuItem, debugShowBalloonToolStripMenuItem });
-            toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            toolsToolStripMenuItem.Padding = new Padding(2, 0, 2, 0);
-            toolsToolStripMenuItem.Size = new Size(42, 20);
-            toolsToolStripMenuItem.Text = "&Tools";
+            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.forceGarbageCollectionToolStripMenuItem,
+            this.debugShowBalloonToolStripMenuItem});
+            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
+            this.toolsToolStripMenuItem.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(42, 20);
+            this.toolsToolStripMenuItem.Text = "&Tools";
             // 
             // forceGarbageCollectionToolStripMenuItem
             // 
-            forceGarbageCollectionToolStripMenuItem.Image = Properties.Resources.Waste_Bin;
-            forceGarbageCollectionToolStripMenuItem.Name = "forceGarbageCollectionToolStripMenuItem";
-            forceGarbageCollectionToolStripMenuItem.Size = new Size(204, 22);
-            forceGarbageCollectionToolStripMenuItem.Text = "&Force garbage collection";
-            forceGarbageCollectionToolStripMenuItem.Click += forceGarbageCollectionToolStripMenuItem_Click;
+            this.forceGarbageCollectionToolStripMenuItem.Image = global::OpenWiiManager.Properties.Resources.Waste_Bin;
+            this.forceGarbageCollectionToolStripMenuItem.Name = "forceGarbageCollectionToolStripMenuItem";
+            this.forceGarbageCollectionToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.forceGarbageCollectionToolStripMenuItem.Text = "&Force garbage collection";
             // 
             // debugShowBalloonToolStripMenuItem
             // 
-            debugShowBalloonToolStripMenuItem.Name = "debugShowBalloonToolStripMenuItem";
-            debugShowBalloonToolStripMenuItem.Size = new Size(204, 22);
-            debugShowBalloonToolStripMenuItem.Text = "[Debug] Show balloon";
-            debugShowBalloonToolStripMenuItem.Click += debugShowBalloonToolStripMenuItem_Click;
+            this.debugShowBalloonToolStripMenuItem.Name = "debugShowBalloonToolStripMenuItem";
+            this.debugShowBalloonToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.debugShowBalloonToolStripMenuItem.Text = "[Debug] Show balloon";
             // 
             // helpToolStripMenuItem
             // 
-            helpToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { aboutToolStripMenuItem });
-            helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            helpToolStripMenuItem.Padding = new Padding(2, 0, 2, 0);
-            helpToolStripMenuItem.Size = new Size(40, 20);
-            helpToolStripMenuItem.Text = "&Help";
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aboutToolStripMenuItem});
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
+            this.helpToolStripMenuItem.Text = "&Help";
             // 
             // aboutToolStripMenuItem
             // 
-            aboutToolStripMenuItem.Image = Properties.Resources.About;
-            aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            aboutToolStripMenuItem.ShortcutKeys = Keys.Shift | Keys.F1;
-            aboutToolStripMenuItem.Size = new Size(218, 22);
-            aboutToolStripMenuItem.Text = "&About...";
-            aboutToolStripMenuItem.Click += aboutToolStripMenuItem_Click;
+            this.aboutToolStripMenuItem.Image = global::OpenWiiManager.Properties.Resources.About;
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Shift | System.Windows.Forms.Keys.F1)));
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.aboutToolStripMenuItem.Text = "&About...";
             // 
             // searchToolStripTextBox
             // 
-            searchToolStripTextBox.Alignment = ToolStripItemAlignment.Right;
-            searchToolStripTextBox.AutoSize = false;
-            searchToolStripTextBox.Name = "searchToolStripTextBox";
-            searchToolStripTextBox.Size = new Size(230, 20);
-            searchToolStripTextBox.TextChanged += searchToolStripTextBox_TextChanged;
+            this.searchToolStripTextBox.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.searchToolStripTextBox.AutoSize = false;
+            this.searchToolStripTextBox.Name = "searchToolStripTextBox";
+            this.searchToolStripTextBox.Size = new System.Drawing.Size(230, 20);
             // 
             // statusStrip1
             // 
-            statusStrip1.Items.AddRange(new ToolStripItem[] { backgroundTaskPopupButton, backgroundOperationProgressBar, backgroundOperationLabel, statusStripSpring, notificationsButton });
-            statusStrip1.Location = new Point(0, 650);
-            statusStrip1.Name = "statusStrip1";
-            statusStrip1.RenderMode = ToolStripRenderMode.ManagerRenderMode;
-            statusStrip1.Size = new Size(1130, 22);
-            statusStrip1.TabIndex = 1;
-            statusStrip1.Text = "statusStrip1";
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.backgroundTaskPopupButton,
+            this.backgroundOperationProgressBar,
+            this.backgroundOperationLabel,
+            this.statusStripSpring,
+            this.notificationsButton});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 650);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.ManagerRenderMode;
+            this.statusStrip1.Size = new System.Drawing.Size(1130, 22);
+            this.statusStrip1.TabIndex = 1;
+            this.statusStrip1.Text = "statusStrip1";
             // 
             // backgroundTaskPopupButton
             // 
-            backgroundTaskPopupButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            backgroundTaskPopupButton.Image = Properties.Resources.Task;
-            backgroundTaskPopupButton.ImageTransparentColor = Color.Magenta;
-            backgroundTaskPopupButton.Name = "backgroundTaskPopupButton";
-            backgroundTaskPopupButton.ShowDropDownArrow = false;
-            backgroundTaskPopupButton.Size = new Size(20, 20);
-            backgroundTaskPopupButton.Text = "Show running background tasks";
-            backgroundTaskPopupButton.Click += backgroundTaskPopupButton_ButtonClick;
+            this.backgroundTaskPopupButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.backgroundTaskPopupButton.Image = global::OpenWiiManager.Properties.Resources.Task;
+            this.backgroundTaskPopupButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.backgroundTaskPopupButton.Name = "backgroundTaskPopupButton";
+            this.backgroundTaskPopupButton.ShowDropDownArrow = false;
+            this.backgroundTaskPopupButton.Size = new System.Drawing.Size(20, 20);
+            this.backgroundTaskPopupButton.Text = "Show running background tasks";
             // 
             // backgroundOperationProgressBar
             // 
-            backgroundOperationProgressBar.MarqueeAnimationSpeed = 40;
-            backgroundOperationProgressBar.Maximum = 0;
-            backgroundOperationProgressBar.Name = "backgroundOperationProgressBar";
-            backgroundOperationProgressBar.Size = new Size(40, 16);
-            backgroundOperationProgressBar.Style = ProgressBarStyle.Marquee;
-            backgroundOperationProgressBar.Visible = false;
-            backgroundOperationProgressBar.Click += backgroundOperationLabel_Click;
+            this.backgroundOperationProgressBar.MarqueeAnimationSpeed = 40;
+            this.backgroundOperationProgressBar.Maximum = 0;
+            this.backgroundOperationProgressBar.Name = "backgroundOperationProgressBar";
+            this.backgroundOperationProgressBar.Size = new System.Drawing.Size(40, 16);
+            this.backgroundOperationProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+            this.backgroundOperationProgressBar.Visible = false;
             // 
             // backgroundOperationLabel
             // 
-            backgroundOperationLabel.Name = "backgroundOperationLabel";
-            backgroundOperationLabel.Size = new Size(0, 17);
-            backgroundOperationLabel.Visible = false;
-            backgroundOperationLabel.Click += backgroundOperationLabel_Click;
+            this.backgroundOperationLabel.Name = "backgroundOperationLabel";
+            this.backgroundOperationLabel.Size = new System.Drawing.Size(0, 17);
+            this.backgroundOperationLabel.Visible = false;
             // 
             // statusStripSpring
             // 
-            statusStripSpring.Name = "statusStripSpring";
-            statusStripSpring.Size = new Size(1062, 17);
-            statusStripSpring.Spring = true;
+            this.statusStripSpring.Name = "statusStripSpring";
+            this.statusStripSpring.Size = new System.Drawing.Size(1062, 17);
+            this.statusStripSpring.Spring = true;
             // 
             // notificationsButton
             // 
-            notificationsButton.Image = Properties.Resources.Alarm;
-            notificationsButton.ImageTransparentColor = Color.Magenta;
-            notificationsButton.Name = "notificationsButton";
-            notificationsButton.ShowDropDownArrow = false;
-            notificationsButton.Size = new Size(33, 20);
-            notificationsButton.Text = "0";
-            notificationsButton.ToolTipText = "Notifications";
-            notificationsButton.Click += notificationsButton_ButtonClick;
+            this.notificationsButton.Image = global::OpenWiiManager.Properties.Resources.Alarm;
+            this.notificationsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.notificationsButton.Name = "notificationsButton";
+            this.notificationsButton.ShowDropDownArrow = false;
+            this.notificationsButton.Size = new System.Drawing.Size(33, 20);
+            this.notificationsButton.Text = "0";
+            this.notificationsButton.ToolTipText = "Notifications";
             // 
             // splitter1
             // 
-            splitter1.Dock = DockStyle.Right;
-            splitter1.Location = new Point(767, 20);
-            splitter1.Name = "splitter1";
-            splitter1.Size = new Size(3, 630);
-            splitter1.TabIndex = 2;
-            splitter1.TabStop = false;
+            this.splitter1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.splitter1.Location = new System.Drawing.Point(767, 20);
+            this.splitter1.Name = "splitter1";
+            this.splitter1.Size = new System.Drawing.Size(3, 630);
+            this.splitter1.TabIndex = 2;
+            this.splitter1.TabStop = false;
             // 
             // listView1
             // 
-            listView1.AllowColumnReorder = true;
-            listView1.BorderStyle = BorderStyle.None;
-            listView1.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2, columnHeader3, columnHeader4, columnHeader8, columnHeader7, columnHeader5, columnHeader6 });
-            listView1.ContextMenuStrip = gameContextMenuStrip;
-            listView1.Dock = DockStyle.Fill;
-            listView1.EmptyText = "No games to show";
-            listView1.FullRowSelect = true;
-            listView1.Location = new Point(0, 20);
-            listView1.Name = "listView1";
-            listView1.ShowItemToolTips = true;
-            listView1.Size = new Size(767, 630);
-            listView1.SmallImageList = imageList1;
-            listView1.TabIndex = 3;
-            listView1.UseCompatibleStateImageBehavior = false;
-            listView1.View = View.Details;
-            listView1.ColumnClick += listView1_ColumnClick;
-            listView1.ItemSelectionChanged += listView1_ItemSelectionChanged;
+            this.listView1.AllowColumnReorder = true;
+            this.listView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2,
+            this.columnHeader3,
+            this.columnHeader4,
+            this.columnHeader8,
+            this.columnHeader7,
+            this.columnHeader5,
+            this.columnHeader6});
+            this.listView1.ContextMenuStrip = this.gameContextMenuStrip;
+            this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listView1.EmptyText = "No games to show";
+            this.listView1.FullRowSelect = true;
+            this.listView1.Location = new System.Drawing.Point(0, 20);
+            this.listView1.Name = "listView1";
+            this.listView1.ShowItemToolTips = true;
+            this.listView1.Size = new System.Drawing.Size(767, 630);
+            this.listView1.SmallImageList = this.imageList1;
+            this.listView1.TabIndex = 3;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.View = System.Windows.Forms.View.Details;
             // 
             // columnHeader1
             // 
-            columnHeader1.Text = "File name";
-            columnHeader1.Width = 160;
+            this.columnHeader1.Text = "File name";
+            this.columnHeader1.Width = 160;
             // 
             // columnHeader2
             // 
-            columnHeader2.Text = "ID";
-            columnHeader2.Width = 80;
+            this.columnHeader2.Text = "ID";
+            this.columnHeader2.Width = 80;
             // 
             // columnHeader3
             // 
-            columnHeader3.Text = "Title";
-            columnHeader3.Width = 240;
+            this.columnHeader3.Text = "Title";
+            this.columnHeader3.Width = 240;
             // 
             // columnHeader4
             // 
-            columnHeader4.Text = "Region";
+            this.columnHeader4.Text = "Region";
             // 
             // columnHeader8
             // 
-            columnHeader8.Text = "Developer";
+            this.columnHeader8.Text = "Developer";
             // 
             // columnHeader7
             // 
-            columnHeader7.Text = "Publisher";
+            this.columnHeader7.Text = "Publisher";
             // 
             // columnHeader5
             // 
-            columnHeader5.Text = "Language(s)";
+            this.columnHeader5.Text = "Language(s)";
             // 
             // columnHeader6
             // 
-            columnHeader6.Text = "Release date";
+            this.columnHeader6.Text = "Release date";
             // 
             // gameContextMenuStrip
             // 
-            gameContextMenuStrip.Items.AddRange(new ToolStripItem[] { viewGameOnGameTDBToolStripMenuItem, playGameUsingDolphinToolStripMenuItem, showFilesInExplorerToolStripMenuItem, propertiesToolStripMenuItem, detailsToolStripMenuItem });
-            gameContextMenuStrip.Name = "gameContextMenuStrip";
-            gameContextMenuStrip.Size = new Size(344, 114);
-            gameContextMenuStrip.Opening += gameContextMenuStrip_Opening;
+            this.gameContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.viewGameOnGameTDBToolStripMenuItem,
+            this.playGameUsingDolphinToolStripMenuItem,
+            this.showFilesInExplorerToolStripMenuItem,
+            this.propertiesToolStripMenuItem,
+            this.detailsToolStripMenuItem});
+            this.gameContextMenuStrip.Name = "gameContextMenuStrip";
+            this.gameContextMenuStrip.Size = new System.Drawing.Size(291, 114);
             // 
             // viewGameOnGameTDBToolStripMenuItem
             // 
-            viewGameOnGameTDBToolStripMenuItem.Image = Properties.Resources.gametdb_16;
-            viewGameOnGameTDBToolStripMenuItem.Name = "viewGameOnGameTDBToolStripMenuItem";
-            viewGameOnGameTDBToolStripMenuItem.ShortcutKeys = Keys.Alt | Keys.Shift | Keys.V;
-            viewGameOnGameTDBToolStripMenuItem.Size = new Size(343, 22);
-            viewGameOnGameTDBToolStripMenuItem.Text = "View game on GameTDB";
-            viewGameOnGameTDBToolStripMenuItem.Click += viewGameOnGameTDBToolStripMenuItem_Click;
+            this.viewGameOnGameTDBToolStripMenuItem.Image = global::OpenWiiManager.Properties.Resources.gametdb_16;
+            this.viewGameOnGameTDBToolStripMenuItem.Name = "viewGameOnGameTDBToolStripMenuItem";
+            this.viewGameOnGameTDBToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.V)));
+            this.viewGameOnGameTDBToolStripMenuItem.Size = new System.Drawing.Size(290, 22);
+            this.viewGameOnGameTDBToolStripMenuItem.Text = "View game on GameTDB";
             // 
             // playGameUsingDolphinToolStripMenuItem
             // 
-            playGameUsingDolphinToolStripMenuItem.Image = Properties.Resources.dolphin_16;
-            playGameUsingDolphinToolStripMenuItem.Name = "playGameUsingDolphinToolStripMenuItem";
-            playGameUsingDolphinToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Shift | Keys.F12;
-            playGameUsingDolphinToolStripMenuItem.Size = new Size(343, 22);
-            playGameUsingDolphinToolStripMenuItem.Text = "Play game using Dolphin";
-            playGameUsingDolphinToolStripMenuItem.Click += playGameUsingDolphinToolStripMenuItem_Click;
+            this.playGameUsingDolphinToolStripMenuItem.Image = global::OpenWiiManager.Properties.Resources.dolphin_16;
+            this.playGameUsingDolphinToolStripMenuItem.Name = "playGameUsingDolphinToolStripMenuItem";
+            this.playGameUsingDolphinToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.F12)));
+            this.playGameUsingDolphinToolStripMenuItem.Size = new System.Drawing.Size(290, 22);
+            this.playGameUsingDolphinToolStripMenuItem.Text = "Play game using Dolphin";
             // 
             // showFilesInExplorerToolStripMenuItem
             // 
-            showFilesInExplorerToolStripMenuItem.Name = "showFilesInExplorerToolStripMenuItem";
-            showFilesInExplorerToolStripMenuItem.Size = new Size(343, 22);
-            showFilesInExplorerToolStripMenuItem.Text = "Show file(s) in Explorer";
-            showFilesInExplorerToolStripMenuItem.Click += showFilesInExplorerToolStripMenuItem_Click;
+            this.showFilesInExplorerToolStripMenuItem.Name = "showFilesInExplorerToolStripMenuItem";
+            this.showFilesInExplorerToolStripMenuItem.Size = new System.Drawing.Size(290, 22);
+            this.showFilesInExplorerToolStripMenuItem.Text = "Show file(s) in Explorer";
             // 
             // propertiesToolStripMenuItem
             // 
-            propertiesToolStripMenuItem.Image = Properties.Resources.Properties;
-            propertiesToolStripMenuItem.Name = "propertiesToolStripMenuItem";
-            propertiesToolStripMenuItem.ShortcutKeys = Keys.Alt | Keys.Return;
-            propertiesToolStripMenuItem.Size = new Size(343, 22);
-            propertiesToolStripMenuItem.Text = "Properties";
-            propertiesToolStripMenuItem.Click += propertiesToolStripMenuItem_Click;
+            this.propertiesToolStripMenuItem.Image = global::OpenWiiManager.Properties.Resources.Properties;
+            this.propertiesToolStripMenuItem.Name = "propertiesToolStripMenuItem";
+            this.propertiesToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Return)));
+            this.propertiesToolStripMenuItem.Size = new System.Drawing.Size(290, 22);
+            this.propertiesToolStripMenuItem.Text = "Properties";
             // 
             // detailsToolStripMenuItem
             // 
-            detailsToolStripMenuItem.Image = Properties.Resources.CD_View_1_;
-            detailsToolStripMenuItem.Name = "detailsToolStripMenuItem";
-            detailsToolStripMenuItem.ShortcutKeys = Keys.Alt | Keys.Shift | Keys.I;
-            detailsToolStripMenuItem.Size = new Size(343, 22);
-            detailsToolStripMenuItem.Text = "Details...";
-            detailsToolStripMenuItem.Click += detailsToolStripMenuItem_Click;
+            this.detailsToolStripMenuItem.Image = global::OpenWiiManager.Properties.Resources.CD_View_1_;
+            this.detailsToolStripMenuItem.Name = "detailsToolStripMenuItem";
+            this.detailsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.I)));
+            this.detailsToolStripMenuItem.Size = new System.Drawing.Size(290, 22);
+            this.detailsToolStripMenuItem.Text = "Details...";
             // 
             // imageList1
             // 
-            imageList1.ColorDepth = ColorDepth.Depth32Bit;
-            imageList1.ImageStream = (ImageListStreamer)resources.GetObject("imageList1.ImageStream");
-            imageList1.TransparentColor = Color.Transparent;
-            imageList1.Images.SetKeyName(0, "Tick.png");
-            imageList1.Images.SetKeyName(1, "Warning.png");
-            imageList1.Images.SetKeyName(2, "Help-3.png");
-            imageList1.Images.SetKeyName(3, "Error.png");
-            imageList1.Images.SetKeyName(4, "Clock.png");
+            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "Tick.png");
+            this.imageList1.Images.SetKeyName(1, "Warning.png");
+            this.imageList1.Images.SetKeyName(2, "Help-3.png");
+            this.imageList1.Images.SetKeyName(3, "Error.png");
+            this.imageList1.Images.SetKeyName(4, "Clock.png");
             // 
             // panel1
             // 
-            panel1.Controls.Add(tableLayoutPanel1);
-            panel1.Dock = DockStyle.Right;
-            panel1.Location = new Point(770, 20);
-            panel1.MinimumSize = new Size(360, 0);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(360, 630);
-            panel1.TabIndex = 4;
+            this.panel1.Controls.Add(this.tableLayoutPanel1);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel1.Location = new System.Drawing.Point(770, 20);
+            this.panel1.MinimumSize = new System.Drawing.Size(360, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(360, 630);
+            this.panel1.TabIndex = 4;
             // 
             // tableLayoutPanel1
             // 
-            tableLayoutPanel1.ColumnCount = 2;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 52.38095F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 47.61905F));
-            tableLayoutPanel1.Controls.Add(webPictureBox1, 0, 0);
-            tableLayoutPanel1.Controls.Add(textBox1, 0, 1);
-            tableLayoutPanel1.Controls.Add(webPictureBox2, 1, 0);
-            tableLayoutPanel1.Dock = DockStyle.Fill;
-            tableLayoutPanel1.Location = new Point(0, 0);
-            tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 3;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle());
-            tableLayoutPanel1.RowStyles.Add(new RowStyle());
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.Size = new Size(360, 630);
-            tableLayoutPanel1.TabIndex = 0;
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 52.38095F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 47.61905F));
+            this.tableLayoutPanel1.Controls.Add(this.webPictureBox1, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.textBox1, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.webPictureBox2, 1, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 3;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(360, 630);
+            this.tableLayoutPanel1.TabIndex = 0;
             // 
             // webPictureBox1
             // 
-            webPictureBox1.Anchor = AnchorStyles.Right;
-            webPictureBox1.FallbackImage = null;
-            webPictureBox1.Location = new Point(9, 3);
-            webPictureBox1.Name = "webPictureBox1";
-            webPictureBox1.Size = new Size(176, 248);
-            webPictureBox1.TabIndex = 0;
-            webPictureBox1.TabStop = false;
-            webPictureBox1.URL = null;
+            this.webPictureBox1.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.webPictureBox1.FallbackImage = null;
+            this.webPictureBox1.Location = new System.Drawing.Point(9, 3);
+            this.webPictureBox1.Name = "webPictureBox1";
+            this.webPictureBox1.Size = new System.Drawing.Size(176, 248);
+            this.webPictureBox1.TabIndex = 0;
+            this.webPictureBox1.TabStop = false;
+            this.webPictureBox1.URL = null;
             // 
             // textBox1
             // 
-            tableLayoutPanel1.SetColumnSpan(textBox1, 2);
-            textBox1.Dock = DockStyle.Fill;
-            textBox1.Location = new Point(3, 257);
-            textBox1.Multiline = true;
-            textBox1.Name = "textBox1";
-            textBox1.ReadOnly = true;
-            textBox1.ScrollBars = ScrollBars.Vertical;
-            textBox1.Size = new Size(354, 220);
-            textBox1.TabIndex = 1;
+            this.tableLayoutPanel1.SetColumnSpan(this.textBox1, 2);
+            this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox1.Location = new System.Drawing.Point(3, 257);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBox1.Size = new System.Drawing.Size(354, 220);
+            this.textBox1.TabIndex = 1;
             // 
             // webPictureBox2
             // 
-            webPictureBox2.Anchor = AnchorStyles.Left;
-            webPictureBox2.FallbackImage = Properties.Resources.owm_disc;
-            webPictureBox2.Location = new Point(191, 47);
-            webPictureBox2.Name = "webPictureBox2";
-            webPictureBox2.Size = new Size(160, 160);
-            webPictureBox2.TabIndex = 0;
-            webPictureBox2.TabStop = false;
-            webPictureBox2.URL = null;
+            this.webPictureBox2.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.webPictureBox2.FallbackImage = global::OpenWiiManager.Properties.Resources.owm_disc;
+            this.webPictureBox2.Location = new System.Drawing.Point(191, 47);
+            this.webPictureBox2.Name = "webPictureBox2";
+            this.webPictureBox2.Size = new System.Drawing.Size(160, 160);
+            this.webPictureBox2.TabIndex = 0;
+            this.webPictureBox2.TabStop = false;
+            this.webPictureBox2.URL = null;
             // 
             // notificationToolTip
             // 
-            notificationToolTip.IsBalloon = true;
-            notificationToolTip.ShowAlways = true;
+            this.notificationToolTip.IsBalloon = true;
+            this.notificationToolTip.ShowAlways = true;
             // 
             // searchDelayTimer
             // 
-            searchDelayTimer.Interval = 500;
-            searchDelayTimer.Tick += searchDelayTimer_Tick;
+            this.searchDelayTimer.Interval = 500;
             // 
             // MainForm
             // 
-            AutoScaleDimensions = new SizeF(96F, 96F);
-            AutoScaleMode = AutoScaleMode.Dpi;
-            ClientSize = new Size(1130, 672);
-            Controls.Add(listView1);
-            Controls.Add(splitter1);
-            Controls.Add(panel1);
-            Controls.Add(statusStrip1);
-            Controls.Add(menuStrip1);
-            Icon = (Icon)resources.GetObject("$this.Icon");
-            MainMenuStrip = menuStrip1;
-            Name = "MainForm";
-            Text = "Open Wii Manager";
-            menuStrip1.ResumeLayout(false);
-            menuStrip1.PerformLayout();
-            statusStrip1.ResumeLayout(false);
-            statusStrip1.PerformLayout();
-            gameContextMenuStrip.ResumeLayout(false);
-            panel1.ResumeLayout(false);
-            tableLayoutPanel1.ResumeLayout(false);
-            tableLayoutPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)webPictureBox1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)webPictureBox2).EndInit();
-            ResumeLayout(false);
-            PerformLayout();
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.ClientSize = new System.Drawing.Size(1130, 672);
+            this.Controls.Add(this.listView1);
+            this.Controls.Add(this.splitter1);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MainMenuStrip = this.menuStrip1;
+            this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Open Wii Manager";
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
+            this.gameContextMenuStrip.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.webPictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.webPictureBox2)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion

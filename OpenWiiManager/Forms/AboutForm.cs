@@ -23,7 +23,8 @@ namespace OpenWiiManager.Forms
             InitializeComponent();
 
             var fvi = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
-            label2.Text = @$"Open Wii Mananger {fvi.ProductVersion}
+            var fullVersionString = Assembly.GetExecutingAssembly()?.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion;
+            label2.Text = @$"Open Wii Mananger {fullVersionString}
 {fvi.LegalCopyright}
 
 This program is free software: you can redistribute it and/or modify

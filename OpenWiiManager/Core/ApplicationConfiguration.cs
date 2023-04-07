@@ -20,6 +20,12 @@ namespace OpenWiiManager.Core
         [StateSerialization]
         private string? isoPath;
 
+        //[StateSerialization]
+        //private Color? searchHighlightBackgroundColor;
+
+        //[StateSerialization]
+        //private Color? searchHighlightForegroundColor;
+
         [StateSerialization]
         private bool upperCaseHashes;
 
@@ -41,6 +47,18 @@ namespace OpenWiiManager.Core
             editorCreatorType: typeof(FolderBrowserEditorCreator)
         )]
         public string? IsoPath { get => isoPath; set { isoPath = value; Serialize(); } }
+
+        //[SettingsCategory("General",
+        //    label: "Search highlight background color",
+        //    description: "The background color for highlighted search results"
+        //)]
+        //public Color? SearchHighlightBackgroundColor { get => searchHighlightBackgroundColor; set { searchHighlightBackgroundColor = value; Serialize(); } }
+
+        //[SettingsCategory("General",
+        //    label: "Search highlight text color",
+        //    description: "The text color for highlighted search results"
+        //)]
+        //public Color? SearchHighlightForegroundColor { get => searchHighlightForegroundColor; set { searchHighlightForegroundColor = value; Serialize(); } }
 
         [SettingsCategory("Details",
             label: "Use uppercase letters in file hashes",

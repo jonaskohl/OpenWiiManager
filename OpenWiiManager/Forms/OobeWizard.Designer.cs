@@ -28,8 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OobeWizard));
             this.wizardControl1 = new AeroWizard.WizardControl();
+            this.label3 = new System.Windows.Forms.Label();
             this.wizardPage1 = new AeroWizard.WizardPage();
             this.themedLabel1 = new System.Windows.Forms.Label();
             this.wizardPage2 = new AeroWizard.WizardPage();
@@ -37,11 +39,25 @@
             this.browseFolderButton = new System.Windows.Forms.Button();
             this.pathLabel = new System.Windows.Forms.Label();
             this.themedLabel2 = new System.Windows.Forms.Label();
+            this.wizardPage3 = new AeroWizard.WizardPage();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.wizardPage4 = new AeroWizard.WizardPage();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.label2 = new System.Windows.Forms.Label();
+            this.wizardPage5 = new AeroWizard.WizardPage();
             this.vistaFolderBrowserDialog1 = new Ookii.Dialogs.WinForms.VistaFolderBrowserDialog();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.wizardControl1)).BeginInit();
             this.wizardPage1.SuspendLayout();
             this.wizardPage2.SuspendLayout();
             this.themedTableLayoutPanel1.SuspendLayout();
+            this.wizardPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.wizardPage4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.wizardPage5.SuspendLayout();
             this.SuspendLayout();
             // 
             // wizardControl1
@@ -54,14 +70,25 @@
             this.wizardControl1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.wizardControl1.Location = new System.Drawing.Point(0, 0);
             this.wizardControl1.Name = "wizardControl1";
-            this.wizardControl1.NextButtonText = "&Continue";
             this.wizardControl1.Pages.Add(this.wizardPage1);
             this.wizardControl1.Pages.Add(this.wizardPage2);
+            this.wizardControl1.Pages.Add(this.wizardPage3);
+            this.wizardControl1.Pages.Add(this.wizardPage4);
+            this.wizardControl1.Pages.Add(this.wizardPage5);
             this.wizardControl1.Size = new System.Drawing.Size(600, 393);
             this.wizardControl1.TabIndex = 0;
             this.wizardControl1.Text = "wizardControl1";
             this.wizardControl1.Title = "Open Wii Manager";
             this.wizardControl1.TitleIcon = ((System.Drawing.Icon)(resources.GetObject("wizardControl1.TitleIcon")));
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(3, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(238, 45);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "You can now start using Open Wii Manager!\r\n\r\nHave fun!";
             // 
             // wizardPage1
             // 
@@ -115,12 +142,12 @@
             this.themedTableLayoutPanel1.Name = "themedTableLayoutPanel1";
             this.themedTableLayoutPanel1.RowCount = 1;
             this.themedTableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.themedTableLayoutPanel1.Size = new System.Drawing.Size(553, 36);
+            this.themedTableLayoutPanel1.Size = new System.Drawing.Size(543, 36);
             this.themedTableLayoutPanel1.TabIndex = 2;
             // 
             // browseFolderButton
             // 
-            this.browseFolderButton.Location = new System.Drawing.Point(520, 3);
+            this.browseFolderButton.Location = new System.Drawing.Point(510, 3);
             this.browseFolderButton.Name = "browseFolderButton";
             this.browseFolderButton.Size = new System.Drawing.Size(30, 30);
             this.browseFolderButton.TabIndex = 1;
@@ -147,6 +174,113 @@
             this.themedLabel2.Text = "First things first.\r\nLet\'s select the folder where you store your Wii game backup" +
     "s.";
             // 
+            // wizardPage3
+            // 
+            this.wizardPage3.Controls.Add(this.pictureBox2);
+            this.wizardPage3.Controls.Add(this.label1);
+            this.wizardPage3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.wizardPage3.Location = new System.Drawing.Point(0, 0);
+            this.wizardPage3.Margin = new System.Windows.Forms.Padding(0);
+            this.wizardPage3.Name = "wizardPage3";
+            this.wizardPage3.ShowCancel = false;
+            this.wizardPage3.Size = new System.Drawing.Size(553, 239);
+            this.wizardPage3.TabIndex = 2;
+            this.wizardPage3.Text = "GameTDB";
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pictureBox2.Image = global::OpenWiiManager.Properties.Resources.gametdb_logo_small;
+            this.pictureBox2.Location = new System.Drawing.Point(469, 222);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(84, 16);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox2.TabIndex = 3;
+            this.pictureBox2.TabStop = false;
+            this.pictureBox2.Click += new System.EventHandler(this.pictureBox1_Click);
+            // 
+            // label1
+            // 
+            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label1.Location = new System.Drawing.Point(0, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(553, 166);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "In the next step, Open Wii Manager will connect to the internet to download the l" +
+    "atest version of the GameTDB database file. This file provides metadata and exte" +
+    "ned information of Wii games.";
+            // 
+            // wizardPage4
+            // 
+            this.wizardPage4.AllowBack = false;
+            this.wizardPage4.AllowCancel = false;
+            this.wizardPage4.AllowNext = false;
+            this.wizardPage4.Controls.Add(this.pictureBox1);
+            this.wizardPage4.Controls.Add(this.progressBar1);
+            this.wizardPage4.Controls.Add(this.label2);
+            this.wizardPage4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.wizardPage4.Location = new System.Drawing.Point(0, 0);
+            this.wizardPage4.Margin = new System.Windows.Forms.Padding(0);
+            this.wizardPage4.Name = "wizardPage4";
+            this.wizardPage4.ShowCancel = false;
+            this.wizardPage4.ShowNext = false;
+            this.wizardPage4.Size = new System.Drawing.Size(553, 239);
+            this.wizardPage4.TabIndex = 3;
+            this.wizardPage4.Text = "GameTDB";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pictureBox1.Image = global::OpenWiiManager.Properties.Resources.gametdb_logo_small;
+            this.pictureBox1.Location = new System.Drawing.Point(469, 220);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(84, 16);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox1.TabIndex = 2;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.progressBar1.Location = new System.Drawing.Point(94, 46);
+            this.progressBar1.MarqueeAnimationSpeed = 50;
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(364, 23);
+            this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+            this.progressBar1.TabIndex = 1;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(0, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(192, 15);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Downloading GameTDB database...";
+            // 
+            // wizardPage5
+            // 
+            this.wizardPage5.AllowBack = false;
+            this.wizardPage5.AllowCancel = false;
+            this.wizardPage5.Controls.Add(this.label3);
+            this.wizardPage5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.wizardPage5.Location = new System.Drawing.Point(0, 0);
+            this.wizardPage5.Margin = new System.Windows.Forms.Padding(0);
+            this.wizardPage5.Name = "wizardPage5";
+            this.wizardPage5.ShowCancel = false;
+            this.wizardPage5.Size = new System.Drawing.Size(553, 239);
+            this.wizardPage5.TabIndex = 4;
+            this.wizardPage5.Text = "You are good to go!";
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 2000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // OobeWizard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -166,6 +300,14 @@
             this.wizardPage2.PerformLayout();
             this.themedTableLayoutPanel1.ResumeLayout(false);
             this.themedTableLayoutPanel1.PerformLayout();
+            this.wizardPage3.ResumeLayout(false);
+            this.wizardPage3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            this.wizardPage4.ResumeLayout(false);
+            this.wizardPage4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.wizardPage5.ResumeLayout(false);
+            this.wizardPage5.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -181,5 +323,15 @@
         private System.Windows.Forms.Button browseFolderButton;
         private System.Windows.Forms.Label pathLabel;
         private Ookii.Dialogs.WinForms.VistaFolderBrowserDialog vistaFolderBrowserDialog1;
+        private AeroWizard.WizardPage wizardPage3;
+        private Label label1;
+        private AeroWizard.WizardPage wizardPage4;
+        private Label label2;
+        private ProgressBar progressBar1;
+        private PictureBox pictureBox1;
+        private PictureBox pictureBox2;
+        private System.Windows.Forms.Timer timer1;
+        private AeroWizard.WizardPage wizardPage5;
+        private Label label3;
     }
 }

@@ -94,7 +94,7 @@ namespace OpenWiiManager.Services
             wiiTdbDatabase = XDocument.Load(ApplicationEnviornment.GameDatabaseFilePath);
         }
 
-        public async Task DownloadDatabase(DatabaseLanguage language = DatabaseLanguage.Original)
+        public async Task DownloadDatabase(IProgress<(byte, long, long)>? progress = null, DatabaseLanguage language = DatabaseLanguage.Original)
         {
             var resp = await ApplicationConfigurationSingleton.Instance.WiiDbZipUrl
                 .WithHeaders(new { User_Agent = USER_AGENT })
@@ -102,25 +102,51 @@ namespace OpenWiiManager.Services
                 .SetQueryParam("__owmCacheBuster", Guid.NewGuid().ToString("N"))
                 .GetStreamAsync();
 
+            var totalLength = resp.Length;
+
             var tempFileName = ApplicationEnviornment.GetTempFileName();
             using (var fstream = File.OpenWrite(tempFileName))
             {
-                await resp.CopyToAsync(fstream);
+                if (progress == null)
+                    await resp.CopyToAsync(fstream);
+                else
+                    await resp.CopyToAsync(fstream, new Progress<long>(l =>
+                    {
+                        progress.Report((0x00, l, totalLength));
+                    }));
                 await fstream.FlushAsync();
+                fstream.Close();
             }
             resp.Close();
 
-            IOUtil.EnsureDirectoryExists(ApplicationEnviornment.LocalUserDataDirectory);
+            Debug.WriteLine(tempFileName);
+            // HACK
+            Thread.Sleep(10);
+
+            //IOUtil.EnsureDirectoryExists(ApplicationEnviornment.LocalUserDataDirectory);
 
             using (var archive = ZipFile.OpenRead(tempFileName))
             {
                 var entry = archive.Entries.Where(e => e.FullName == "/wiitdb.xml" || e.FullName == "wiitdb.xml").FirstOrDefault();
                 RuntimeAssertions.NotNull(entry, "Could not find database inside of downloaded ZIP archive! Maybe it is corrupt?");
-                Debug.WriteLine($"Entry found! Will extract to {ApplicationEnviornment.GameDatabaseFilePath}");
+                Debug.WriteLine($"Entry {entry.FullName} found! Will extract to {ApplicationEnviornment.GameDatabaseFilePath}");
 
                 using (var zipStream = entry!.Open())
-                using (var xmlStream = File.OpenWrite(ApplicationEnviornment.GameDatabaseFilePath))
-                    await zipStream.CopyToAsync(xmlStream);
+                {
+                    using (var xmlStream = File.OpenWrite(ApplicationEnviornment.GameDatabaseFilePath))
+                    {
+                        if (progress == null)
+                            await zipStream.CopyToAsync(xmlStream);
+                        else
+                        {
+                            var zipTotalLength = entry.Length;
+                            await zipStream.CopyToAsync(xmlStream, new Progress<long>(l =>
+                            {
+                                progress.Report((0x01, l, zipTotalLength));
+                            }), bufferSize: 0xFFFF);
+                        }
+                    }
+                }
             }
 
             File.Delete(tempFileName);

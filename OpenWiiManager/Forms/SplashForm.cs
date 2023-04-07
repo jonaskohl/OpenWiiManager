@@ -43,7 +43,7 @@ namespace OpenWiiManager.Forms
         {
             InitializeComponent();
 
-            ver = Version.Parse(Application.ProductVersion);
+            ver = Version.Parse(Application.ProductVersion.Substring(0, Application.ProductVersion.IndexOf("-")));
         }
 
         protected override void OnPaintBackground(PaintEventArgs e)

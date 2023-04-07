@@ -1,6 +1,7 @@
 //#define FEATURE__SHA1_ISO
 
 using Flurl.Util;
+using Microsoft.VisualBasic.Devices;
 using OpenWiiManager.Controls;
 using OpenWiiManager.Controls.Data;
 using OpenWiiManager.Core;
@@ -65,6 +66,14 @@ namespace OpenWiiManager.Forms
             notificationPopup = new();
             notificationPopup.FormClosing += NotificationPopup_FormClosing;
 
+            ApplicationStateSingleton.EnsureInstance();
+            ApplicationConfigurationSingleton.EnsureInstance();
+
+            if (ModifierKeys == Keys.Shift && MessageBox.Show("Do you wish to erase the application state file?", "Open Wii Manager", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                ApplicationStateSingleton.Instance.Reset();
+            else if (ModifierKeys == (Keys.Control | Keys.Shift) && MessageBox.Show("Do you wish to erase the application configuration file?", "Open Wii Manager", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                ApplicationConfigurationSingleton.Instance.Reset();
+
             if (ApplicationStateSingleton.Instance.MainWindowSplitDistance != default)
                 splitter1.SplitPosition = ApplicationStateSingleton.Instance.MainWindowSplitDistance;
 
@@ -84,6 +93,11 @@ namespace OpenWiiManager.Forms
             __hashColumnIndex = listView1.Columns.Add("Hash (SHA1)").Index;
 #endif
 
+#if !DEBUG
+            debugShowBalloonToolStripMenuItem.Visible = false;
+            notificationsButton.Visible = false;
+#endif
+
             gameSelectCancellationToken = gameSelectCancellationTokenSource.Token;
 
             Shown += MainForm_Shown;
@@ -91,8 +105,6 @@ namespace OpenWiiManager.Forms
             searchToolStripTextBox.TextBox.HandleCreated += TextBox_HandleCreated;
 
             showFilesInExplorerToolStripMenuItem.Image = ShellUtil.GetIconAsImage(Environment.ExpandEnvironmentVariables(@"%systemroot%\explorer.exe"), ShellUtil.ShellIconSize.Small);
-
-
         }
 
         private void SearchToolStripTextBox_Paint(object? sender, PaintEventArgs e)
@@ -372,22 +384,22 @@ namespace OpenWiiManager.Forms
                     listView1.Invoke(() =>
                     {
                         var basename = Path.GetFileName(file);
-                        var item = new ListViewItem(basename);
+                        var item = new ListViewItem(basename); // subitems[0]
                         item.UseItemStyleForSubItems = false;
                         var idSubitem = new ListViewItem.ListViewSubItem(item, meta.GameId);
                         idSubitem.Font = IdColumnFont;
-                        item.SubItems.Add(idSubitem);
-                        item.SubItems.Add(meta.Title);
+                        item.SubItems.Add(idSubitem); // subitems[1]
+                        item.SubItems.Add(meta.Title); // subitems[2]
                         item.ImageIndex = 4;
                         if (meta.Region == GameRegion._UNKNOWN_)
-                            item.SubItems.Add($"Unknown (0x{meta.__rawRegionByteValue:X2} '{(char)meta.__rawRegionByteValue}')");
+                            item.SubItems.Add($"Unknown (0x{meta.__rawRegionByteValue:X2} '{(char)meta.__rawRegionByteValue}')"); // subitems[3]
                         else
-                            item.SubItems.Add(meta.Region.ToString2());
+                            item.SubItems.Add(meta.Region.ToString2()); // subitems[4]
                         listView1.Items.Add(item);
-                        item.SubItems.Add(""); // Developer
-                        item.SubItems.Add(""); // Publisher
-                        item.SubItems.Add(""); // Languages
-                        item.SubItems.Add(""); // Date
+                        item.SubItems.Add(""); // Developer // subitems[5]
+                        item.SubItems.Add(""); // Publisher // subitems[6]
+                        item.SubItems.Add(""); // Languages // subitems[7]
+                        item.SubItems.Add(""); // Date // subitems[8]
 #if FEATURE__SHA1_ISO
                         item.SubItems.Add(""); // Hash
 #endif
@@ -731,13 +743,15 @@ namespace OpenWiiManager.Forms
                 return;
             }
 
-            MessageBox.Show(ApplicationConfigurationSingleton.Instance.IsoPath);
+            //MessageBox.Show(ApplicationConfigurationSingleton.Instance.IsoPath);
         }
 
         private Task CheckForDatabaseUpdate()
         {
             return DownloadDbIfNecessary().ContinueWith(t =>
             {
+                if (t.IsFaulted && t.Exception?.InnerException is InvalidOperationException)
+                    return;
                 t.ThrowIfFaulted();
             });
         }
@@ -826,6 +840,11 @@ namespace OpenWiiManager.Forms
         public void InitializeWork()
         {
             //Thread.Sleep(2000);
+        }
+
+        public void PostInitialize()
+        {
+
         }
 
         private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1105,6 +1124,7 @@ namespace OpenWiiManager.Forms
             var emptyQuery = string.IsNullOrWhiteSpace(query);
             //return;
             UseWaitCursor = true;
+            searchToolStripTextBox.Enabled = false;
             Application.DoEvents();
             listView1.BeginUpdate();
             foreach (ListViewItem item in listView1.Items)
@@ -1167,6 +1187,8 @@ namespace OpenWiiManager.Forms
                     }
                 }
             }
+            searchToolStripTextBox.Enabled = true;
+            searchToolStripTextBox.Focus();
             listView1.EndUpdate();
             UseWaitCursor = false;
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -54,8 +55,19 @@ namespace OpenWiiManager.Controls.Data
             listviewX = (ListViewItem)x;
             listviewY = (ListViewItem)y;
 
+            //Debug.Assert(listviewX.SubItems.Count - 1 >= ColumnToSort, $"ListViewItem X ({listviewX}) only has {listviewX.SubItems.Count} subitem(s), tried to access at index {ColumnToSort}");
+            //Debug.Assert(listviewY.SubItems.Count - 1 >= ColumnToSort, $"ListViewItem Y ({listviewY}) only has {listviewY.SubItems.Count} subitem(s), tried to access at index {ColumnToSort}");
+
+            string? textX = default, textY = default;
+
+            if (ColumnToSort < listviewX.SubItems.Count && ColumnToSort >= 0)
+                textX = listviewX.SubItems[ColumnToSort].Text;
+
+            if (ColumnToSort < listviewY.SubItems.Count && ColumnToSort >= 0)
+                textY = listviewY.SubItems[ColumnToSort].Text;
+
             // Compare the two items
-            compareResult = ObjectCompare.Compare(listviewX.SubItems[ColumnToSort].Text, listviewY.SubItems[ColumnToSort].Text);
+            compareResult = ObjectCompare.Compare(textX, textY);
 
             // Calculate correct return value based on object comparison
             if (OrderOfSort == SortOrder.Ascending)

@@ -48,6 +48,7 @@ namespace OpenWiiManager
 
                 mainForm = new();
                 mainForm.InitializeWork();
+                mainForm.PostInitialize();
                 context!.MainForm = mainForm;
                 mainForm.Show();
                 splashForm?.Close();

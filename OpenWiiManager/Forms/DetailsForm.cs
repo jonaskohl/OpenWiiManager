@@ -60,11 +60,21 @@ namespace OpenWiiManager.Forms
 
             tabControl1.SelectedIndexChanged += TabControl1_SelectedIndexChanged;
 
+#if !DEBUG
+            tabControl1.TabPages.Remove(artworkTabPage);
+#endif
+
             ctHashes = ctsHashes.Token;
 
+            Load += DetailsForm_Load;
             Shown += DetailsForm_Shown;
 
             button1.Click += Button1_Click;
+        }
+
+        private void DetailsForm_Load(object? sender, EventArgs e)
+        {
+            CenterToParent();
         }
 
         private void Button1_Click(object? sender, EventArgs e)
@@ -437,6 +447,16 @@ namespace OpenWiiManager.Forms
             {
                 if (IsDisposed)
                     return;
+
+                var fileType = Path.GetExtension(IsoFileName).ToLowerInvariant();
+
+                if (fileType != ".iso")
+                {
+                    pictureBox1.Hide();
+                    pictureBox2.Hide();
+                    pictureBox3.Hide();
+                    return;
+                }
 
                 var romElement = GameTDBEntry?.Element("rom");
                 if (romElement != null)

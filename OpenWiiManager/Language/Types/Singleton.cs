@@ -18,5 +18,10 @@ namespace OpenWiiManager.Language.Types
         }
 
         public static T Instance => GetInstance();
+
+        public static void EnsureInstance()
+        {
+            GetInstance();
+        }
     }
 }

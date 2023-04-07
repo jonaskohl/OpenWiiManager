@@ -16,7 +16,14 @@ namespace OpenWiiManager.Core
         public SerializableStateHolder()
         {
             Deserialize();
-        } 
+        }
+
+        public void Reset()
+        {
+            File.Delete(FilePath);
+            foreach (var fi in GetSerializableFields())
+                fi.SetValue(this, GetDefaultValueForType(fi.FieldType));
+        }
 
         protected void Serialize()
         {
@@ -43,6 +50,16 @@ namespace OpenWiiManager.Core
             return GetType()
                 .GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
                 .Where(f => f.GetCustomAttribute<StateSerializationAttribute>() != null);
+        }
+
+        private object? GetDefaultValueForType(Type t)
+        {
+            return GetType().GetMethod("GetDefaultGeneric")?.MakeGenericMethod(t).Invoke(this, null);
+        }
+
+        private T? GetDefaultGeneric<T>()
+        {
+            return default(T);
         }
 
         protected void Deserialize()

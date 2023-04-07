@@ -11,7 +11,12 @@ namespace OpenWiiManager.Language.Extensions
         public static void ThrowIfFaulted(this Task t)
         {
             if (t.IsFaulted && t.Exception != null)
-                throw t.Exception;
+            {
+                if (t.Exception is AggregateException && t.Exception.InnerException != null)
+                    throw t.Exception.InnerException;
+                else
+                    throw t.Exception;
+            }
         }
     }
 }
