@@ -7,7 +7,7 @@
 		<UseWindowsForms>true</UseWindowsForms>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<ApplicationIcon>owm.ico</ApplicationIcon>
-		<Version>0.1.1-alpha</Version>
+		<Version>0.2.0-alpha</Version>
 		<Authors>Jonas Kohl</Authors>
 		<Copyright>Copyright © 2023 $(Authors)</Copyright>
 	</PropertyGroup>

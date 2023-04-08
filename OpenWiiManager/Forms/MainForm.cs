@@ -19,10 +19,12 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Security.Policy;
+using System.Security.Principal;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Windows.Forms;
+using System.Xml;
 using System.Xml.Linq;
 
 namespace OpenWiiManager.Forms
@@ -1406,6 +1408,195 @@ namespace OpenWiiManager.Forms
             }
 
             return matchedTokens.ToArray();
+        }
+
+        private void exportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using var sd = new SaveFileDialog()
+            {
+                Filter = "CSV file|*.csv|HTML|*.html"
+            };
+            if (sd.ShowDialog() != DialogResult.OK) return;
+            switch (sd.FilterIndex)
+            {
+                case 1:
+                    File.WriteAllText(sd.FileName, GetListCSVString());
+                    break;
+                case 2:
+                    File.WriteAllText(sd.FileName, GetListHTMLString());
+                    break;
+                default:
+                    throw new UnreachableException();
+            }
+        }
+
+        private string[][] GetListCells()
+        {
+            return listView1.Items.OfType<ListViewItem>()?.Select(i => i.SubItems.OfType<ListViewItem.ListViewSubItem>().Select(s => s.Text).ToArray()).ToArray();
+        }
+
+        private string GetListCSVString()
+        {
+            const string CellSeparator = ",";
+
+            var items = GetListCells();
+
+            var rowsEscaped = new string[items.Length];
+            for (var j = 0; j < items.Length; ++j)
+            {
+                var row = items[j];
+                var rowItemsEscaped = new string[row.Length];
+                for (var i = 0; i < row.Length; ++i)
+                {
+                    var cell = row[i];
+                    if (
+                        cell.Contains(CellSeparator) ||
+                        cell.Contains("\"") ||
+                        cell.Contains("\n") ||
+                        cell.Contains("\r") ||
+                        cell.Contains("\\") ||
+                        cell.Contains("'")
+                    )
+                        rowItemsEscaped[i] = "\"" + cell.Replace("\"", "\"\"") + "\"";
+                    else
+                        rowItemsEscaped[i] = cell;
+                }
+                rowsEscaped[j] = string.Join(CellSeparator, rowItemsEscaped);
+            }
+
+            return string.Join("\r\n", rowsEscaped);
+        }
+
+        private string GetListHTMLString()
+        {
+            const string ns = "http://www.w3.org/1999/xhtml";
+            var items = GetListCells();
+            var enc = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false);
+            using var stream = new MemoryStream();
+            using var xml = XmlWriter.Create(stream, new XmlWriterSettings()
+            {
+                Encoding = enc,
+                OmitXmlDeclaration = true,
+                Indent = true
+            });
+            var username = WindowsIdentity.GetCurrent().Name;
+            username = username.Substring(username.IndexOf("\\") + 1);
+            xml.WriteDocType("html", "-//W3C//DTD XHTML 1.0 Strict//EN", "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd", null);
+            xml.WriteStartElement("html", ns);
+            xml.WriteAttributeString("lang", "en");
+            xml.WriteStartElement("head");
+            xml.WriteStartElement("meta");
+            xml.WriteAttributeString("http-equiv", "Content-Type");
+            xml.WriteAttributeString("content", "text/html; charset=UTF-8");
+            xml.WriteEndElement(); // meta
+            xml.WriteStartElement("meta");
+            xml.WriteAttributeString("http-equiv", "X-UA-Compatible");
+            xml.WriteAttributeString("content", "IE=edge");
+            xml.WriteEndElement(); // meta
+            xml.WriteStartElement("meta");
+            xml.WriteAttributeString("name", "generator");
+            xml.WriteAttributeString("content", Application.ProductName + " " + Application.ProductVersion);
+            xml.WriteEndElement(); // meta
+            xml.WriteStartElement("meta");
+            xml.WriteAttributeString("name", "date.created");
+            xml.WriteAttributeString("content", DateTime.Now.ToString("yyyy-MM-dd"));
+            xml.WriteEndElement(); // meta
+            xml.WriteStartElement("meta");
+            xml.WriteAttributeString("name", "author");
+            xml.WriteAttributeString("content", username);
+            xml.WriteEndElement(); // meta
+            xml.WriteElementString("title", "Games - Open Wii Manager");
+            xml.WriteStartElement("link");
+            xml.WriteAttributeString("rel", "icon");
+            xml.WriteAttributeString("type", "image/png");
+            xml.WriteAttributeString("href", "https://service.jonaskohl.de/assets/de/jonaskohl/owm/_images/_iconsm.png");
+            xml.WriteEndElement(); // link
+            xml.WriteStartElement("style");
+            xml.WriteAttributeString("type", "text/css");
+            xml.WriteString(@"
+body, th, td {
+    font: 10pt sans-serif;
+}
+table {
+    border-collapse: collapse;
+}
+thead {
+    background: #ddd;
+}
+th {
+    font-weight: bold;
+}
+th, td {
+    padding: 4px;
+    border: 1px solid gray;
+}
+tr.even {
+    background: #eee;
+}
+.sorting-icon {
+    color: gray;
+}
+".Trim());
+            xml.WriteEndElement(); // style
+            xml.WriteEndElement(); // head
+            xml.WriteStartElement("body");
+            xml.WriteStartElement("p");
+            xml.WriteStartElement("a");
+            xml.WriteAttributeString("href", ApplicationEnviornment.WebUrl);
+            xml.WriteStartElement("img");
+            xml.WriteAttributeString("src", "https://service.jonaskohl.de/assets/de/jonaskohl/owm/_images/_logo.png");
+            xml.WriteAttributeString("alt", "Open Wii Manager");
+            xml.WriteAttributeString("width", "256");
+            xml.WriteAttributeString("height", "41");
+            xml.WriteEndElement(); // img
+            xml.WriteEndElement(); // a
+            xml.WriteEndElement(); // p
+            xml.WriteStartElement("p");
+            xml.WriteString($"Exported on {DateTime.Now:yyyy-MM-dd HH:mm:ss}");
+            xml.WriteEndElement(); // p
+            xml.WriteStartElement("table");
+            xml.WriteStartElement("thead");
+            xml.WriteStartElement("tr");
+            foreach (ColumnHeader col in listView1.Columns)
+            {
+                xml.WriteStartElement("th");
+                xml.WriteString(col.Text);
+                if (col.Index == sorter.SortColumn)
+                {
+                    xml.WriteStartElement("span");
+                    xml.WriteAttributeString("class", "sorting-icon");
+                    xml.WriteString(sorter.Order == SortOrder.Descending ? "\u25BC" : "\u25B2");
+                    xml.WriteEndElement(); // span
+                }
+                xml.WriteEndElement(); // th
+            }
+            xml.WriteEndElement(); // tr
+            xml.WriteEndElement(); // thead
+            xml.WriteStartElement("tbody");
+            for (var i = 0; i < items.Length; ++i)
+            {
+                var row = items[i];
+                xml.WriteStartElement("tr");
+                xml.WriteAttributeString("class", i % 2 == 0 ? "odd" : "even");
+                foreach (var cell in row)
+                    xml.WriteElementString("td", cell);
+                xml.WriteEndElement(); // tr
+            }
+            xml.WriteEndElement(); // tbody
+            xml.WriteEndElement(); // table
+            xml.WriteElementString("hr", null);
+            xml.WriteStartElement("p");
+            xml.WriteStartElement("img");
+            xml.WriteAttributeString("src", "http://www.w3.org/Icons/valid-xhtml10");
+            xml.WriteAttributeString("alt", "Valid XHTML 1.0 Strict");
+            xml.WriteAttributeString("width", "88");
+            xml.WriteAttributeString("height", "31");
+            xml.WriteEndElement(); // img
+            xml.WriteEndElement(); // p
+            xml.WriteEndElement(); // body
+            xml.WriteEndElement(); // html
+            xml.Flush();
+            return enc.GetString(stream.ToArray());
         }
     }
 

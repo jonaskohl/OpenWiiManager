@@ -47,6 +47,7 @@ namespace OpenWiiManager.Forms
             this.shrinkColumnsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.forceGarbageCollectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.debugShowBalloonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -217,6 +218,7 @@ namespace OpenWiiManager.Forms
             // 
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.forceGarbageCollectionToolStripMenuItem,
+            this.exportToolStripMenuItem,
             this.debugShowBalloonToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
@@ -230,6 +232,14 @@ namespace OpenWiiManager.Forms
             this.forceGarbageCollectionToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
             this.forceGarbageCollectionToolStripMenuItem.Text = "&Force garbage collection";
             this.forceGarbageCollectionToolStripMenuItem.Click += new System.EventHandler(this.forceGarbageCollectionToolStripMenuItem_Click);
+            // 
+            // exportToolStripMenuItem
+            // 
+            this.exportToolStripMenuItem.Image = global::OpenWiiManager.Properties.Pictograms.Export_1_;
+            this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.exportToolStripMenuItem.Text = "&Export...";
+            this.exportToolStripMenuItem.Click += new System.EventHandler(this.exportToolStripMenuItem_Click);
             // 
             // debugShowBalloonToolStripMenuItem
             // 
@@ -403,7 +413,7 @@ namespace OpenWiiManager.Forms
             this.propertiesToolStripMenuItem,
             this.detailsToolStripMenuItem});
             this.gameContextMenuStrip.Name = "gameContextMenuStrip";
-            this.gameContextMenuStrip.Size = new System.Drawing.Size(291, 136);
+            this.gameContextMenuStrip.Size = new System.Drawing.Size(291, 114);
             this.gameContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.gameContextMenuStrip_Opening);
             // 
             // viewGameOnGameTDBToolStripMenuItem
@@ -616,5 +626,6 @@ namespace OpenWiiManager.Forms
         private ToolStripMenuItem shrinkColumnsToolStripMenuItem;
         private ToolStripTextBoxWithHeight searchToolStripTextBox;
         private System.Windows.Forms.Timer searchDelayTimer;
+        private ToolStripMenuItem exportToolStripMenuItem;
     }
 }
