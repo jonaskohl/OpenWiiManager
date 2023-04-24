@@ -458,59 +458,70 @@ namespace OpenWiiManager.Forms
                     return;
                 }
 
-                var romElement = GameTDBEntry?.Element("rom");
-                if (romElement != null)
+                var romElements = GameTDBEntry?.Elements("rom");
+                if (romElements != null && romElements.Count() > 0)
                 {
-                    var expectedHashCrc = romElement.Attribute("crc")?.Value;
-                    var expectedHashMd5 = romElement.Attribute("md5")?.Value;
-                    var expectedHashSha1 = romElement.Attribute("sha1")?.Value;
+                    foreach (var romElement in romElements)
+                    {
+                        var expectedHashCrc = romElement.Attribute("crc")?.Value;
+                        var expectedHashMd5 = romElement.Attribute("md5")?.Value;
+                        var expectedHashSha1 = romElement.Attribute("sha1")?.Value;
 
-                    if (expectedHashCrc == null)
-                    {
-                        pictureBox1.Image = Properties.Resources.Help_3;
-                        globalToolTip.SetToolTip(pictureBox1, "Database does not contain a CRC32 hash for this title");
-                    }
-                    else if (expectedHashCrc.Equals(hashCrc, StringComparison.InvariantCultureIgnoreCase) == true)
-                    {
-                        pictureBox1.Image = Properties.Resources.Tick;
-                        globalToolTip.SetToolTip(pictureBox1, "CRC32 matches database");
-                    }
-                    else
-                    {
-                        pictureBox1.Image = Properties.Resources.Error;
-                        globalToolTip.SetToolTip(pictureBox1, "CRC32 does not match database");
-                    }
+                        var shouldBreak = false;
 
-                    if (expectedHashMd5 == null)
-                    {
-                        pictureBox2.Image = Properties.Resources.Help_3;
-                        globalToolTip.SetToolTip(pictureBox2, "Database does not contain a CRC32 hash for this title");
-                    }
-                    else if (expectedHashMd5.Equals(hashMd5, StringComparison.InvariantCultureIgnoreCase) == true)
-                    {
-                        pictureBox2.Image = Properties.Resources.Tick;
-                        globalToolTip.SetToolTip(pictureBox2, "MD5 matches database");
-                    }
-                    else
-                    {
-                        pictureBox2.Image = Properties.Resources.Error;
-                        globalToolTip.SetToolTip(pictureBox2, "MD5 does not match database");
-                    }
+                        if (expectedHashCrc == null)
+                        {
+                            pictureBox1.Image = Properties.Resources.Help_3;
+                            globalToolTip.SetToolTip(pictureBox1, "Database does not contain a CRC32 hash for this title");
+                        }
+                        else if (expectedHashCrc.Equals(hashCrc, StringComparison.InvariantCultureIgnoreCase) == true)
+                        {
+                            pictureBox1.Image = Properties.Resources.Tick;
+                            globalToolTip.SetToolTip(pictureBox1, "CRC32 matches database");
+                            shouldBreak = true;
+                        }
+                        else
+                        {
+                            pictureBox1.Image = Properties.Resources.Error;
+                            globalToolTip.SetToolTip(pictureBox1, "CRC32 does not match database");
+                        }
 
-                    if (expectedHashSha1 == null)
-                    {
-                        pictureBox3.Image = Properties.Resources.Help_3;
-                        globalToolTip.SetToolTip(pictureBox3, "Database does not contain a CRC32 hash for this title");
-                    }
-                    else if (expectedHashSha1.Equals(hashSha1, StringComparison.InvariantCultureIgnoreCase) == true)
-                    {
-                        pictureBox3.Image = Properties.Resources.Tick;
-                        globalToolTip.SetToolTip(pictureBox3, "SHA1 matches database");
-                    }
-                    else
-                    {
-                        pictureBox3.Image = Properties.Resources.Error;
-                        globalToolTip.SetToolTip(pictureBox3, "SHA1 does not match database");
+                        if (expectedHashMd5 == null)
+                        {
+                            pictureBox2.Image = Properties.Resources.Help_3;
+                            globalToolTip.SetToolTip(pictureBox2, "Database does not contain a CRC32 hash for this title");
+                        }
+                        else if (expectedHashMd5.Equals(hashMd5, StringComparison.InvariantCultureIgnoreCase) == true)
+                        {
+                            pictureBox2.Image = Properties.Resources.Tick;
+                            globalToolTip.SetToolTip(pictureBox2, "MD5 matches database");
+                            shouldBreak = true;
+                        }
+                        else
+                        {
+                            pictureBox2.Image = Properties.Resources.Error;
+                            globalToolTip.SetToolTip(pictureBox2, "MD5 does not match database");
+                        }
+
+                        if (expectedHashSha1 == null)
+                        {
+                            pictureBox3.Image = Properties.Resources.Help_3;
+                            globalToolTip.SetToolTip(pictureBox3, "Database does not contain a CRC32 hash for this title");
+                        }
+                        else if (expectedHashSha1.Equals(hashSha1, StringComparison.InvariantCultureIgnoreCase) == true)
+                        {
+                            pictureBox3.Image = Properties.Resources.Tick;
+                            globalToolTip.SetToolTip(pictureBox3, "SHA1 matches database");
+                            shouldBreak = true;
+                        }
+                        else
+                        {
+                            pictureBox3.Image = Properties.Resources.Error;
+                            globalToolTip.SetToolTip(pictureBox3, "SHA1 does not match database");
+                        }
+
+                        if (shouldBreak)
+                            break;
                     }
                 }
                 else
